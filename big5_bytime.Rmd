@@ -1,0 +1,128 @@
+---
+title: "Big 5 Providers Over Time: UVA-Authored, OA-Accessible"
+author: "UVA StatLab/RDS"
+output: html_document
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE)
+```
+
+```{r setup}
+library(tidyverse)
+library(scales)
+library(readxl)
+library(gridExtra)
+
+# read in 1figr tabs
+journal <- read_excel("1science/1figr_U_Virginia_edit.xlsx", sheet = 4, skip = 8)
+
+# rename variables in journal
+names(journal) <- c("sort", "journal", "issn", "provider", "type", "fig1", "jr1", "jr5", "currentper",
+                    "cites", "citeper", "pubs", "pubsper", "synth", "jtier", "subtier", "dupes",
+                    "oa", "oaper", "fig2", "scopus", "arif", "domain", "field", "subfield", 
+                    "pub2008", "pub2009", "pub2010", "pub2011", "pub2012", "pub2013", "pub2014",
+                    "pub2015", "pub2016", "pub2017", "cite2008", "cite2009", "cite2010", "cite2011",
+                    "cite2012", "cite2013", "cite2014", "cite2015", "cite2016", "cite2017", 
+                    "oa2008", "oa2009", "oa2010", "oa2011", "oa2012", "oa2013", "oa2014", "oa2015", 
+                    "oa2016", "oa2017", "oaper2008", "oaper2009", "oaper2010", "oaper2011", "oaper2012",
+                    "oaper2013", "oaper2014", "oaper2015", "oaper2016", "oaper2017", "scopus2008",
+                    "scopus2009", "scopus2010", "scopus2011", "scopus2012", "scopus2013", "scopus2014",
+                    "scopus2015", "scopus2016", "scopus2017", "jr12015", "jr12016", "jr12017", "jr12018",
+                    "jr12015_2018", "jid", "journalname")
+```
+
+## UVA-Authored Publications
+```{r}
+# 1. Number of uva-authored publications and percent of uva-authored publications in Big 5 ovver time
+# keep only package data for big 5
+big5 <- journal %>% 
+  select(provider, type, pub2008:jr12018) %>% 
+  filter(type == "Package" & provider %in% c("Springer", "Elsevier", "Wiley", "Sage", "Taylor & Francis"))
+
+# reshape time data to long format: pub2008-pub2017, scopus2008-scopus2017
+big5pub <- big5 %>% 
+  select(provider, pub2008:pub2017, scopus2008:scopus2017) %>% 
+  pivot_longer(-provider, 
+               names_to = c(".value", "year"),
+               names_sep = -4)
+  
+# create uva percent and indicator for Elsevier
+big5pub <- big5pub %>% 
+  mutate(uvaper = (pub/scopus)*100,
+         els = if_else(provider == "Elsevier", "Yes", "No"))
+
+# plot uva percent
+p1 <- ggplot(big5pub, aes(x = year, y = scopus, group = provider)) + 
+  geom_line(aes(color = provider, linetype = els)) +
+  scale_linetype_manual(values=c("longdash", "solid"), guide=F) +
+  labs(title = "Number of Articles Published",
+       x = "Year", y = "Article Count", color = "Provider")
+p2 <- ggplot(big5pub, aes(x = year, y = pub, group = provider)) +
+  geom_line(aes(color = provider, linetype = els)) +
+  scale_linetype_manual(values=c("longdash", "solid"), guide=F) +
+  labs(title = "Number of UVA-Authored Articles",
+       x = "Year", y = "Article Count", color = "Provider")
+p3 <- ggplot(big5pub, aes(x = year, y = uvaper, group = provider)) +
+  geom_line(aes(color = provider, linetype = els)) +
+  scale_linetype_manual(values=c("longdash", "solid"), guide=F) +
+  labs(title = "Percent of Articles Published by UVA Authors",
+       x = "Year", y = "Percent of Articles", color = "Provider")
+
+# function to grab legend to use in common
+get_legend<-function(myggplot){
+  tmp <- ggplot_gtable(ggplot_build(myggplot))
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)
+}
+# use the function
+legend <- get_legend(p1)
+p1 <- p1 + theme(legend.position="none")
+p2 <- p2 + theme(legend.position="none")
+p3 <- p3 + theme(legend.position="none")
+
+grid.arrange(p1, p2, p3, legend, ncol = 2)
+```
+
+## OA-Available Publications
+
+```{r}
+# reshape time data to long format: oa2008-ao2017, scopus2008-scopus2017
+big5oa <- big5 %>% 
+  select(provider, oa2008:oa2017, scopus2008:scopus2017) %>% 
+  pivot_longer(-provider, 
+               names_to = c(".value", "year"),
+               names_sep = -4)
+
+# create oa percent
+big5oa <- big5oa %>% 
+  mutate(oaper = (oa/scopus)*100,
+         els = if_else(provider == "Elsevier", "Yes", "No"))
+
+# plot
+# plot uva percent
+p1 <- ggplot(big5oa, aes(x = year, y = scopus, group = provider)) + 
+  geom_line(aes(color = provider, linetype = els)) +
+  scale_linetype_manual(values=c("longdash", "solid"), guide=F) +
+  labs(title = "Number of Articles Published",
+       x = "Year", y = "Article Count", color = "Provider")
+p2 <- ggplot(big5oa, aes(x = year, y = oa, group = provider)) +
+  geom_line(aes(color = provider, linetype = els)) +
+  scale_linetype_manual(values=c("longdash", "solid"), guide=F) +
+  labs(title = "Number of OA-Available Articles",
+       x = "Year", y = "Article Count", color = "Provider")
+p3 <- ggplot(big5oa, aes(x = year, y = oaper, group = provider)) +
+  geom_line(aes(color = provider, linetype = els)) +
+  scale_linetype_manual(values=c("longdash", "solid"), guide=F) +
+  labs(title = "Percent of Articles Published Available OA",
+       x = "Year", y = "Percent of Articles", color = "Provider")
+
+# use the function
+legend <- get_legend(p1)
+p1 <- p1 + theme(legend.position="none")
+p2 <- p2 + theme(legend.position="none")
+p3 <- p3 + theme(legend.position="none")
+
+grid.arrange(p1, p2, p3, legend, ncol = 2)
+```
