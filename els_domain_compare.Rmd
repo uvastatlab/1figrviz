@@ -32,6 +32,8 @@ names(journal) <- c("sort", "journal", "issn", "provider", "type", "fig1", "jr1"
                     "jr12015_2018", "jid", "journalname")
 ```
 
+The following figures replicate the prior analysis comapring the Big 5 providers, this time comparing across disciplinary domains within Elsevier alone.
+
 ## Percent of Journals Accounting for 80 Percent of Use
 
 ```{r prep}
@@ -192,15 +194,17 @@ elsevier_jr5 %>% mutate(domain = fct_reorder(domain, desc(jr5per))) %>%
 # add the jr5 ratio to jr80 measures for comparison
 elsevier_jr80 <- elsevier_jr80 %>% 
   mutate(jr5per = (jr5/jr1)*100,
-         jr80_jr5f = factor(jr80_jr5))
+         jr80_jr5f = factor(jr80_jr5, levels = c(1, 0), labels = c("Yes", "No")))
 
-# boxplot
+# density plot
 elsevier_jr80 %>% 
-  ggplot(aes(x = domain, y = jr5per, fill = jr80_jr5f)) + 
-  geom_boxplot(notch=T) +
+  ggplot(aes(x = jr5per, fill = jr80_jr5f)) + 
+  geom_density(alpha = 1/5) +
   scale_fill_manual(values = c("orange", "blue")) +
-  labs(title = "Percent of Current Year Use: Elsevier", 
-       subtitle = "By Domain and High-Use Journal Designation",
-       x = "Domain", y = "Percent Current Year", fill = "High Use") +
-  coord_flip()
+  facet_wrap(~domain, scales = "free") +
+  labs(title = "Distribution of Percent Current Year Downloads: Elsevier",
+       subtitle = "By Domain and High-Use Designation",
+       x = "Percent Current Year Downloads", 
+       y = "Proportion of Journals at Each Value",
+       fill = "High-Use") 
 ```

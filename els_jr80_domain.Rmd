@@ -32,8 +32,10 @@ names(journal) <- c("sort", "journal", "issn", "provider", "type", "fig1", "jr1"
                     "jr12015_2018", "jid", "journalname")
 ```
 
+The following figures build from the prior analysis comapring the Big 5 providers, using the designation of each journal title as high-use among the provider's titles and comparing across domains within Elsevier alone.^[The "Elsevier by Domain" analysis calculated the highly-used journals within each domain separately; this analysis uses the "Big 5 Comparisons" measure of high-use, calculated across the provider as a whole.] 
+
 ## Percent of Journals Accounting for 80% of Use
-The following identifies the journal titles in Elsevier that account for 80% of the downloads in 2017, identifying these highly-used journals, and then shows the number and percent of journals that fall into each category by domain (the prior domain-level analysis calculated the highly-used journals within each domain separately; this analysis calculates the highly-used journals within Elsevier overall). A 20% reference line is shown.
+Below we show the number and percent of journal titles in Elsevier that account for 80% of the downlaods in 2017 by disciplinary domain. A 20% reference line is provided for easy comparison.
 
 ```{r}
 # ----------------------------------------------
@@ -90,10 +92,10 @@ download_elsevier_jr80  %>%
   coord_flip()
 ```
 
-A slightly higher percent of journals in the Health Sciences domain makes it into the highly-used list (defined as journals accounting for 80% of 2017 downloads), at 24%. 22% percent of journls in the Economic & Social Sciences, 20% of journals in the Natural Sciences, and 20% of journals in the Applied sciences are among the most highly-used in the Elsevier. Among the small number of journals categorized as General, 17% are defined as highly-used by this metric, while only 6% of journals in the Arts & Humanities make the list.
+* A slightly higher percent of journals in the Health Sciences domain makes it into the highly-used list (defined as journals accounting for 80% of 2017 downloads), at 24%. 22% percent of journls in the Economic & Social Sciences, 20% of journals in the Natural Sciences, and 20% of journals in the Applied sciences are among the most highly-used in the Elsevier. Among the small number of journals categorized as General, 17% are defined as highly-used by this metric, while only 6% of journals in the Arts & Humanities make the list.
 
 ## Percent of Journals Accounting for 90% of Use
-The following repeats the analysis, but moves the definition of high use to journals accounting for **90%** of downloads. This time, a 30% reference line is included for visual convenience.
+The following repeats the above analysis, but moves the definition of high use to journals accounting for **90%** of downloads. This time, a 30% reference line is included for visual convenience.
 
 ```{r}
 # ----------------------------------------------
@@ -150,4 +152,4 @@ download_elsevier_jr90  %>%
   coord_flip()
 ```
 
-Journals in the Economic & Social Sciences and in the Health Sciences continue to dominate, with 35% and 34% of the titles included as high-use journals by the 90% metric, followed closely by the Natural Sciences (with 33% of journals categorized as high use) and the Applied Sciences (31%). 25% of General domain journals make the list, as do 14% of Arts & Humanities titles.
+* Journals in the Economic & Social Sciences and in the Health Sciences continue to dominate, with 35% and 34% of the titles included as high-use journals by the 90% metric, followed closely by the Natural Sciences (with 33% of journals categorized as high use) and the Applied Sciences (31%). 25% of General domain journals make the list, as do 14% of Arts & Humanities titles.

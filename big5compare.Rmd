@@ -130,7 +130,9 @@ journal_jr80_prov %>%
   coord_flip() 
 ```
 
-Do approximately 20% of titles account for 80% of use? Each of the Big 5 providers hovers near the 80/20 rule, with about 20% of titles in Springer and Elsevier accounting for 80% of the downloads (all and current year), closer to 25% of titles in Wiley and Taylor & Francis account for 80% of downloads (all and current year), while about 30% of titles from Sage account for the top 80% downloaded articles.
+Do approximately 20% of titles account for 80% of use? 
+
+* Each of the Big 5 providers hovers near the 80/20 rule, with about 20% of titles in Springer and Elsevier accounting for 80% of the downloads (all and current year), closer to 25% of titles in Wiley and Taylor & Francis account for 80% of downloads (all and current year), while about 30% of titles from Sage account for the top 80% downloaded articles.
 
 ### References and Publications
 
@@ -171,13 +173,12 @@ journal_jr80_prov %>%
   coord_flip() 
 ```
 
-For citations and publications, the high-use journals hover closer to 15% -- about 15% of titles account for 80% of UVA-authored publications and references. Springer and Taylor & Francis are just below 15%, Wiley and Sage are just above, with Elsevier falling in between.
+* For citations and publications, the high-use journals hover closer to 15% -- about 15% of titles account for 80% of UVA-authored publications and references. Springer and Taylor & Francis are just below 15%, Wiley and Sage are just above, with Elsevier falling in between.
 
 
 ## Percent of Current Year Downloads
 
-To understand the degree to which article downloads represent use of new material, we graph the percent of downloaded material in 2017 that was published in 2017. Note that this necessarily undercounts the use of new research material, as an article downloaded in January 2017 of a publication released in December 2016 will not be captured as a "current" article under this metric.
-
+To understand the degree to which article downloads represent use of new material, we graph the percent of downloaded material in 2017 that was published in 2017. Note that this number represents the percent of material used during a calendar year that was published in that calendar year, not use of material less than 12 months old at the time of use. For example, an article downloaded in January 2017 of a publication released in December 2016 will not be captured as a “current” article under this metric. For titles where past subscriptions included perpetual access, this number tells us how much use in a year is attributable to content added to the package by virtue of continuing the subscription. However, these numbers may undercount the ongoing effects of canceling the subscription after the first year, because a rolling 12 month embargo will prevent articles from becoming available via open access, blocking access in the January-December scenario described above.
 
 ```{r}
 # ----------------------------------------------
@@ -204,11 +205,11 @@ journal_jr5 %>% filter(big5 == "Yes") %>%
     coord_flip() 
 ```
 
-About 15% of downloaded articles are from the current year for Sage, Wiley and Taylor & Francis; Elsevier and Springer see slightly higher use of recent scholarship.
+* About 15% of downloaded articles are from the current year for Sage, Wiley and Taylor & Francis; Elsevier and Springer see slightly higher use of recent scholarship.
 
 ### Current Year Use among High-Use Journals
 
-The next figure compares the distribution of percent current-year use among journals designated as "high-use" (current year downloads of the journal accounted for the top 80% of use) or not high use.
+The next figure compares the distribution of percent current-year use among journals designated as "high-use" (current year downloads of the journal accounted for the top 80% of use) or not high use. Curves further to the right represent journals with higher rates of current-year use.
 
 ```{r}
 # JR5/CURRENT YEAR USE AMONG HIGH-USE JOURNALS ----
@@ -216,17 +217,22 @@ The next figure compares the distribution of percent current-year use among jour
 # add the jr5 ratio to jr80 measures for comparison
 journal_jr80 <- journal_jr80 %>% 
   mutate(jr5per = (jr5/jr1)*100,
-         jr80_jr5f = factor(jr80_jr5),
+         jr80_jr5f = factor(jr80_jr5, levels = c(1, 0), labels = c("Yes", "No")),
          big5 = if_else(provider %in% c("Springer", "Elsevier", "Wiley", "Sage", "Taylor & Francis"), "Yes", "No"))
-  
-# boxplot
+
+# density plot
 journal_jr80 %>% filter(big5 == "Yes" & !is.na(jr80_jr5)) %>% 
-  ggplot(aes(x = provider, y = jr5per, fill = jr80_jr5f)) + 
-  geom_boxplot(notch=T) +
+  ggplot(aes(x = jr5per, fill = jr80_jr5f)) + 
+  geom_density(alpha = 1/5) +
   scale_fill_manual(values = c("orange", "blue")) +
-  labs(title = "Percent of Current Year Use", 
-       subtitle = "By Provider and High-Use Journal Designation",
-       x = "Provider", y = "Percent Current Year", fill = "High Use")
+  facet_wrap(~provider, scales = "free") +
+  labs(title = "Distribution of Percent Current Year Downloads",
+       subtitle = "By Provider and High-Use Designation",
+       x = "Percent Current Year Downloads", 
+       y = "Proportion of Journals at Each Value",
+       fill = "High-Use") 
 ```
 
-Fortunately, among each of the Big 5 providers, the median percent of current-year downloads (demarcated by the notch) is notably higher in high-use journals than in journals that did not account for the top 80% of downloads. Among journals **not** designated as high use by this measure, however, the percent of current year downloads is still quite high for some titles; the upper range matches or exceeds the upper range of current-year use among the high use/JR80 journals.
+* Among each of the Big 5 providers, the percent of current-year downloads (demarcated by the orange) is notably higher in high-use journals than in journals that did not account for the top 80% of downloads (more of the area under the curves is to the right), suggesting that retaining the high-use journals would preserve much of the current content sought by researchers.
+
+* For both designations -- high-use journals and not high-use journasl -- however, there is a long tail of journals for which most of the use is of newly published material
