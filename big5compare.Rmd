@@ -1,0 +1,238 @@
+---
+title: "Big 5 Comparisons: High Use, Current Year"
+author: "UVA StatLab/RDS"
+output: html_document
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE)
+```
+
+
+```{r setup}
+library(tidyverse)
+library(scales)
+library(readxl)
+library(gridExtra)
+
+# read in 1figr tabs
+journal <- read_excel("1science/1figr_U_Virginia_edit.xlsx", sheet = 4, skip = 8)
+
+# rename variables in journal
+names(journal) <- c("sort", "journal", "issn", "provider", "type", "fig1", "jr1", "jr5", "currentper",
+                    "cites", "citeper", "pubs", "pubsper", "synth", "jtier", "subtier", "dupes",
+                    "oa", "oaper", "fig2", "scopus", "arif", "domain", "field", "subfield", 
+                    "pub2008", "pub2009", "pub2010", "pub2011", "pub2012", "pub2013", "pub2014",
+                    "pub2015", "pub2016", "pub2017", "cite2008", "cite2009", "cite2010", "cite2011",
+                    "cite2012", "cite2013", "cite2014", "cite2015", "cite2016", "cite2017", 
+                    "oa2008", "oa2009", "oa2010", "oa2011", "oa2012", "oa2013", "oa2014", "oa2015", 
+                    "oa2016", "oa2017", "oaper2008", "oaper2009", "oaper2010", "oaper2011", "oaper2012",
+                    "oaper2013", "oaper2014", "oaper2015", "oaper2016", "oaper2017", "scopus2008",
+                    "scopus2009", "scopus2010", "scopus2011", "scopus2012", "scopus2013", "scopus2014",
+                    "scopus2015", "scopus2016", "scopus2017", "jr12015", "jr12016", "jr12017", "jr12018",
+                    "jr12015_2018", "jid", "journalname")
+```
+
+## Percent of Journals Accounting for 80 Percent of Use
+We began by evaluating the proportion of highly-used titles in 2017 within the Big 5 provider packages, with the 80/20 rule as a reference: the journals that account for the top 80% of use. To measure this "JR80 score", we examined multiple proxies of use: all article downloads in 2017, currenty year articles downloaded in 2017, references made by UVA authors to articles in journals provided by a package from 2008-2017, and publications that inlcude a UVA author in journals provided by a package from 2008-2017.
+
+```{r}
+# JR80 MEASURE BY PROVIDER ----
+# ----------------------------------------------
+# Generate JR80 measures using jr1 (all 2017 downloads), jr5 (current year 2017 downloads), references, publications
+journal_jr80 <- journal %>% 
+  select(journal, provider, type, jr1, jr5, cites, pubs, synth, scopus, domain, field, jid) %>% 
+  filter(type == "Journal") %>% 
+  mutate(jr1 = as.integer(jr1), jr5 = as.integer(jr5)) %>% 
+  group_by(provider) %>% 
+  arrange(provider, desc(jr1)) %>% 
+  mutate(cum_jr1 = cumsum(jr1),
+         prov_jr1 = max(cum_jr1, na.rm=T),
+         cum_jr1_per = (cum_jr1/prov_jr1)*100,
+         jr80_jr1 = if_else(cum_jr1_per <= 80, 1, 0)) %>% 
+  arrange(provider, desc(jr5)) %>% 
+  mutate(cum_jr5 = cumsum(jr5),
+         prov_jr5 = max(cum_jr5, na.rm=T),
+         cum_jr5_per = (cum_jr5/prov_jr5)*100,
+         jr80_jr5 = if_else(cum_jr5_per <= 80, 1, 0)) %>% 
+  arrange(provider, desc(cites)) %>% 
+  mutate(cum_refs = cumsum(cites),
+         prov_refs = max(cum_refs, na.rm=T),
+         cum_refs_per = (cum_refs/prov_refs)*100,
+         jr80_refs = if_else(cum_refs_per <= 80, 1, 0)) %>% 
+  arrange(provider, desc(pubs)) %>% 
+  mutate(cum_pubs = cumsum(pubs),
+         prov_pubs = max(cum_pubs, na.rm=T),
+         cum_pubs_per = (cum_pubs/prov_pubs)*100,
+         jr80_pubs = if_else(cum_pubs_per <= 80, 1, 0))
+
+
+# grouped/summarized by provider
+# generating all four JR80 measures  
+journal_jr80_prov <- journal_jr80 %>% 
+  filter(provider != "Modern Language Association") %>% 
+  group_by(provider) %>% 
+  summarize(titles = n(),
+            titlesjr1 = sum(!is.na(jr1)),
+            titlesjr5 = sum(!is.na(jr5)),
+            jr80_jr1 = sum(jr80_jr1, na.rm=T),
+            jr80_jr5 = sum(jr80_jr5, na.rm=T),
+            jr80_refs = sum(jr80_refs, na.rm=T),
+            jr80_pubs = sum(jr80_pubs, na.rm=T)) %>% 
+  mutate(jr80_jr1per = (jr80_jr1/titles)*100,
+         jr80_jr5per = (jr80_jr5/titles)*100,
+         jr80_jrrefs = (jr80_refs/titles)*100,
+         jr80_jrpubs = (jr80_pubs/titles)*100,
+         title_jr1 = paste0( "(", jr80_jr1, "/", titlesjr1, ")" ),
+         title_jr5 = paste0( "(", jr80_jr5, "/", titlesjr5, ")" ),
+         title_refs = paste0( "(", jr80_refs, "/", titles, ")" ),
+         title_pubs = paste0( "(", jr80_pubs, "/", titles, ")" ),
+         provider = factor(provider),
+         big5 = if_else(provider %in% c("Springer", "Elsevier", "Wiley", "Sage", "Taylor & Francis"), "Yes", "No"),
+         els = if_else(provider == "Elsevier", "Yes", "No"))
+```
+
+### Downloads
+The following figures show the percent of titles that account for 80% of all articles downloaded in 2017 (All Articles) and percent of titles accounting for 80% of 2017 articles downloads in 2017 (2017 Articles).
+
+```{r}
+# plot jr80_jr1 for big 5
+journal_jr80_prov %>% 
+  filter(big5 == "Yes") %>% 
+  mutate(provider = fct_reorder(provider, desc(jr80_jr1per))) %>% 
+  ggplot(aes(x = provider, y = jr80_jr1per, color = els)) + 
+  geom_segment(aes(x = provider, xend = provider, y = 0, yend = jr80_jr1per), color = "grey", size = 1) +
+  geom_point(size = 5) +
+  scale_color_manual(values = c("orange", "blue")) +
+  labs(title = "80% Use Titles",
+       subtitle = "All Articles (Top Titles / All Titles)",
+       x = "", y = "Percent") +
+  geom_text(aes(label = title_jr1), nudge_x = -.2, color = "black", size = 3) +
+  expand_limits(y = (journal_jr80_prov %>% filter(big5 == "Yes") %>% summarize(max(jr80_jr1per)) %>% as.integer())+2) +
+  theme(legend.position = "none") +
+  coord_flip() 
+
+
+# plot jr80_jr5 for big 5
+journal_jr80_prov %>% 
+  filter(big5 == "Yes") %>% 
+  mutate(provider = fct_reorder(provider, desc(jr80_jr5per))) %>% 
+  ggplot(aes(x = provider, y = jr80_jr5per, color = els)) + 
+  geom_segment(aes(x = provider, xend = provider, y = 0, yend = jr80_jr5per), color = "grey", size = 1) +
+  geom_point(size = 5) +
+  scale_color_manual(values = c("orange", "blue")) +
+  labs(title = "80% Use Titles",
+       subtitle = "2017 Articles (Top Titles / All Titles)",
+       x = "", y = "Percent") +
+  geom_text(aes(label = title_jr5), nudge_x = -.2, color = "black", size = 3) +
+  expand_limits(y = (journal_jr80_prov %>% filter(big5 == "Yes") %>% summarize(max(jr80_jr5per)) %>% as.integer())+2) +
+  theme(legend.position = "none") +
+  coord_flip() 
+```
+
+Do approximately 20% of titles account for 80% of use? 
+
+* Each of the Big 5 providers hovers near the 80/20 rule, with about 20% of titles in Springer and Elsevier accounting for 80% of the downloads (all and current year), closer to 25% of titles in Wiley and Taylor & Francis account for 80% of downloads (all and current year), while about 30% of titles from Sage account for the top 80% downloaded articles.
+
+### References and Publications
+
+The following figures show the same metric -- percent of titles that account for 80% of use -- with use measured by references to journal articles within a package made by UVA authors (References) and as publications within a package that include UVA authors (Publications).
+
+```{r}
+# plot jr80_refs for big 5
+journal_jr80_prov %>% 
+  filter(big5 == "Yes") %>% 
+  mutate(provider = fct_reorder(provider, desc(jr80_jrrefs))) %>% 
+  ggplot(aes(x = provider, y = jr80_jrrefs, color = els)) + 
+  geom_segment(aes(x = provider, xend = provider, y = 0, yend = jr80_jrrefs), color = "grey", size = 1) +
+  geom_point(size = 5) +
+  scale_color_manual(values = c("orange", "blue")) +
+  labs(title = "80% Use Titles",
+       subtitle = "References (Top Titles / All Titles)",
+       x = "", y = "Percent") +
+  geom_text(aes(label = title_refs), nudge_x = -0.2, color = "black", size = 3) +
+  expand_limits(y = (journal_jr80_prov %>% filter(big5 == "Yes") %>% summarize(max(jr80_jrrefs)) %>% as.integer())+2) +
+  theme(legend.position = "none") +
+  coord_flip() 
+
+
+# plot jr80_pubs for big 5
+journal_jr80_prov %>% 
+  filter(big5 == "Yes") %>% 
+  mutate(provider = fct_reorder(provider, desc(jr80_jrpubs))) %>% 
+  ggplot(aes(x = provider, y = jr80_jrpubs, color = els)) + 
+  geom_segment(aes(x = provider, xend = provider, y = 0, yend = jr80_jrpubs), color = "grey", size = 1) +
+  geom_point(size = 5) +
+  scale_color_manual(values = c("orange", "blue")) +
+  labs(title = "80% Use Titles",
+       subtitle = "Publications (Top Titles / All Titles)",
+       x = "", y = "Percent") +
+  geom_text(aes(label = title_pubs), nudge_x = -.2, color = "black", size = 3) +
+  expand_limits(y = (journal_jr80_prov %>% filter(big5 == "Yes") %>% summarize(max(jr80_jrpubs)) %>% as.integer())+2) +
+  theme(legend.position = "none") +
+  coord_flip() 
+```
+
+* For citations and publications, the high-use journals hover closer to 15% -- about 15% of titles account for 80% of UVA-authored publications and references. Springer and Taylor & Francis are just below 15%, Wiley and Sage are just above, with Elsevier falling in between.
+
+
+## Percent of Current Year Downloads
+
+To understand the degree to which article downloads represent use of new material, we graph the percent of downloaded material in 2017 that was published in 2017. Note that this number represents the percent of material used during a calendar year that was published in that calendar year, not use of material less than 12 months old at the time of use. For example, an article downloaded in January 2017 of a publication released in December 2016 will not be captured as a “current” article under this metric. For titles where past subscriptions included perpetual access, this number tells us how much use in a year is attributable to content added to the package by virtue of continuing the subscription. However, these numbers may undercount the ongoing effects of canceling the subscription after the first year, because a rolling 12 month embargo will prevent articles from becoming available via open access, blocking access in the January-December scenario described above.
+
+```{r}
+# ----------------------------------------------
+journal_jr5 <- journal %>% 
+  select(journal, provider, type, jr1, jr5, cites, pubs, synth, scopus, field, jid) %>% 
+  filter(type == "Package" & provider != "Modern Language Association") %>% 
+  mutate(jr1 = as.integer(jr1),
+         jr5 = as.integer(jr5),
+         jr5per = (jr5/jr1)*100,
+         provider = factor(provider),
+         provider = fct_reorder(provider, desc(jr5per)),
+         big5 = if_else(provider %in% c("Springer", "Elsevier", "Wiley", "Sage", "Taylor & Francis"), "Yes", "No"),
+         els = if_else(provider == "Elsevier", "Yes", "No")) 
+
+# JR5 ratio for big 5
+journal_jr5 %>% filter(big5 == "Yes") %>% 
+  ggplot(aes(x = provider, y = jr5per, color = els)) + 
+    geom_segment(aes(x = provider, xend = provider, y = 0, yend = jr5per), color = "grey", size = 1) +
+    geom_point(size = 5) +
+    scale_color_manual(values = c("orange", "blue")) +
+    labs(title = "Percent Current Year Downloads",
+       x = "", y = "Percent") +
+    theme(legend.position = "none") +
+    coord_flip() 
+```
+
+* About 15% of downloaded articles are from the current year for Sage, Wiley and Taylor & Francis; Elsevier and Springer see slightly higher use of recent scholarship.
+
+### Current Year Use among High-Use Journals
+
+The next figure compares the distribution of percent current-year use among journals designated as "high-use" (current year downloads of the journal accounted for the top 80% of use) or not high use. Curves further to the right represent journals with higher rates of current-year use.
+
+```{r}
+# JR5/CURRENT YEAR USE AMONG HIGH-USE JOURNALS ----
+# ----------------------------------------------
+# add the jr5 ratio to jr80 measures for comparison
+journal_jr80 <- journal_jr80 %>% 
+  mutate(jr5per = (jr5/jr1)*100,
+         jr80_jr5f = factor(jr80_jr5, levels = c(1, 0), labels = c("Yes", "No")),
+         big5 = if_else(provider %in% c("Springer", "Elsevier", "Wiley", "Sage", "Taylor & Francis"), "Yes", "No"))
+
+# density plot
+journal_jr80 %>% filter(big5 == "Yes" & !is.na(jr80_jr5)) %>% 
+  ggplot(aes(x = jr5per, fill = jr80_jr5f)) + 
+  geom_density(alpha = 1/5) +
+  scale_fill_manual(values = c("orange", "blue")) +
+  facet_wrap(~provider, scales = "free") +
+  labs(title = "Distribution of Percent Current Year Downloads",
+       subtitle = "By Provider and High-Use Designation",
+       x = "Percent Current Year Downloads", 
+       y = "Proportion of Journals at Each Value",
+       fill = "High-Use") 
+```
+
+* Among each of the Big 5 providers, the percent of current-year downloads (demarcated by the orange) is notably higher in high-use journals than in journals that did not account for the top 80% of downloads (more of the area under the curves is to the right), suggesting that retaining the high-use journals would preserve much of the current content sought by researchers.
+
+* For both designations -- high-use journals and not high-use journasl -- however, there is a long tail of journals for which most of the use is of newly published material
