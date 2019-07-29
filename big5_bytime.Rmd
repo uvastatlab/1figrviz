@@ -32,7 +32,11 @@ names(journal) <- c("sort", "journal", "issn", "provider", "type", "fig1", "jr1"
                     "jr12015_2018", "jid", "journalname")
 ```
 
+<<<<<<< HEAD
 ## UVA-Authored Publications in Provider Journals
+=======
+## UVA-Authored Publications
+>>>>>>> origin/gh-pages
 ```{r}
 # 1. Number of uva-authored publications and percent of uva-authored publications in Big 5 ovver time
 # keep only package data for big 5
@@ -67,7 +71,10 @@ p3 <- ggplot(big5pub, aes(x = year, y = uvaper, group = provider)) +
   geom_line(aes(color = provider, linetype = els)) +
   scale_linetype_manual(values=c("longdash", "solid"), guide=F) +
   labs(title = "Percent of Articles Published by UVA Authors",
+<<<<<<< HEAD
        subtitle = "As Percent of All Articles Published by Provider",
+=======
+>>>>>>> origin/gh-pages
        x = "Year", y = "Percent of Articles", color = "Provider")
 
 # function to grab legend to use in common
@@ -86,6 +93,7 @@ p3 <- p3 + theme(legend.position="none")
 grid.arrange(p1, p2, p3, legend, ncol = 2)
 ```
 
+<<<<<<< HEAD
 ## References by UVA Authors in Provider Journals
 ```{r}
 # 2b. Number of uva citations in Big 5 s percent of citations over time
@@ -143,6 +151,9 @@ grid.arrange(p1, p2, p3, legend, ncol = 2)
 
 
 ## OA-Available Publications in Provider Journals
+=======
+## OA-Available Publications
+>>>>>>> origin/gh-pages
 
 ```{r}
 # reshape time data to long format: oa2008-ao2017, scopus2008-scopus2017
@@ -173,7 +184,10 @@ p3 <- ggplot(big5oa, aes(x = year, y = oaper, group = provider)) +
   geom_line(aes(color = provider, linetype = els)) +
   scale_linetype_manual(values=c("longdash", "solid"), guide=F) +
   labs(title = "Percent of Articles Published Available OA",
+<<<<<<< HEAD
        subtitle = "As Percent of All Articles Published by Provider",
+=======
+>>>>>>> origin/gh-pages
        x = "Year", y = "Percent of Articles", color = "Provider")
 
 # use the function
