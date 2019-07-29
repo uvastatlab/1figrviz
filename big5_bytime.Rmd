@@ -32,7 +32,7 @@ names(journal) <- c("sort", "journal", "issn", "provider", "type", "fig1", "jr1"
                     "jr12015_2018", "jid", "journalname")
 ```
 
-## UVA-Authored Publications
+## UVA-Authored Publications in Provider Journals
 ```{r}
 # 1. Number of uva-authored publications and percent of uva-authored publications in Big 5 ovver time
 # keep only package data for big 5
@@ -67,6 +67,7 @@ p3 <- ggplot(big5pub, aes(x = year, y = uvaper, group = provider)) +
   geom_line(aes(color = provider, linetype = els)) +
   scale_linetype_manual(values=c("longdash", "solid"), guide=F) +
   labs(title = "Percent of Articles Published by UVA Authors",
+       subtitle = "As Percent of All Articles Published by Provider",
        x = "Year", y = "Percent of Articles", color = "Provider")
 
 # function to grab legend to use in common
@@ -85,7 +86,63 @@ p3 <- p3 + theme(legend.position="none")
 grid.arrange(p1, p2, p3, legend, ncol = 2)
 ```
 
-## OA-Available Publications
+## References by UVA Authors in Provider Journals
+```{r}
+# 2b. Number of uva citations in Big 5 s percent of citations over time
+# reshape time data to long format: pub2008-pub2017, tot2008-tot2017
+big5ref2 <- big5 %>% 
+  select(provider, cite2008:cite2017) %>% 
+  pivot_longer(-provider, 
+               names_to = c(".value", "year"),
+               names_sep = -4)
+
+# create total citations
+totalref <- journal %>% 
+  filter(type == "Package") %>% 
+  mutate(tot2008 = sum(cite2008), tot2009 = sum(cite2009),
+       tot2010 = sum(cite2010), tot2011 = sum(cite2011),
+       tot2012 = sum(cite2012), tot2013 = sum(cite2013),
+       tot2014 = sum(cite2014), tot2015 = sum(cite2015),
+       tot2016 = sum(cite2016), tot2017 = sum(cite2017)) %>% 
+  filter(provider == "Elsevier") %>% 
+  select(tot2008:tot2017) %>% 
+  pivot_longer(tot2008:tot2017, 
+               names_to = c(".value", "year"),
+               names_sep = -4)
+
+# join totalref and create uva percent and indicator for Elsevier
+big5ref2 <- full_join(big5ref2, totalref, by = "year") %>% 
+  mutate(uvaper = (cite/tot)*100,
+         els = if_else(provider == "Elsevier", "Yes", "No"))
+
+# plot uva percent
+p1 <- ggplot(totalref, aes(x = year, y = tot, group = 1)) + 
+  geom_line() +
+  labs(title = "Total References by UVA Authors",
+       x = "Year", y = "Count of References")
+p2 <- ggplot(big5ref2, aes(x = year, y = cite, group = provider)) +
+  geom_line(aes(color = provider, linetype = els)) +
+  scale_linetype_manual(values=c("longdash", "solid"), guide=F) +
+  labs(title = "Number of References by UVA Authors",
+       x = "Year", y = "Count of References", color = "Provider")
+p3 <- ggplot(big5ref2, aes(x = year, y = uvaper, group = provider)) +
+  geom_line(aes(color = provider, linetype = els)) +
+  scale_linetype_manual(values=c("longdash", "solid"), guide=F) +
+  labs(title = "Percent of References by UVA Authors",
+       subtitle = "As Percent of All References by UVA Authors",
+       x = "Year", y = "Percent of References", color = "Provider")
+
+# use the function
+legend <- get_legend(p2)
+p1 <- p1 + theme(legend.position="none")
+p2 <- p2 + theme(legend.position="none")
+p3 <- p3 + theme(legend.position="none")
+
+grid.arrange(p1, p2, p3, legend, ncol = 2)
+```
+
+
+## OA-Available Publications in Provider Journals
 
 ```{r}
 # reshape time data to long format: oa2008-ao2017, scopus2008-scopus2017
@@ -116,6 +173,7 @@ p3 <- ggplot(big5oa, aes(x = year, y = oaper, group = provider)) +
   geom_line(aes(color = provider, linetype = els)) +
   scale_linetype_manual(values=c("longdash", "solid"), guide=F) +
   labs(title = "Percent of Articles Published Available OA",
+       subtitle = "As Percent of All Articles Published by Provider",
        x = "Year", y = "Percent of Articles", color = "Provider")
 
 # use the function
