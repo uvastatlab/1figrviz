@@ -1,0 +1,26 @@
+---
+title: "Visualizations of the 1figr data"
+author: ""
+date: ""
+output: html_document
+---
+
+## Visualizations to date
+
+1. [Big 5 Providers Over Time](big5_bytime.html)
+   * UVA-Authored Publications in Provider Journals
+   * References by UVA Authors in Provider Journals
+   * OA-Available Publications in Provider Journals
+  
+2. [Big 5 Comparisons](big5compare.html)
+   * Percent of Journals Accounting for 80 Percent of Use: Downloads
+   * Percent of Journals Accounting for 80 Percent of Use: References and Publications
+   * Percent of Current Year Downloads
+   
+3. [Elsevier by Domain](els_domain_compare.html)
+   * Percent of Journals Accounting for 80 Percent of Use
+   * Percent of Current Year Elsevier Downloads
+
+4. [High-Use Journals in Elsevier by Domain](els_jr80_domain)
+   * Percent of Journals Accounting for 80% of Use
+   * Percent of Journals Accounting for 90% of Use
