@@ -7,20 +7,26 @@ output: html_document
 
 ## Visualizations to date
 
-1. [Big 5 Providers Over Time](big5_bytime.html)
-   * UVA-Authored Publications in Provider Journals
-   * References by UVA Authors in Provider Journals
-   * OA-Available Publications in Provider Journals
+1. [Figure 1](figure1.html): High Use Journals in Big 5 Providers
+   * 1a. High-use Journals by All Article Downloads
+   * 1b. High-use Journals by Current Year Article Downloads
+   * 1c. High-use Journals by References from UVA Authors
+   * 1d. High-use Journals by UVA-Authored Publications
   
-2. [Big 5 Comparisons](big5compare.html)
-   * Percent of Journals Accounting for 80 Percent of Use: Downloads
-   * Percent of Journals Accounting for 80 Percent of Use: References and Publications
-   * Percent of Current Year Downloads
+2. [Figure 2](figure2.html): Rate of Current Year Downloads in Big 5 Providers
+   * 2. Current Year Downloads as Percent of All 2017 Downloads
    
-3. [Elsevier by Domain](els_domain_compare.html)
-   * Percent of Journals Accounting for 80 Percent of Use
-   * Percent of Current Year Elsevier Downloads
+3. [Figure 3](figure3.html): Cost per Download for Big 5 Providers
+   * 3a. Cost per Download, all 2017 downloads
+   * 3b. Cost per Download, current year 2017 downloads
 
-4. [High-Use Journals in Elsevier by Domain](els_jr80_domain)
-   * Percent of Journals Accounting for 80% of Use
-   * Percent of Journals Accounting for 90% of Use
+4. [Figures 4,5,6](figure4to6.html): References, Publications, OA-Available Articles in Big 5 Providers over Time
+   * 4. UVA References in Big 5 Provider Journals over Time
+   * 5. UVA Publications in Big 5 Provider Journals over Time
+   * 6. OA-Available Articles in Big 5 Provider Journals over Time
+
+5. [Figure 7](figure7.html): Use of Elsevier Journals by Domain
+   * 7a. All Article Downloads by Domain
+   * 7b. Current Year Article Downloads by Domain
+   * 7c. UVA References by Domain
+   * 7d. UVA-Authored Publications by Domain
