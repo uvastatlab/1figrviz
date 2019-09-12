@@ -1,4 +1,4 @@
-# 1Science-1Figr-Code-Sharing
+# 1Science-1Figr-Code-Sharing for Python
 
 
 GitHub repository for 1Figr data
