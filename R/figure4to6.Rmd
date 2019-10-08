@@ -102,6 +102,7 @@ big5ref <- full_join(big5ref, totalref, by = "year") %>%
 # plot uva percent
 p1 <- ggplot(totalref, aes(x = year, y = tot, group = 1)) + 
   geom_line() +
+  scale_y_continuous(labels = scales::comma) + 
   labs(title = "References by UVA Authors",
        subtitle = "Across All Providers",
        x = "Year", y = "Number of References")
@@ -158,6 +159,7 @@ big5pub <- big5pub %>%
 p1 <- ggplot(big5pub, aes(x = year, y = scopus, group = provider)) + 
   geom_line(aes(color = provider)) +
   scale_linetype_manual(values=c("longdash", "solid"), guide=F) +
+  scale_y_continuous(labels = scales::comma) + 
   labs(title = "Total Number of Articles Published",
        subtitle = "In Big 5 Providers",
        x = "Year", y = "Number of Articles", color = "Provider")
@@ -209,7 +211,7 @@ big5oa <- big5oa %>%
 p1 <- ggplot(big5oa, aes(x = year, y = scopus, group = provider)) + 
   geom_line(aes(color = provider)) +
   scale_color_brewer(type = "qual", palette = "Set1") +
-  scale_y_continuous(labels = scales::comma)
+  scale_y_continuous(labels = scales::comma) + 
   labs(title = "Number of Articles Published",
        subtitle = "In Big 5 Providers",
        x = "Year", y = "Number of Articles", color = "Provider")
