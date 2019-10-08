@@ -209,9 +209,10 @@ big5oa <- big5oa %>%
 p1 <- ggplot(big5oa, aes(x = year, y = scopus, group = provider)) + 
   geom_line(aes(color = provider)) +
   scale_color_brewer(type = "qual", palette = "Set1") +
+  scale_y_continuous(labels = scales::comma)
   labs(title = "Number of Articles Published",
        subtitle = "In Big 5 Providers",
-       x = "Year", y = "Number of Articlest", color = "Provider")
+       x = "Year", y = "Number of Articles", color = "Provider")
 
 p2 <- ggplot(big5oa, aes(x = year, y = oa, group = provider)) +
   geom_line(aes(color = provider)) +
@@ -220,9 +221,16 @@ p2 <- ggplot(big5oa, aes(x = year, y = oa, group = provider)) +
        subtitle = "In Big 5 Providers",
        x = "Year", y = "Number of Articles", color = "Provider")
 
+# labels to add 2017 values at end of lines
+p3_labels <- big5oa %>% 
+  group_by(provider) %>% 
+  filter(year == "2017") %>% 
+  mutate(oaper = round(oaper))
+
 p3 <- ggplot(big5oa, aes(x = year, y = oaper, group = provider)) +
   geom_line(aes(color = provider)) +
   scale_color_brewer(type = "qual", palette = "Set1") +
+  geom_text(aes(x = year, y = oaper, label = oaper), p3_labels, nudge_x = 0.2) +
   labs(title = "Percent of OA-Available Articles",
        subtitle = "In Big 5 Providers",
        x = "Year", y = "Percent of Articles", color = "Provider")
