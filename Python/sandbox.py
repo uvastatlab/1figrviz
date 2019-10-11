@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Sep  5 14:03:39 2019
-
-@author: ep9k
-"""
-
 import pandas as pd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -13,16 +5,22 @@ from matplotlib.ticker import StrMethodFormatter
 import matplotlib.patches as mpatches
 from operator import itemgetter
 
+#model for how to adapt the code
+#data = pd.read_excel('1figr_U_Virginia_Original (1) (1).xlsx', sheet_name='Journals per Provider', skiprows=8)
+#print(data.columns.values)
 
-your_institution = 'UVA'   #Replace this string with your institution's preferred name. This is an example
 
-#########################################################
-#VRL presentation functions
+
+
+filename = '1figr_U_Virginia_Original (1) (1).xlsx'
+your_institution = 'UVA'
+
+
 
 def number_of_papers_published_per_year():
     """Plots # of papers published by all big 5 providers per year"""
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley']
     
@@ -34,25 +32,25 @@ def number_of_papers_published_per_year():
         
         papers_by_year = []
         
-        total_2008 = subset_by_provider.total_2008.tolist()
+        total_2008 = subset_by_provider['2008.4'].tolist()
         papers_by_year.append(total_2008[0])
-        total_2009 = subset_by_provider.total_2009.tolist()
+        total_2009 = subset_by_provider['2009.4'].tolist()
         papers_by_year.append(total_2009[0])
-        total_2010 = subset_by_provider.total_2010.tolist()
+        total_2010 = subset_by_provider['2010.4'].tolist()
         papers_by_year.append(total_2010[0])
-        total_2011 = subset_by_provider.total_2011.tolist()
+        total_2011 = subset_by_provider['2011.4'].tolist()
         papers_by_year.append(total_2011[0])
-        total_2012 = subset_by_provider.total_2012.tolist()
+        total_2012 = subset_by_provider['2012.4'].tolist()
         papers_by_year.append(total_2012[0])
-        total_2013 = subset_by_provider.total_2013.tolist()
+        total_2013 = subset_by_provider['2013.4'].tolist()
         papers_by_year.append(total_2013[0])
-        total_2014 = subset_by_provider.total_2014.tolist()
+        total_2014 = subset_by_provider['2014.4'].tolist()
         papers_by_year.append(total_2014[0])
-        total_2015 = subset_by_provider.total_2015.tolist()
+        total_2015 = subset_by_provider['2015.4'].tolist()
         papers_by_year.append(total_2015[0])
-        total_2016 = subset_by_provider.total_2016.tolist()
+        total_2016 = subset_by_provider['2016.4'].tolist()
         papers_by_year.append(total_2016[0])
-        total_2017 = subset_by_provider.total_2017.tolist()
+        total_2017 = subset_by_provider['2017.4'].tolist()
         papers_by_year.append(total_2017[0])
 
         papers_by_provider.append(papers_by_year)        
@@ -81,7 +79,7 @@ def number_papers_over_time():
     """Plots # of authored publications at your institution in each of the big 5 providers over time (2008-2017)
     Looks at columns under 'Papers per journal/provider by your institution's authors"""
 
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley']
     
@@ -93,25 +91,25 @@ def number_papers_over_time():
         
         publications_by_year = []
         
-        papers_2008 = subset_by_provider.papers_2008.tolist()
+        papers_2008 = subset_by_provider[2008].tolist()
         publications_by_year.append(papers_2008[0])
-        papers_2009 = subset_by_provider.papers_2009.tolist()
+        papers_2009 = subset_by_provider[2009].tolist()
         publications_by_year.append(papers_2009[0])
-        papers_2010 = subset_by_provider.papers_2010.tolist()
+        papers_2010 = subset_by_provider[2010].tolist()
         publications_by_year.append(papers_2010[0])
-        papers_2011 = subset_by_provider.papers_2011.tolist()
+        papers_2011 = subset_by_provider[2011].tolist()
         publications_by_year.append(papers_2011[0])
-        papers_2012 = subset_by_provider.papers_2012.tolist()
+        papers_2012 = subset_by_provider[2012].tolist()
         publications_by_year.append(papers_2012[0])
-        papers_2013 = subset_by_provider.papers_2013.tolist()
+        papers_2013 = subset_by_provider[2013].tolist()
         publications_by_year.append(papers_2013[0])
-        papers_2014 = subset_by_provider.papers_2014.tolist()
+        papers_2014 = subset_by_provider[2014].tolist()
         publications_by_year.append(papers_2014[0])
-        papers_2015 = subset_by_provider.papers_2015.tolist()
+        papers_2015 = subset_by_provider[2015].tolist()
         publications_by_year.append(papers_2015[0])
-        papers_2016 = subset_by_provider.papers_2016.tolist()
+        papers_2016 = subset_by_provider[2016].tolist()
         publications_by_year.append(papers_2016[0])
-        papers_2017 = subset_by_provider.papers_2017.tolist()
+        papers_2017 = subset_by_provider[2017].tolist()
         publications_by_year.append(papers_2017[0])
         
         publications_by_provider.append(publications_by_year)
@@ -137,11 +135,12 @@ def number_papers_over_time():
     plt.savefig('test.jpg', bbox_inches='tight')      #saves image in working directory
 
 
+
 def oa_percent_papers_available_over_time():
     """Percent of papers available Open Access (oa) for each of the big 5 providers over time (2008-2017)
     Looks at columns under '% of OA papers in 1findr per journal/provider (intersection with Scopus)"""
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley']
     
@@ -153,25 +152,25 @@ def oa_percent_papers_available_over_time():
     
         oa_by_year = []
 
-        oa_2008 = subset_by_provider.oa_2008.tolist()
+        oa_2008 = subset_by_provider['2008.3'].tolist()
         oa_by_year.append(oa_2008[0])
-        oa_2009 = subset_by_provider.oa_2009.tolist()
+        oa_2009 = subset_by_provider['2009.3'].tolist()
         oa_by_year.append(oa_2009[0])
-        oa_2010 = subset_by_provider.oa_2010.tolist()
+        oa_2010 = subset_by_provider['2010.3'].tolist()
         oa_by_year.append(oa_2010[0])
-        oa_2011 = subset_by_provider.oa_2011.tolist()
+        oa_2011 = subset_by_provider['2011.3'].tolist()
         oa_by_year.append(oa_2011[0])
-        oa_2012 = subset_by_provider.oa_2012.tolist()
+        oa_2012 = subset_by_provider['2012.3'].tolist()
         oa_by_year.append(oa_2012[0])
-        oa_2013 = subset_by_provider.oa_2013.tolist()
+        oa_2013 = subset_by_provider['2013.3'].tolist()
         oa_by_year.append(oa_2013[0])
-        oa_2014 = subset_by_provider.oa_2014.tolist()
+        oa_2014 = subset_by_provider['2014.3'].tolist()
         oa_by_year.append(oa_2014[0])
-        oa_2015 = subset_by_provider.oa_2015.tolist()
+        oa_2015 = subset_by_provider['2015.3'].tolist()
         oa_by_year.append(oa_2015[0])
-        oa_2016 = subset_by_provider.oa_2016.tolist()
+        oa_2016 = subset_by_provider['2016.3'].tolist()
         oa_by_year.append(oa_2016[0])
-        oa_2017 = subset_by_provider.oa_2017.tolist()
+        oa_2017 = subset_by_provider['2017.3'].tolist()
         oa_by_year.append(oa_2017[0])
         
         oa_by_provider.append(oa_by_year)
@@ -205,7 +204,7 @@ def references_over_time():
     References are defined as: Number of References made by researchers of your institution to an article from a given journal"""
     
 
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley']
 
@@ -217,25 +216,25 @@ def references_over_time():
     
         ref_by_year = []
     
-        ref_2008 = subset_by_provider.ref_2008.tolist()
+        ref_2008 = subset_by_provider['2008.1'].tolist()
         ref_by_year.append(ref_2008[0])
-        ref_2009 = subset_by_provider.ref_2009.tolist()
+        ref_2009 = subset_by_provider['2009.1'].tolist()
         ref_by_year.append(ref_2009[0])
-        ref_2010 = subset_by_provider.ref_2010.tolist()
+        ref_2010 = subset_by_provider['2010.1'].tolist()
         ref_by_year.append(ref_2010[0])
-        ref_2011 = subset_by_provider.ref_2011.tolist()
+        ref_2011 = subset_by_provider['2011.1'].tolist()
         ref_by_year.append(ref_2011[0])
-        ref_2012 = subset_by_provider.ref_2012.tolist()
+        ref_2012 = subset_by_provider['2012.1'].tolist()
         ref_by_year.append(ref_2012[0])
-        ref_2013 = subset_by_provider.ref_2013.tolist()
+        ref_2013 = subset_by_provider['2013.1'].tolist()
         ref_by_year.append(ref_2013[0])
-        ref_2014 = subset_by_provider.ref_2014.tolist()
+        ref_2014 = subset_by_provider['2014.1'].tolist()
         ref_by_year.append(ref_2014[0])
-        ref_2015 = subset_by_provider.ref_2015.tolist()
+        ref_2015 = subset_by_provider['2015.1'].tolist()
         ref_by_year.append(ref_2015[0])
-        ref_2016 = subset_by_provider.ref_2016.tolist()
+        ref_2016 = subset_by_provider['2016.1'].tolist()
         ref_by_year.append(ref_2016[0])
-        ref_2017 = subset_by_provider.ref_2017.tolist()
+        ref_2017 = subset_by_provider['2017.1'].tolist()
         ref_by_year.append(ref_2017[0])
         
         ref_by_provider.append(ref_by_year)
@@ -260,14 +259,13 @@ def references_over_time():
     plt.savefig('test.jpg', bbox_inches='tight')      #saves image in working directory
 
 
-
 def big5_percent_jr5_of_jr1():
     """A measurement of currency. Compares JR5 downloads to JR1 downloads for each of the big 5 providers.
     JR5 downloads are 2017 articles downloaded in 2017.
     JR1 downloads are all years articles downloaded in 2017.
     We want to see what % of current articles people are downloading."""
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley']
     
@@ -281,13 +279,11 @@ def big5_percent_jr5_of_jr1():
         
         for i in journals_data:
             if i[0] == provider_name:
-                jr1_total = i[2]
-                jr5_total = i[3]
+                jr1_total = i[4]
+                jr5_total = i[5]
                 ratio = jr5_total/jr1_total
                 percent_jr5_of_jr1.append(ratio)
-                
-    print(percent_jr5_of_jr1)
-                
+                                
     mpl.rcParams['ytick.major.width'] = 1
     mpl.rcParams['xtick.major.width'] = 1
     plt.figure(num=None, figsize=(8,8))
@@ -320,7 +316,7 @@ def jr1_big5_jr80_jr90_jr95_stacked_bar():
     
 #    TODO: ADD LABELS TO PLOT
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
 
 
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley'] 
@@ -340,10 +336,10 @@ def jr1_big5_jr80_jr90_jr95_stacked_bar():
         total_jr1_downloads = 0
         total_journals = 0                         
         for i in journals_data:
-            total_jr1_downloads += i[2]
+            total_jr1_downloads += i[4]
             total_journals += 1
             
-        jr1_tuples = [(i[0], i[2]) for i in journals_data]
+        jr1_tuples = [(i[0], i[4]) for i in journals_data]
         jr1_tuples_sorted = sorted(jr1_tuples, key = lambda i: i[1], reverse=True)      #sorts on second element of jr1_tuples
 
         jr80_running_tally = 0
@@ -383,7 +379,6 @@ def jr1_big5_jr80_jr90_jr95_stacked_bar():
         total_score = (1- (jr80_score+jr90_score+jr95_score))
 
         stats_by_provider.append((provider_name, jr80_score, jr90_score, jr95_score, total_score))
-
 
     #make plot
     plt.figure(num=None, figsize=(10, 10))
@@ -425,7 +420,7 @@ def jr5_big5_jr80_jr90_jr95_stacked_bar():
 #    TODO: ADD LABELS TO PLOT
 
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
 
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley'] 
 
@@ -444,10 +439,10 @@ def jr5_big5_jr80_jr90_jr95_stacked_bar():
         total_jr5_downloads = 0
         total_journals = 0                         
         for i in journals_data:
-            total_jr5_downloads += i[3]
+            total_jr5_downloads += i[5]
             total_journals += 1
             
-        jr5_tuples = [(i[0], i[3]) for i in journals_data]
+        jr5_tuples = [(i[0], i[5]) for i in journals_data]
         jr5_tuples_sorted = sorted(jr5_tuples, key = lambda i: i[1], reverse=True)     #sorts on second element of jr1_tuples
         
         jr80_running_tally = 0
@@ -532,7 +527,7 @@ def references_big5_jr80_jr90_jr95_stacked_bar():
 #    TODO: ADD LABELS TO PLOT
 
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)           
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
 
 
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley'] 
@@ -552,10 +547,10 @@ def references_big5_jr80_jr90_jr95_stacked_bar():
         total_references = 0
         total_journals = 0                         
         for i in journals_data:
-            total_references += i[4]
+            total_references += i[6]
             total_journals += 1
             
-        reference_tuples = [(i[0], i[4]) for i in journals_data]
+        reference_tuples = [(i[0], i[6]) for i in journals_data]
         reference_tuples_sorted = sorted(reference_tuples, key = lambda i: i[1], reverse=True)     #sorts on second element of jr1_tuples
         
         jr80_running_tally = 0
@@ -639,7 +634,7 @@ def papers_big5_jr80_jr90_jr95_stacked_bar():
 #    TODO: ADD LABELS TO PLOT
 
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)           
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
 
 
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley'] 
@@ -659,10 +654,10 @@ def papers_big5_jr80_jr90_jr95_stacked_bar():
         total_papers = 0
         total_journals = 0                         
         for i in journals_data:
-            total_papers += i[5]
+            total_papers += i[7]
             total_journals += 1
             
-        paper_tuples = [(i[0], i[5]) for i in journals_data]
+        paper_tuples = [(i[0], i[7]) for i in journals_data]
         paper_tuples_sorted = sorted(paper_tuples, key = lambda i: i[1], reverse=True)      #sorts on second element of jr1_tuples
         
         jr80_running_tally = 0
@@ -736,80 +731,77 @@ def papers_big5_jr80_jr90_jr95_stacked_bar():
     plt.savefig('test.jpg', bbox_inches='tight')      #saves image in working directory
 
 
-#need to avoid hard coded list and populate list of providers dynamically
-def total_references_per_year():
-    """Total references by provider by year, referencing Scopus data.
-    Looks at columns under 'References to journal/provider by your institution's authors (as measured in Scopus)
-    References are defined as: Number of References made by researchers of your institution to an article from a given journal"""
-    
+##need to avoid hard coded list and populate list of providers dynamically
+#def total_references_per_year():
+#    """Total references by provider by year, referencing Scopus data.
+#    Looks at columns under 'References to journal/provider by your institution's authors (as measured in Scopus)
+#    References are defined as: Number of References made by researchers of your institution to an article from a given journal"""
+#    
+#
+#    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+#    
+#    providers = ['Wiley', 'U Chicago Press', 'Taylor & Francis', 'Springer', 'Sage', 'SPIE', 'Royal Society of Chemistry', 'Project MUSE',
+#                 'ProQuest', 'Oxford UP', 'Ovid', 'Modern Language Association', 'MIT Press', 'Karger', 'JSTOR', 'IOPscience', 'IEEE', 'Gale',
+#                 'Emerald', 'Elsevier', 'Ebsco', 'DeGruyter', 'Cambridge UP', 'Brill', 'BioOne', 'Association for Computing Machinery', 'Annual Reviews',
+#                 'American Society of Mechanical Engineers', 'American Society of Civil Engineers', 'American Physical Society', 'American Mathematical Society',
+#                 'American Institute of Aeronautics and Astronautics', 'American Chemical Society', 'AIP']
+#                 
+#    sum_2008 = 0
+#    sum_2009 = 0
+#    sum_2010 = 0
+#    sum_2011 = 0
+#    sum_2012 = 0
+#    sum_2013 = 0
+#    sum_2014 = 0
+#    sum_2015 = 0
+#    sum_2016 = 0
+#    sum_2017 = 0
+#    
+#    for provider_name in providers:
+#        
+#        subset_by_provider = data.loc[data['Provider'] == provider_name]
+#    
+#        ref_2008 = subset_by_provider.ref_2008.tolist()
+#        sum_2008 += ref_2008[0]
+#        ref_2009 = subset_by_provider.ref_2009.tolist()
+#        sum_2009 += ref_2009[0]
+#        ref_2010 = subset_by_provider.ref_2010.tolist()
+#        sum_2010 += ref_2010[0]
+#        ref_2011 = subset_by_provider.ref_2011.tolist()
+#        sum_2011 += ref_2011[0]
+#        ref_2012 = subset_by_provider.ref_2012.tolist()
+#        sum_2012 += ref_2012[0]
+#        ref_2013 = subset_by_provider.ref_2013.tolist()
+#        sum_2013 += ref_2013[0]
+#        ref_2014 = subset_by_provider.ref_2014.tolist()
+#        sum_2014 += ref_2014[0]
+#        ref_2015 = subset_by_provider.ref_2015.tolist()
+#        sum_2015 += ref_2015[0]
+#        ref_2016 = subset_by_provider.ref_2016.tolist()
+#        sum_2016 += ref_2016[0]
+#        ref_2017 = subset_by_provider.ref_2017.tolist()
+#        sum_2017 += ref_2017[0]
+#        
+#    totals_by_year = list((sum_2008, sum_2009, sum_2010, sum_2011, sum_2012, sum_2013, sum_2014, sum_2015, sum_2016, sum_2017))
+#    
+#    years = ['2008','2009','2010','2011','2012','2013','2014','2015','2016','2017']
+#
+#    plt.figure(num=None, figsize=(10,10))
+#    plt.suptitle(f'Number of References Made by {your_institution} Researchers  \n (across all providers)')
+#    plt.xlabel('Year')
+#    plt.ylabel('Number References')
+#    plt.ylim(0, 120000)
+#
+#    plt.plot(years, totals_by_year)
+#
+##    plt.show()    
+#    plt.savefig('test.jpg', bbox_inches='tight')      #saves image in working directory
 
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
-    
-    providers = ['Wiley', 'U Chicago Press', 'Taylor & Francis', 'Springer', 'Sage', 'SPIE', 'Royal Society of Chemistry', 'Project MUSE',
-                 'ProQuest', 'Oxford UP', 'Ovid', 'Modern Language Association', 'MIT Press', 'Karger', 'JSTOR', 'IOPscience', 'IEEE', 'Gale',
-                 'Emerald', 'Elsevier', 'Ebsco', 'DeGruyter', 'Cambridge UP', 'Brill', 'BioOne', 'Association for Computing Machinery', 'Annual Reviews',
-                 'American Society of Mechanical Engineers', 'American Society of Civil Engineers', 'American Physical Society', 'American Mathematical Society',
-                 'American Institute of Aeronautics and Astronautics', 'American Chemical Society', 'AIP']
-                 
-    sum_2008 = 0
-    sum_2009 = 0
-    sum_2010 = 0
-    sum_2011 = 0
-    sum_2012 = 0
-    sum_2013 = 0
-    sum_2014 = 0
-    sum_2015 = 0
-    sum_2016 = 0
-    sum_2017 = 0
-    
-    for provider_name in providers:
-        
-        subset_by_provider = data.loc[data['Provider'] == provider_name]
-    
-        ref_2008 = subset_by_provider.ref_2008.tolist()
-        sum_2008 += ref_2008[0]
-        ref_2009 = subset_by_provider.ref_2009.tolist()
-        sum_2009 += ref_2009[0]
-        ref_2010 = subset_by_provider.ref_2010.tolist()
-        sum_2010 += ref_2010[0]
-        ref_2011 = subset_by_provider.ref_2011.tolist()
-        sum_2011 += ref_2011[0]
-        ref_2012 = subset_by_provider.ref_2012.tolist()
-        sum_2012 += ref_2012[0]
-        ref_2013 = subset_by_provider.ref_2013.tolist()
-        sum_2013 += ref_2013[0]
-        ref_2014 = subset_by_provider.ref_2014.tolist()
-        sum_2014 += ref_2014[0]
-        ref_2015 = subset_by_provider.ref_2015.tolist()
-        sum_2015 += ref_2015[0]
-        ref_2016 = subset_by_provider.ref_2016.tolist()
-        sum_2016 += ref_2016[0]
-        ref_2017 = subset_by_provider.ref_2017.tolist()
-        sum_2017 += ref_2017[0]
-        
-    totals_by_year = list((sum_2008, sum_2009, sum_2010, sum_2011, sum_2012, sum_2013, sum_2014, sum_2015, sum_2016, sum_2017))
-    
-    years = ['2008','2009','2010','2011','2012','2013','2014','2015','2016','2017']
-
-    plt.figure(num=None, figsize=(10,10))
-    plt.suptitle(f'Number of References Made by {your_institution} Researchers  \n (across all providers)')
-    plt.xlabel('Year')
-    plt.ylabel('Number References')
-    plt.ylim(0, 120000)
-
-    plt.plot(years, totals_by_year)
-
-#    plt.show()    
-    plt.savefig('test.jpg', bbox_inches='tight')      #saves image in working directory
-
-
-###################################################################################
-#JR1 functions. Chart sizing and labeling needs to be dynamic
 
 def jr1_by_field_by_provider(provider_name):
     """Charts JR1 downloads by field for chosen provider. User inputs provider name and dynamically generates chart for that provider"""
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
     subset_by_provider = data.loc[data['Provider'] == provider_name]
     
@@ -837,7 +829,8 @@ def jr1_by_field_by_provider(provider_name):
 
 def jr1_percent_field_by_provider(provider_name):
     """Charts % of JR1 downloads by field for a given provider"""
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
     subset_by_provider = data.loc[data['Provider'] == provider_name]
     
@@ -865,8 +858,8 @@ def jr1_percent_field_by_provider(provider_name):
     plt.grid()
     plt.show() 
 
-  
 
+#change manual red colors in legend 
 def jr1_jr80_value():
     """Produces 'JR80' value by provider for JR1 downloads and charts each provider and its corresponding JR80 value.
     JR80 is defined as: "Journals representing 80% of downloads for their respective provider"
@@ -878,7 +871,7 @@ def jr1_jr80_value():
         - Calculates JR80 score as number of journals required to reach 80% / total journals by provider
         - Charts JR80 score of all providers, with Big 5 in red"""
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
 
     providers = data.groupby(['Provider'], as_index=False).sum().values.tolist()
     
@@ -897,10 +890,10 @@ def jr1_jr80_value():
         total_jr1_downloads = 0
         total_journals = 0                         
         for i in journals_data:
-            total_jr1_downloads += i[2]
+            total_jr1_downloads += i[4]
             total_journals += 1
 
-        jr1_tuples = [(i[0], i[2]) for i in journals_data]
+        jr1_tuples = [(i[0], i[4]) for i in journals_data]
         jr1_tuples_sorted = sorted(jr1_tuples, key = lambda i: i[1], reverse=True)       #sorts on second element of jr1_tuples
 
         running_tally = 0
@@ -943,7 +936,6 @@ def jr1_jr80_value():
     plt.show() 
 
 
-
 def jr1_not_jr80_value():
     """Produces 'Not-JR80' value by provider for JR1 downloads and charts each provider and its corresponding Not-JR80 value.
     This is the inverse of the JR80 value.
@@ -958,7 +950,7 @@ def jr1_not_jr80_value():
         - Then takes 1 - this number to get the not_jr80 score. 
         - Charts not-JR80 score of all providers, with Big 5 in red"""
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
 
     providers = data.groupby(['Provider'], as_index=False).sum().values.tolist()
     
@@ -977,10 +969,10 @@ def jr1_not_jr80_value():
         total_jr1_downloads = 0
         total_journals = 0                         
         for i in journals_data:
-            total_jr1_downloads += i[2]
+            total_jr1_downloads += i[4]
             total_journals += 1
 
-        jr1_tuples = [(i[0], i[2]) for i in journals_data]
+        jr1_tuples = [(i[0], i[4]) for i in journals_data]
         jr1_tuples_sorted = sorted(jr1_tuples, key = lambda i: i[1], reverse=True)       #sorts on second element of jr1_tuples
 
         running_tally = 0
@@ -1021,7 +1013,6 @@ def jr1_not_jr80_value():
     plt.show() 
 
 
-
 def jr1_jr80_big5_downloads():
     """Produces 'JR80' value by provider for JR1 downloads and charts each provider and its corresponding JR80 value.
     Only for Big 5 providers.
@@ -1034,7 +1025,7 @@ def jr1_jr80_big5_downloads():
         - Calculates JR80 score as number of journals required to reach 80% / total journals by provider
         - Charts JR80 score of all providers, with Big 5 in red"""
 
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
 
     big5 = ['Elsevier', 'Taylor & Francis', 'Sage', 'Springer', 'Wiley']
     
@@ -1052,10 +1043,10 @@ def jr1_jr80_big5_downloads():
         total_jr1_downloads = 0
         total_journals = 0                         
         for i in journals_data:
-            total_jr1_downloads += i[2]
+            total_jr1_downloads += i[4]
             total_journals += 1
 
-        jr1_tuples = [(i[0], i[2]) for i in journals_data]
+        jr1_tuples = [(i[0], i[4]) for i in journals_data]
         jr1_tuples_sorted = sorted(jr1_tuples, key = lambda i: i[1], reverse=True)       #sorts on second element of jr1_tuples
 
         running_tally = 0
@@ -1093,12 +1084,11 @@ def jr1_jr80_big5_downloads():
                  va='center')
 
 
-
 def jr1_jr80_big5_citations():
     """Gets number of citations for each of the big 5 providers.
     Citations are measured as publications that have cited an article authored by someone affiliated with your institution"""
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
     big5 = ['Elsevier', 'Taylor & Francis', 'Sage', 'Springer', 'Wiley']    
 
@@ -1111,7 +1101,7 @@ def jr1_jr80_big5_citations():
         journals_data = subset_by_provider.groupby('Journal', as_index=False).sum().values.tolist()
         for i in journals_data:
             if i[0] == provider_name:
-                total_references = i[4]
+                total_references = i[6]
                 references_by_provider.append(total_references)
                 
     mpl.rcParams['ytick.major.width'] = 1
@@ -1130,13 +1120,12 @@ def jr1_jr80_big5_citations():
                  va='center')
 
 
-
 def jr1_jr80_big5_publications():
     """Gets number of papers/publications for each of big 5 providers.
     Publications are measured as papers with at least one author from your institution"""
     
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
     big5 = ['Elsevier', 'Taylor & Francis', 'Sage', 'Springer', 'Wiley']    
 #    big5 = ['AIP', 'American Chemical Society']
@@ -1149,7 +1138,7 @@ def jr1_jr80_big5_publications():
         journals_data = subset_by_provider.groupby('Journal', as_index=False).sum().values.tolist()
         for i in journals_data:
             if i[0] == provider_name:
-                total_publications = i[5]
+                total_publications = i[7]
                 publications_by_provider.append(total_publications)
                 
     mpl.rcParams['ytick.major.width'] = 1
@@ -1166,13 +1155,13 @@ def jr1_jr80_big5_publications():
                  score,
                  ha='center',
                  va='center')
-
+        
 
 
 def jr1_big5_by_field(field_choice):
     """Looks at jr1 downloads by field for the big 5 providers. Charts % use by field for each of the big 5 providers"""
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
 
     big5 = ['Elsevier', 'Taylor & Francis', 'Sage', 'Springer', 'Wiley']
 
@@ -1183,7 +1172,7 @@ def jr1_big5_by_field(field_choice):
         provider_list = provider_subset.groupby(['Provider', 'Field'], as_index=False).sum().values.tolist()
         for i in provider_list:
             if i[1] == field_choice:
-                big5_data.append((i[0], i[1], i[3]))
+                big5_data.append((i[0], i[3], i[5]))
     print(big5_data)
             
 
@@ -1198,18 +1187,14 @@ def jr1_big5_by_field(field_choice):
     plt.grid()
     plt.show() 
         
-  
-     
-#########################################################        
-#JR5 functions
 
 def jr5_by_field_by_provider(provider_name):
     """Charts JR5 downloads by field for chosen provider. User inputs provider name and dynamically generates chart for that provider"""
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
     subset_by_provider = data.loc[data['Provider'] == provider_name]
-#    
+    
     fields_data = subset_by_provider.groupby(['Field'], as_index=False).sum().values.tolist()
     fields = []
  
@@ -1228,14 +1213,13 @@ def jr5_by_field_by_provider(provider_name):
     plt.suptitle(f'JR5 Downloads by field for Provider: {provider_name}')
     plt.barh(fields, sums_by_field, height=.8, color='green')
     plt.grid()
-    plt.show() 
-
-
+    plt.show()  
     
+
 def jr5_percent_field_by_provider(provider_name):
     """Charts % of JR5 downloads by field for a given provider. This is in lieu of a stacked bar graph"""
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
     subset_by_provider = data.loc[data['Provider'] == provider_name]
     
@@ -1261,14 +1245,13 @@ def jr5_percent_field_by_provider(provider_name):
     plt.suptitle(f'Percent of total JR5 downloads by field for: {provider_name}')
     plt.barh(fields, percent_by_field, height=.8, color='green')
     plt.grid()
-    plt.show()     
+    plt.show()  
+    
 
-    
-    
 def jr5_big5_by_field(field_choice):
     """Looks at jr5 downloads by field for the big 5 providers. Charts % use by field for each of the big 5 providers"""
 
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
 
     big5 = ['Elsevier', 'Taylor & Francis', 'Sage', 'Springer', 'Wiley']
     big5_data = []
@@ -1278,7 +1261,7 @@ def jr5_big5_by_field(field_choice):
         provider_list = provider_subset.groupby(['Provider', 'Field'], as_index=False).sum().values.tolist()
         for i in provider_list:
             if i[1] == field_choice:
-                big5_data.append((i[0], i[1], i[4]))
+                big5_data.append((i[0], i[3], i[6]))
 
     big5_packages = [x[0] for x in big5_data]
     big5_total_by_field = [x[2] for x in big5_data]
@@ -1289,18 +1272,14 @@ def jr5_big5_by_field(field_choice):
     plt.suptitle(f'Big 5 Providers, JR5 downloads by field: {field_choice}')
     plt.barh(big5_packages, big5_total_by_field, height=.8, color='green')
     plt.grid()
-    plt.show()
+    plt.show() 
     
-
-
-###########################################################
-#other functions. Chart sizing and labeling needs to be dynamic
 
 def journals_by_domain():
-    """Counting occurrences of downloads in each domain from JournalsPerPackage.csv
+    """Counting occurrences of downloads in each domain from all providers.
     This is using the domain column."""
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
     domains_list = data.Domain.tolist()
 
@@ -1317,13 +1296,11 @@ def journals_by_domain():
     plt.grid()
     plt.show()
     
-
-    
     
 def journals_by_field():
     """Counting occurrences of downloads in each field from JournalsPerPackage.csv"""
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
     fields_list = data.Field.tolist()
 
@@ -1339,14 +1316,13 @@ def journals_by_field():
     plt.barh(fields, counts, height=.8, color='green')
     plt.grid()
     plt.show()
-
-
+    
 
 def journals_by_field_big5():
     """Counting occurences of downloads in each field from Journals Per Package.csv
     from the big5 publishers. Big 5 are: Elsevier, Wiley, Springer, Sage, Taylor & Francis"""
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
     providers_list = data.Provider.tolist()
     fields_list = data.Field.tolist()
@@ -1374,14 +1350,13 @@ def journals_by_field_big5():
     plt.barh(fields, counts, height=.8, color='green')
     plt.grid()
     plt.show() 
-
-
+    
 
 def journals_by_field_other_providers():
     """Counting occurences of downloads in each field from Journals Per Package.csv
-    from all other publishers besides big 5. Big 5 are: Elsevier, Wiley, Springer, Sage, Taylor & Francis"""
+    from all other prublishers besides big 5. Big 5 are: Elsevier, Wiley, Springer, Sage, Taylor & Francis"""
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
     providers_list = data.Provider.tolist()
     fields_list = data.Field.tolist()
@@ -1408,15 +1383,14 @@ def journals_by_field_other_providers():
     plt.suptitle('Journals by Field (Not Big5 Providers)')
     plt.barh(fields, counts, height=.8, color='green')
     plt.grid()
-    plt.show() 
-
-
+    plt.show()
     
+
 def references_by_field_by_provider(provider_name):
     """Charts references by field for chosen provider. User inputs provider name and dynamically generates chart for that provider.
     References are defined as: 'Number of references made by researchers of your institution to an article from a given journal.' """
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
     subset_by_provider = data.loc[data['Provider'] == provider_name]
     
@@ -1439,13 +1413,13 @@ def references_by_field_by_provider(provider_name):
     plt.barh(fields, sums_by_field, height=.8, color='green')
     plt.grid()
     plt.show() 
-    
+
 
 def publications_by_field_by_provider(provider_name):
     """Charts publications by field for chosen provider. User inputs provider name and dynamically generates chart for that provider.
     Papers are defined as: 'Number of documents published in peer-reviewed journals indexed in Scopus and for which at least one author was affiliated to your institution.'"""
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
     subset_by_provider = data.loc[data['Provider'] == provider_name]
     
@@ -1468,11 +1442,5 @@ def publications_by_field_by_provider(provider_name):
     plt.barh(fields, sums_by_field, height=.8, color='green')
     plt.grid()
     plt.show()
-
-
-
-
-
-
 
 
