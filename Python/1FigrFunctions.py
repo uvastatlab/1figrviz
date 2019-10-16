@@ -11,7 +11,9 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.ticker import StrMethodFormatter
 import matplotlib.patches as mpatches
+import numpy as np
 from operator import itemgetter
+
 
 
 your_institution = 'UVA'   #Replace this string with your institution's preferred name. This is an example
@@ -286,8 +288,6 @@ def big5_percent_jr5_of_jr1():
                 ratio = jr5_total/jr1_total
                 percent_jr5_of_jr1.append(ratio)
                 
-    print(percent_jr5_of_jr1)
-                
     mpl.rcParams['ytick.major.width'] = 1
     mpl.rcParams['xtick.major.width'] = 1
     plt.figure(num=None, figsize=(8,8))
@@ -298,11 +298,10 @@ def big5_percent_jr5_of_jr1():
 
     plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.0%}'))    #formats y axis as %
 
-    
     for i in plot:
         score = i.get_height()
         
-        plt.text(i.get_x() + i.get_width()/2., 
+        plt.text(i.get_x() + i.get_width()/2, 
                  1.05 * score, 
                  '{:.1%}'.format(score),
                  ha='center',
@@ -345,6 +344,7 @@ def jr1_big5_jr80_jr90_jr95_stacked_bar():
             
         jr1_tuples = [(i[0], i[2]) for i in journals_data]
         jr1_tuples_sorted = sorted(jr1_tuples, key = lambda i: i[1], reverse=True)      #sorts on second element of jr1_tuples
+        print(jr1_tuples_sorted)
 
         jr80_running_tally = 0
         jr90_running_tally = 0
@@ -416,6 +416,60 @@ def jr1_big5_jr80_jr90_jr95_stacked_bar():
     plt.savefig('test.jpg', bbox_inches='tight')      #saves image in working directory
 
 
+def jr1_big5_jr80_journals_by_field(provider_name):
+    """Creates stacked bar showing occurrences of fields for jr80 journals by provider.
+    JR80 journals are defined as journals which make up 80% of JR1 downloads"""
+        
+    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+
+    subset_by_provider = data.loc[data['Provider'] == provider_name]
+    journals_data = subset_by_provider.groupby('Journal', as_index=False).sum().values.tolist()
+
+    for i in journals_data:
+        if i[0] == provider_name:
+            journals_data.remove(i)                 #removing aggregator column data
+        
+    total_jr1_downloads = 0
+    total_journals = 0                         
+    for i in journals_data:
+        total_jr1_downloads += i[2]
+        total_journals += 1
+            
+    jr1_tuples = [(i[0], i[2]) for i in journals_data]
+    jr1_tuples_sorted = sorted(jr1_tuples, key = lambda i: i[1], reverse=True)      #sorts on second element of jr1_tuples
+
+    jr80_running_tally = 0
+    jr80_highly_used_journals = []           #THIS HOLDS (JOURNAL NAME, JR1_DOWNLOADS). This is what we use to later get the distribution of fields, for the highly used journals
+
+    
+    for i in jr1_tuples_sorted:
+        if jr80_running_tally < (total_jr1_downloads * 0.8):
+            jr80_highly_used_journals.append(i)
+            jr80_running_tally += i[1]              #adds the # of jr1 downloads to the running tally. Used to see if tally is < 80% of total downloads
+    
+    highly_used_journals_list = [i[0] for i in jr80_highly_used_journals] #taking just the journal name from jr80_highly_used_journals
+    
+    fields_list = []
+
+    for journal_name in highly_used_journals_list:
+        journal_subset = data.loc[data['Journal'] == journal_name]
+        fields_list.append(journal_subset.iloc[0]['Field'])   #appends the field column value for each journal
+    
+    field_occurrence = pd.Series(fields_list).value_counts().reset_index().values.tolist()
+    
+    fields = [x[0] for x in field_occurrence]
+    counts = [x[1] for x in field_occurrence]
+
+    #make plot
+    mpl.rcParams['ytick.major.width'] = 1
+    mpl.rcParams['xtick.major.width'] = 1
+    plt.figure(num=None, figsize=(8,8))
+    plt.suptitle(f'Occurrences of fields in JR80 Journals (highly used journals) for provider: {provider_name}')
+    plt.barh(fields, counts, height=.8, color='green')
+#    plt.show()
+
+
+jr1_big5_jr80_journals_by_field('Wiley')
 
 def jr5_big5_jr80_jr90_jr95_stacked_bar():
     """Creates stacked bar plot showing jr80, jr90, jr95 score for big 5 providers.
@@ -1085,9 +1139,10 @@ def jr1_jr80_big5_downloads():
     for i in plot:
         score = i.get_width()
         score = round(score, 4)
+        height = i.get_y()
         
-        plt.text(i.get_width() - .02, 
-                 i.get_y() + .35,
+        plt.text(score / 2,                #sets x axis position of labels
+                 height + .35,
                  '{:.2%}'.format(score),   #formats score as percentage
                  ha='center',
                  va='center')
@@ -1122,13 +1177,13 @@ def jr1_jr80_big5_citations():
     
     for i in plot:
         score = i.get_width()
+        height = i.get_y()  
         
-        plt.text(i.get_width() - 5500,          #sets x axis position of labels
-                 i.get_y() + .35,
+        plt.text(score / 2,          #sets x axis position of labels
+                 height + .35,
                  score,
                  ha='center',
                  va='center')
-
 
 
 def jr1_jr80_big5_publications():
@@ -1161,7 +1216,7 @@ def jr1_jr80_big5_publications():
     for i in plot:
         score = i.get_width()
         
-        plt.text(i.get_width() - 275,           #sets x axis position of labels
+        plt.text(score / 2,           #sets x axis position of labels
                  i.get_y() + .35,
                  score,
                  ha='center',
