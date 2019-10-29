@@ -460,7 +460,7 @@ def jr1_big5_jr80_journals_by_field(provider_name):
     plt.barh(fields, counts, height=.8, color='green')
 #    plt.show()
     
-
+jr1_big5_jr80_journals_by_field('Elsevier')
 
 def jr5_big5_jr80_journals_by_field(provider_name):
     """Creates stacked bar showing occurrences of fields for jr80 journals by provider.
