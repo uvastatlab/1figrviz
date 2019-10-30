@@ -460,7 +460,7 @@ def jr1_big5_jr80_journals_by_field(provider_name):
     plt.barh(fields, counts, height=.8, color='green')
 #    plt.show()
     
-jr1_big5_jr80_journals_by_field('Elsevier')
+
 
 def jr5_big5_jr80_journals_by_field(provider_name):
     """Creates stacked bar showing occurrences of fields for jr80 journals by provider.
@@ -1548,3 +1548,82 @@ def publications_by_field_by_provider(provider_name):
     plt.show()
 
 
+
+def freedom_collection_test_for_matches():
+    """Tests to see if ISSN numbers of freedom collection titles match with ISSN numbers of Elsevier titles in 1 Figr Original dataset"""
+    
+    
+    data = pd.read_csv('/Users/ep9k/Desktop/UVA Big Deal/ElsevierJournalList2019.csv')
+    data2 = pd.read_csv('/Users/ep9k/Desktop/UVA Big Deal/JournalsPerProvider.csv', skiprows=8)
+    
+    freedom_collection_issns = data['ISSN'].tolist()
+    print("Total number of journals:" , len(freedom_collection_issns))   
+    
+    provider_name = 'Elsevier'
+    subset_by_provider = data2.loc[data2['Provider'] == provider_name]
+    
+    first_set_issn = []
+    second_set_issn = []
+    third_set_issn = []
+    
+    elsevier_issn = subset_by_provider['ISSN/eISSN'].tolist()
+    for issn_number in elsevier_issn:
+        if type(issn_number) == str:
+            first_set_issn.append(issn_number[:9])
+            second_set_issn.append(issn_number[13:22])
+            third_set_issn.append(issn_number[26:35])
+
+    matches = []
+    no_matches = []
+    
+    for issn_number in freedom_collection_issns:
+        if issn_number in first_set_issn:
+            matches.append(issn_number)
+        elif issn_number in second_set_issn:
+            matches.append(issn_number)
+        elif issn_number in third_set_issn:
+            matches.append(issn_number)
+        else:
+            no_matches.append(issn_number)
+            
+    print("Total matches :", len(matches))
+    print("Total not matches:", len(no_matches))
+    
+
+#freedom_collection_test_for_matches()
+
+def make_non_freedom_collection_provider():
+    pass
+
+def make_freedom_collection_provider():
+    
+    subscribed_titles = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019.xlsx', sheet_name='Subscribed Journal List 2019')
+    original_dataset = pd.read_csv('/Users/ep9k/Desktop/UVA Big Deal/JournalsPerProvider.csv', skiprows=8)
+    
+    
+    #####START WITH THIS#####
+    df = pd.DataFrame({'A' : ['0039-9140 || 1873-3573', '2', '3', '8', '4']})
+    list1 = ['0039-9140']
+#    new_df=df[df.A.str.split('-',expand=True).isin(['2','3']).any(1)].copy()
+    new_df = df[df['A'].str.split(expand=True).isin(list1).any(1)]
+    print(new_df)
+    
+    
+    
+    df2 = pd.DataFrame({'ISSN/eISSN' : ['1028-4559 || 1875-6263', '0039-9140 || 1873-3573']})
+    list2 = ['1028-4559']
+    
+#    test = df['ISSN/eISSN'].str.split().isin(list2)
+#    print(test)
+    
+    
+
+            
+
+
+
+make_freedom_collection_provider()
+
+
+    
+    
