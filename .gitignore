@@ -4,3 +4,6 @@
 .Ruserdata
 *.Rproj
 1science/
+*.rds
+*.xlsx
+*.csv
