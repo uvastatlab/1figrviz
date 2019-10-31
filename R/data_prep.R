@@ -44,8 +44,39 @@ journal <- journal %>%
          synth:jr12018,jr12015_2018,jid, journalname)
 
 # add Elsevier "freedom" indicator to journal
-freedom_row_nums <- readRDS(file = "1science/freedom_row_nums.Rds")
-journal$freedom <- 0
-journal$freedom[freedom_row_nums] <- 1
+
+################################################################################
+# If not affiliated with the Univ of Virginia, comment out the following lines;
+################################################################################
+
+# “Freedom Collection” titles are NOT in this data
+elsevier_subscribed <- read_excel("1science/Elsevier_2019.xlsx", sheet = 5)
+elsevier_subscribed <- elsevier_subscribed %>% filter(!is.na(ISSN))
+
+# all 1figr Elsevier journals
+elsevier_all_1figr <- journal %>% filter(provider == "Elsevier" & !is.na(issn))
+
+# split ISSN by ||, for Elsevier journals
+journal_issn <- str_split(elsevier_all_1figr$issn, pattern = "\\|\\|") %>% map(str_trim)
+
+# find journal_issn ISSN not in elsevier_subscribed;
+# all NA means not in elsevier_subscribed, therefore part of "freedom collection"
+lst.out <- sapply(journal_issn, function(x)all(is.na(match(x, elsevier_subscribed$ISSN))))
+
+# add freedom indicator
+elsevier_all_1figr$freedom <- lst.out
+
+# merge freedom indicator back into data
+journal <- elsevier_all_1figr %>% select(issn, freedom) %>% left_join(journal, ., by = "issn")
+
+# create second provider column that distinguishes between elsevier subscribed
+# and freedom
+journal$provider2 <- journal$provider
+journal$provider2 <- if_else(journal$freedom, "Elsevier Freedom", "Elsevier Subscribed", journal$provider2)
+journal <- journal %>% select(sort, journal, issn, provider, provider2, everything())
+
+################################################################################
+# End Univ of Virginia specific work
+################################################################################
 
 saveRDS(journal, file = "1science/journal.rds")
