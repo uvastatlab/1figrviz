@@ -67,7 +67,7 @@ lst.out <- sapply(journal_issn, function(x)all(is.na(match(x, elsevier_subscribe
 elsevier_all_1figr$freedom <- lst.out
 
 # merge freedom indicator back into data
-journal <- elsevier_all_1figr %>% select(issn, freedom) %>% left_join(journal, ., by = "issn")
+journal <- elsevier_all_1figr %>% select(issn, provider, freedom) %>% left_join(journal, ., by = c("issn", "provider"))
 
 # create second provider column that distinguishes between elsevier subscribed
 # and freedom
