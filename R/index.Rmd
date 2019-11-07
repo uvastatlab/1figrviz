@@ -7,7 +7,7 @@ output: html_document
 
 ## Visualizations to date
 
-1. [Figure 1](figure1.html): High Use Journals in Big 5 Providers
+### [Figure 1](figure1.html): High Use Journals in Big 5 Providers
    * 1a. High-use Journals by All Article Downloads
    * 1b. High-use Journals by Current Year Article Downloads
    * 1c. High-use Journals by References from UVA Authors
@@ -18,19 +18,19 @@ output: html_document
    * 1g. High-use Journals by References from UVA Authors
    * 1h. High-use Journals by UVA-Authored Publications    
   
-2. [Figure 2](figure2.html): Rate of Current Year Downloads in Big 5 Providers
+### [Figure 2](figure2.html): Rate of Current Year Downloads in Big 5 Providers
    * 2a. Current Year Downloads as Percent of All 2017 Downloads    
    **Elsevier Freedom versus Elsevier Subscribed**
    * 2b. Current Year Downloads as Percent of All 2017 Downloads
    
-3. [Figure 3](figure3.html): Cost per Download for Big 5 Providers
+### [Figure 3](figure3.html): Cost per Download for Big 5 Providers
    * 3a. Cost per Download, all 2017 downloads
    * 3b. Cost per Download, current year 2017 downloads    
    **Elsevier Freedom versus Elsevier Subscribed**
    * 3c. Cost per Download, all 2017 downloads
    * 3d. Cost per Download, current year 2017 downloads    
 
-4. [Figures 4,5,6](figure4to6.html): References, Publications, OA-Available Articles in Big 5 Providers over Time
+### [Figures 4,5,6](figure4to6.html): References, Publications, OA-Available Articles in Big 5 Providers over Time
    * 4a. UVA References in Big 5 Provider Journals over Time
    * 4b. UVA References in Big 5 Provider Journals over Time (**Elsevier Freedom versus Subscribed**)
    * 5a. UVA Publications in Big 5 Provider Journals over Time
@@ -38,7 +38,7 @@ output: html_document
    * 6a. OA-Available Articles in Big 5 Provider Journals over Time
    * 6b. OA-Available Articles in Big 5 Provider Journals over Time (**Elsevier Freedom versus Subscribed**)
 
-5. [Figure 7](figure7.html): Use of Elsevier Journals by Domain
+### [Figure 7](figure7.html): Use of Elsevier Journals by Domain
    * 7a. All Article Downloads by Domain
    * 7b. Current Year Article Downloads by Domain
    * 7c. UVA References by Domain
@@ -49,7 +49,7 @@ output: html_document
    * 7g. UVA References by Domain
    * 7h. UVA-Authored Publications by Domain
    
-6. [Figure 8](figure8.html): Use of Elsevier Journals by Discipline
+### [Figure 8](figure8.html): Use of Elsevier Journals by Discipline
    * 7a. All Article Downloads by Discipline
    * 7b. Current Year Article Downloads by Discipline
    * 7c. UVA References by Discipline
