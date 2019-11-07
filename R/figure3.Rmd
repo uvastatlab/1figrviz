@@ -87,7 +87,7 @@ Using only current-year downloads generates a higher cost-per-use estimate. This
 
 Same plots as above but with Elsevier broken down by Freedom collection and Subscribed collection. The Freedom Collection is a list of ~1850 active titles (2350 titles in all, including renamed, transferred, discontinued and forthcoming titles) that any institution subscribing to Science Direct Complete gets access to.
 
-### 3a. Cost per Download, all 2017 downloads
+### 3c. Cost per Download, all 2017 downloads
 
 ```{r}
 # Need to derive package level numbers for Elsevier Freedom and Subscribed
@@ -129,7 +129,7 @@ journal_big6 %>%
 
 
 
-### 3b. Cost per Download, current year 2017 downloads
+### 3d. Cost per Download, current year 2017 downloads
 
 ```{r}
 journal_big6 %>% 
