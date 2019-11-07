@@ -43,15 +43,6 @@ highuse_fn <- function(group_var){
                                cum_jr1_per > 80 & cum_jr1_per <= 90 ~ "JR90 Titles",
                                cum_jr1_per > 90 & cum_jr1_per <= 95 ~ "JR95 Titles",
                                TRUE ~ "Remaining Titles")) %>% 
-    arrange(!! group_var, desc(jr5)) %>%
-    filter(!is.na(jr5)) %>%   ## stop the warnings about no non-missing arguments
-    mutate(cum_jr5 = cumsum(jr5),
-           prov_jr5 = max(cum_jr5, na.rm=T),
-           cum_jr5_per = (cum_jr5/prov_jr5)*100,
-           use_jr5 = case_when(cum_jr5_per <= 80 ~ "JR80 Titles",
-                               cum_jr5_per > 80 & cum_jr5_per <= 90 ~ "JR90 Titles",
-                               cum_jr5_per > 90 & cum_jr5_per <= 95 ~ "JR95 Titles",
-                               TRUE ~ "Remaining Titles")) %>% 
     arrange(!! group_var, desc(cites)) %>% 
     mutate(cum_refs = cumsum(cites),
            prov_refs = max(cum_refs, na.rm=T),
@@ -67,7 +58,15 @@ highuse_fn <- function(group_var){
            use_pubs = case_when(cum_pubs_per <= 80 ~ "JR80 Titles",
                                 cum_pubs_per > 80 & cum_pubs_per <= 90 ~ "JR90 Titles",
                                 cum_pubs_per > 90 & cum_pubs_per <= 95 ~ "JR95 Titles",
-                                TRUE ~ "Remaining Titles"))  
+                                TRUE ~ "Remaining Titles")) %>% 
+    arrange(!! group_var, desc(jr5)) %>%
+    mutate(cum_jr5 = cumsum(jr5),
+           prov_jr5 = max(cum_jr5, na.rm=T),
+           cum_jr5_per = (cum_jr5/prov_jr5)*100,
+           use_jr5 = case_when(cum_jr5_per <= 80 ~ "JR80 Titles",
+                               cum_jr5_per > 80 & cum_jr5_per <= 90 ~ "JR90 Titles",
+                               cum_jr5_per > 90 & cum_jr5_per <= 95 ~ "JR95 Titles",
+                               TRUE ~ "Remaining Titles"))
 }
 
 # Function to create figures
