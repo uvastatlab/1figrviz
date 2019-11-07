@@ -81,6 +81,8 @@ fig1 <- function(use, provider, title, subtitle){
     count(!! provider, !! use) %>% 
     mutate(pct=n/sum(n), ypos = cumsum(pct))
   
+  assign(x = "highuse_counts", highuse_counts, envir = .GlobalEnv)
+  
   highuse_counts %>% 
     ggplot(aes(x = !! provider, y = pct, fill = fct_rev(!! use))) +
     geom_col() +
@@ -105,6 +107,7 @@ fig1(use_jr1,
      provider,
      title = "Percentage of Titles in High Use Journals",
      subtitle = "By All Downloads in 2017 (JR1)")
+
 fig1(use_jr5, 
      provider,
      title = "Percentage of Titles in High Use Journals",
