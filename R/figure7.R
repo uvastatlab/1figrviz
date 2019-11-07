@@ -84,41 +84,8 @@ els_group2 <- els %>%
   ungroup() %>% 
   mutate(domain = factor(domain))
 
+# Two colors taken from brewer.pal(n = 7, name = "BuPu")
 pal <- c("#8C96C6", "#6E016B")
-
-
-right_label <- els_group2 %>%
-  select(domain, provider2, jr1) %>% 
-  group_by(domain) %>%
-  arrange(desc(jr1)) %>%
-  top_n(1, wt = jr1)
-
-left_label <- els_group2 %>%
-  select(domain, provider2, jr1) %>% 
-  group_by(domain) %>%
-  arrange(desc(jr1)) %>%
-  slice(2) %>% 
-  arrange(desc(jr1))
-
-
-ymax <- els_group2 %>% summarise(ymax = max(jr1)) %>% pull() * 1.15
-ymin <- els_group2 %>% summarise(ymin = min(jr1)) %>% pull() * -20
-# ymax <- max(els_group2$jr1) * 1.15
-els_group2 %>% 
-  mutate(domain = fct_reorder(domain, jr1)) %>% 
-  ggplot(aes(x = jr1, y = domain)) +
-  geom_line(aes(group = domain)) +
-  geom_point(aes(color = provider2), size = 2) +
-  geom_text(data = right_label, aes(color = provider2, label = scales::comma(jr1)),
-            size = 3, hjust = -.5, show.legend = F) +
-  geom_text(data = left_label, aes(color = provider2, label = scales::comma(jr1)),
-            size = 3, hjust = 1.5, show.legend = F) +
-  scale_x_continuous(labels = scales::comma, limits = c(ymin, ymax)) +
-  scale_color_manual("", values = pal) +
-  labs(title = "All Article Downloads",
-       subtitle = "By Article Domain",
-       x = "Number of Downloads", y = "") 
-
 
 plot_fn2 <- function(x, title){
   x <- enquo(x)
@@ -138,7 +105,7 @@ plot_fn2 <- function(x, title){
 
   # set x-axis plot limits  
   ymax <- els_group2 %>% summarise(ymax = max(!! x)) %>% pull() * 1.15
-  ymin <- els_group2 %>% summarise(ymin = min(!! x)) %>% pull() * -20
+  ymin <- els_group2 %>% summarise(ymin = max(!! x)) %>% pull() * -0.1
   
   # generate the plot
   els_group2 %>% 
