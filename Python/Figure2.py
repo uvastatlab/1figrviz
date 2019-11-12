@@ -50,6 +50,7 @@ def figure2b():
 
     elsevier_freedom_jr5_downloads = elsevier_freedom_collection['Downloads JR5 2017 in 2017'].sum()
     elsevier_freedom_jr1_downloads = elsevier_freedom_collection['Downloads JR1 2017'].sum()
+
     
     elsevier_freedom_ratio = elsevier_freedom_jr5_downloads/elsevier_freedom_jr1_downloads
     percent_jr5_of_jr1.append(elsevier_freedom_ratio)
