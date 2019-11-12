@@ -1604,13 +1604,14 @@ def make_elsevier_subscribed_titles_provider():
     subset_by_provider = original_1figr_dataset.loc[original_1figr_dataset['Provider'] == provider_name]
     
     subscribed_journal_list_issns = subscribed_journal_list['ISSN'].tolist()
-    
+
     #logic to match the ISSN string from the subscribed_titles_issns list to any of the ISSN/eISSN numbers for elsevier titles
     subscribed_titles_subset = subset_by_provider[subset_by_provider['ISSN/eISSN'].str.split(expand=True).isin(subscribed_journal_list_issns).any(1)]
-#    print(subscribed_titles_subset)
     
-    subscribed_titles_subset.to_csv(f'/Users/ep9k/Desktop/SubscribedTitlesSubset.csv')
     
+    return subscribed_titles_subset
+    
+
 
 
 def make_freedom_collection_provider():
@@ -1623,27 +1624,31 @@ def make_freedom_collection_provider():
     elsevier_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019.xlsx', sheet_name='Elsevier Journal List 2019')
     original_1figr_dataset = pd.read_csv('/Users/ep9k/Desktop/UVA Big Deal/JournalsPerProvider.csv', skiprows=8)
 
-
     subscribed_journal_list_issns = subscribed_journal_list['ISSN'].tolist()
     
-    #logic to get the 'freedom collection' providers from the Elsevier Journal List (1326 total)
+    
+    #logic to get the 'freedom collection' providers from the Elsevier Journal List (1328 total)
     freedom_collection_subset = elsevier_journal_list[elsevier_journal_list['ISSN'].isin(subscribed_journal_list_issns) == False]
     
     freedom_collection_subset_issns = freedom_collection_subset['ISSN'].tolist()
-#    print(freedom_collection_subset_issns)
     
     provider_name = 'Elsevier'
     subset_by_provider = original_1figr_dataset.loc[original_1figr_dataset['Provider'] == provider_name]
     
-    freedom_collection_subset = subset_by_provider[subset_by_provider['ISSN/eISSN'].str.split(expand=True).isin(freedom_collection_subset_issns).any(1)]
-#    print(freedom_collection_subset)
-    
-    freedom_collection_subset.to_csv(r'/Users/ep9k/Desktop/FreedomCollectionSubset.csv')
+    freedom_collection_subset = subset_by_provider[subset_by_provider['ISSN/eISSN'].str.split(expand=True).isin(freedom_collection_subset_issns).any(1)]    
     
     
+    return freedom_collection_subset
+
+make_freedom_collection_provider()  
+
+
     
     
-make_freedom_collection_provider()
+    
+    
+    
+
 
 
     

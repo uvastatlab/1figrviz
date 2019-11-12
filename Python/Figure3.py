@@ -20,6 +20,15 @@ your_institution = 'UVA'
 
 def figure3c():
     
+    elsevier_freedom_collection = sb.make_freedom_collection_provider()
+    elsevier_subscribed_titles = sb.make_elsevier_subscribed_titles_provider()
+    
+    elsevier_freedom_jr1_downloads = elsevier_freedom_collection['Downloads JR1 2017'].sum()
+    elsevier_subscribed_jr1_downloads = elsevier_subscribed_titles['Downloads JR1 2017'].sum()
+
+    print(elsevier_subscribed_jr1_downloads)
+    
+    
     cost_data = pd.read_excel('1figr_U_Virginia_edit_Supp_Data.xlsx')
     
     package = cost_data['Package']
