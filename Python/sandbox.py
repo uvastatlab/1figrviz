@@ -1599,7 +1599,7 @@ def make_elsevier_subscribed_titles_provider():
     
     subscribed_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019.xlsx', sheet_name='Subscribed Journal List 2019')
     elsevier_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019.xlsx', sheet_name='Elsevier Journal List 2019')
-    original_1figr_dataset = pd.read_csv('/Users/ep9k/Desktop/UVA Big Deal/JournalsPerProvider.csv', skiprows=8)
+    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
 
     subscribed_journal_list_issns = subscribed_journal_list['ISSN'].tolist()
     
@@ -1617,7 +1617,7 @@ def make_elsevier_subscribed_titles_provider():
     
     return subscribed_titles_subset
     
-make_elsevier_subscribed_titles_provider()
+
 
 
 def make_freedom_collection_provider():
@@ -1628,7 +1628,7 @@ def make_freedom_collection_provider():
     
     subscribed_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019.xlsx', sheet_name='Subscribed Journal List 2019')
     elsevier_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019.xlsx', sheet_name='Elsevier Journal List 2019')
-    original_1figr_dataset = pd.read_csv('/Users/ep9k/Desktop/UVA Big Deal/JournalsPerProvider.csv', skiprows=8)
+    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
 
     subscribed_journal_list_issns = subscribed_journal_list['ISSN'].tolist()
     
