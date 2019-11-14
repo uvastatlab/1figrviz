@@ -50,13 +50,13 @@ output: html_document
    * 7h. UVA-Authored Publications by Domain
    
 ### [Figure 8](figure8.html): Use of Elsevier Journals by Discipline
-   * 7a. All Article Downloads by Discipline
-   * 7b. Current Year Article Downloads by Discipline
-   * 7c. UVA References by Discipline
-   * 7d. UVA-Authored Publications by Discipline      
+   * 8a. All Article Downloads by Discipline
+   * 8b. Current Year Article Downloads by Discipline
+   * 8c. UVA References by Discipline
+   * 8d. UVA-Authored Publications by Discipline      
    **Elsevier Freedom versus Elsevier Subscribed**
-   * 7e. All Article Downloads by Discipline
-   * 7f. Current Year Article Downloads by Discipline
-   * 7g. UVA References by Discipline
-   * 7h. UVA-Authored Publications by Discipline
+   * 8e. All Article Downloads by Discipline
+   * 8f. Current Year Article Downloads by Discipline
+   * 8g. UVA References by Discipline
+   * 8h. UVA-Authored Publications by Discipline
    

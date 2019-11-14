@@ -299,14 +299,14 @@ Same figure as above with Elsevier broken down by Freedom versus Subscribed.
 
 ```{r }
 p1 <- plot_fn(big6oa, y = scopus, ylab = "Number of Articles",
-              title = "Total Number of Articles Published", 
+              title = "Number of Articles Published", 
               big6 = TRUE) + 
   scale_y_continuous(labels = scales::comma) 
 p2 <- plot_fn(big6oa, y = oa, ylab = "Number of Articles",
-              title = "Number of Articles by UVA Authors", 
+              title = "Number of OA-Available Articles", 
               big6 = TRUE)
 p3 <- plot_fn(big6oa, y = oaper, ylab = "Percent of Articles",
-              title = "Percent of All Articles by UVA Authors", 
+              title = "Percent of OA-Available Articles", 
               big6 = TRUE) +
   geom_text(aes(x = year, y = oaper, label = oaper), p3_labels2, nudge_x = 0.2)
 
