@@ -26,7 +26,8 @@ def figure2b():
     We want to see what % of current articles people are downloading.
     Adds the 'Elsevier Freedom Collection' and 'Elsevier Subscribed Titles', making it the big 7 providers"""
     
-    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
+#    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
+    data = pd.read_excel('JournalsPerProvider.xls', skiprows=8)      #for testing purposes, xls reads faster than xlsx
     
     big7 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley', 'Elsevier Freedom Collection', 'Elsevier Subscribed Titles']
     
@@ -44,6 +45,7 @@ def figure2b():
                 jr5_total = i[5]
                 ratio = jr5_total/jr1_total
                 percent_jr5_of_jr1.append(ratio)
+                
                 
     #make ratio of jr5 to jr1 downloads for elsevier freedom collection
     elsevier_freedom_collection = sb.make_freedom_collection_provider()
@@ -86,12 +88,11 @@ def figure2b():
                  ha='center',
                  va='bottom')
 
-#    plt.show()        
-    plt.savefig('test.jpg', bbox_inches='tight')      #saves image in working directory
+##    plt.show()        
+#    plt.savefig('test.jpg', bbox_inches='tight')      #saves image in working directory
 
 
 figure2b()
-
         
         
         
