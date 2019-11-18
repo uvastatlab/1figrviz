@@ -174,9 +174,6 @@ def figure4b_percentage():
     
         ref_2008 = subset_by_provider['2008.1'].tolist()
         ref_by_year.append(ref_2008[0])
-        print(ref_by_year[0])
-        print(sum_2008)
-        print(ref_by_year/sum_2008)
         ref_2009 = subset_by_provider['2009.1'].tolist()
         ref_by_year.append(ref_2009[0]/sum_2009)
         ref_2010 = subset_by_provider['2010.1'].tolist()
@@ -202,5 +199,3 @@ def figure4b_percentage():
     print(ref_by_provider)
         
 
-
-figure4b_percentage()   
