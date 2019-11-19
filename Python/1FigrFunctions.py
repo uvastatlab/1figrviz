@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
@@ -9,11 +10,9 @@ Created on Thu Sep  5 14:03:39 2019
 import pandas as pd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-from matplotlib.ticker import StrMethodFormatter
+from matplotlib.ticker import StrMethodFormatter, PercentFormatter
 import matplotlib.patches as mpatches
-import numpy as np
 from operator import itemgetter
-
 
 
 your_institution = 'UVA'   #Replace this string with your institution's preferred name. This is an example
@@ -21,8 +20,32 @@ your_institution = 'UVA'   #Replace this string with your institution's preferre
 #########################################################
 #VRL presentation functions
 
+
+"""
+Documentation Format
+----------------------------------------------------------------
+Summary
+
+Chart Type: Chart Type Name
+Y-Axis: Dependent Variable Name
+Y-Axis Data Source: SheetName, ColumnName
+X-Axis:
+X-Axis Data Source:
+
+Supplemental Information
+"""
+
+
 def number_of_papers_published_per_year():
-    """Plots # of papers published by all big 5 providers per year"""
+    """
+    Creates line graph of the total number of papers published by all big 5 providers per year during 2008 - 2017
+
+    Chart Type: Line Graph
+    Y-Axis: Paper Count
+    Y-Axis Data Source: JournalsPerProvider, Total papers in Scopus per journal/provider
+    X-Axis: Year (2008, 2017)
+    X-Axis Data Source:
+    """
     
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
@@ -75,13 +98,20 @@ def number_of_papers_published_per_year():
     plt.legend()
     
 #    plt.show()
-    plt.savefig('test.jpg', bbox_inches='tight')      #saves image in working directory
+    plt.savefig('test.png', bbox_inches='tight')      #saves image in working directory
 
-
+# number_of_papers_published_per_year()
 
 def number_papers_over_time():
-    """Plots # of authored publications at your institution in each of the big 5 providers over time (2008-2017)
-    Looks at columns under 'Papers per journal/provider by your institution's authors"""
+    """
+    Creates line graph of the number of authored publications at your institution in each of the big 5 providers per year during 2008-2017
+
+    Chart Type: Line Graph
+    Y-Axis: Paper Count
+    Y-Axis Data Source: JournalsPerProvider, Papers per journal/provider by your institution's authors
+    X-Axis: Year (2008, 2017)
+    X-Axis Data Source:
+    """
 
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
@@ -136,12 +166,20 @@ def number_papers_over_time():
     plt.legend()
 
 #    plt.show()    
-    plt.savefig('test.jpg', bbox_inches='tight')      #saves image in working directory
+    plt.savefig('test.png', bbox_inches='tight')      #saves image in working directory
 
+# number_papers_over_time()
 
 def oa_percent_papers_available_over_time():
-    """Percent of papers available Open Access (oa) for each of the big 5 providers over time (2008-2017)
-    Looks at columns under '% of OA papers in 1findr per journal/provider (intersection with Scopus)"""
+    """
+    Creates line graph of the ercentage of papers available Open Access (oa) for each of the big 5 providers per year during 2008-2017
+
+    Chart Type: Line Graph
+    Y-Axis: Percent Papers Available
+    Y-Axis Data Source: JournalsPerProvider, % of OA papers in 1findr per journal/provider (intersection with Scopus)
+    X-Axis: Year (2008, 2017)
+    X-Axis Data Source:
+    """
     
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
@@ -197,14 +235,23 @@ def oa_percent_papers_available_over_time():
     plt.legend()
 
 #    plt.show()    
-    plt.savefig('test.jpg', bbox_inches='tight')      #saves image in working directory
+    plt.savefig('test.png', bbox_inches='tight')      #saves image in working directory
 
-
+# oa_percent_papers_available_over_time()
 
 def references_over_time():
-    """Your institution's references by provider by year, referencing Scopus data.
-    Looks at columns under 'References to journal/provider by your institution's authors (as measured in Scopus)
-    References are defined as: Number of References made by researchers of your institution to an article from a given journal"""
+    """
+    Creates line graph of Your institution's references by provider by year, referencing Scopus data, during 2008-2017
+
+    Chart Type: Line Graph
+    Y-Axis: Number References
+    Y-Axis Data Source: JournalsPerProvider, References to journal/provider by your institution's authors (as measured in Scopus)
+    X-Axis: Year (2008, 2017)
+    X-Axis Data Source:
+
+    References are defined as: Number of References made by researchers of your institution to an article from a given journal
+    """
+
     
 
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
@@ -259,15 +306,24 @@ def references_over_time():
     plt.legend()  
 
 #    plt.show()    
-    plt.savefig('test.jpg', bbox_inches='tight')      #saves image in working directory
+    plt.savefig('test.png', bbox_inches='tight')      #saves image in working directory
 
-
+# references_over_time()
 
 def big5_percent_jr5_of_jr1():
-    """A measurement of currency. Compares JR5 downloads to JR1 downloads for each of the big 5 providers.
+    """
+    Creates bar graph the ratios of JR5 downloads to JR1 downloads for each of the Big 5 providers
+
+    Chart Type: Bar Graph
+    Y-Axis: Percent of Total (Percent of JR1 Downloads)
+    Y-Axis Data Source: JournalsPerProvider, JR1 Downloads and JR5 Downloads columns
+    X-Axis: Big 5 Providers
+    X-Axis Data Source:
+
     JR5 downloads are 2017 articles downloaded in 2017.
     JR1 downloads are all years articles downloaded in 2017.
-    We want to see what % of current articles people are downloading."""
+    We want to see what % of current articles people are downloading.
+    """
     
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
@@ -307,15 +363,24 @@ def big5_percent_jr5_of_jr1():
                  ha='center',
                  va='bottom')
 
-#    plt.show()        
-    plt.savefig('test.jpg', bbox_inches='tight')      #saves image in working directory
+    # plt.show()        
+    plt.savefig('test.png', bbox_inches='tight')      #saves image in working directory
 
-
+big5_percent_jr5_of_jr1()
 
 def jr1_big5_jr80_jr90_jr95_stacked_bar():
-    """Creates stacked bar plot showing jr80, jr90, jr95 score for big 5 providers.
+    """
+    Creates stacked bar graph showing jr80, jr90, jr95 score for big 5 providers
+
+    Chart Type: Stacked Bar Graph
+    Y-Axis: Percent of Total Titles
+    Y-Axis Data Source: JournalsPerProvider, Downloads JR1 2017
+    X-Axis: Publisher Names
+    X-Axis Data Source:
+
     JR80 is journals that make up 80% of your institution's jr1 downloads. JR90 are journals that make up 90% of your institution's jr1 downloads.
-    JR95 are journals that make up 95% of your institution's jr1 downloads. These will all be plotted together."""
+    JR95 are journals that make up 95% of your institution's jr1 downloads. These will all be plotted together.
+    """
     
 #    TODO: ADD LABELS TO PLOT
     
@@ -344,7 +409,6 @@ def jr1_big5_jr80_jr90_jr95_stacked_bar():
             
         jr1_tuples = [(i[0], i[2]) for i in journals_data]
         jr1_tuples_sorted = sorted(jr1_tuples, key = lambda i: i[1], reverse=True)      #sorts on second element of jr1_tuples
-        print(jr1_tuples_sorted)
 
         jr80_running_tally = 0
         jr90_running_tally = 0
@@ -388,7 +452,7 @@ def jr1_big5_jr80_jr90_jr95_stacked_bar():
     #make plot
     plt.figure(num=None, figsize=(10, 10))
     plt.suptitle('Percentage of Titles Downloaded by Provider (JR1 Downloads)')
-    plt.ylabel('Percent of total titles')
+    plt.ylabel('Percent of Total Titles')
     plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.0%}'))    #formats y axis as %
     
     #make custom plot legend
@@ -413,68 +477,23 @@ def jr1_big5_jr80_jr90_jr95_stacked_bar():
         plt.bar(provider, total_values, bottom=(jr80 + jr90 + jr95), color='silver')
 
 #    plt.show()        
-    plt.savefig('test.jpg', bbox_inches='tight')      #saves image in working directory
+    plt.savefig('test.png', bbox_inches='tight')      #saves image in working directory
 
-
-def jr1_big5_jr80_journals_by_field(provider_name):
-    """Creates stacked bar showing occurrences of fields for jr80 journals by provider.
-    JR80 journals are defined as journals which make up 80% of JR1 downloads"""
-        
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
-
-    subset_by_provider = data.loc[data['Provider'] == provider_name]
-    journals_data = subset_by_provider.groupby('Journal', as_index=False).sum().values.tolist()
-
-    for i in journals_data:
-        if i[0] == provider_name:
-            journals_data.remove(i)                 #removing aggregator column data
-        
-    total_jr1_downloads = 0
-    total_journals = 0                         
-    for i in journals_data:
-        total_jr1_downloads += i[2]
-        total_journals += 1
-            
-    jr1_tuples = [(i[0], i[2]) for i in journals_data]
-    jr1_tuples_sorted = sorted(jr1_tuples, key = lambda i: i[1], reverse=True)      #sorts on second element of jr1_tuples
-
-    jr80_running_tally = 0
-    jr80_highly_used_journals = []           #THIS HOLDS (JOURNAL NAME, JR1_DOWNLOADS). This is what we use to later get the distribution of fields, for the highly used journals
-
-    
-    for i in jr1_tuples_sorted:
-        if jr80_running_tally < (total_jr1_downloads * 0.8):
-            jr80_highly_used_journals.append(i)
-            jr80_running_tally += i[1]              #adds the # of jr1 downloads to the running tally. Used to see if tally is < 80% of total downloads
-    
-    highly_used_journals_list = [i[0] for i in jr80_highly_used_journals] #taking just the journal name from jr80_highly_used_journals
-    
-    fields_list = []
-
-    for journal_name in highly_used_journals_list:
-        journal_subset = data.loc[data['Journal'] == journal_name]
-        fields_list.append(journal_subset.iloc[0]['Field'])   #appends the field column value for each journal
-    
-    field_occurrence = pd.Series(fields_list).value_counts().reset_index().values.tolist()
-    
-    fields = [x[0] for x in field_occurrence]
-    counts = [x[1] for x in field_occurrence]
-
-    #make plot
-    mpl.rcParams['ytick.major.width'] = 1
-    mpl.rcParams['xtick.major.width'] = 1
-    plt.figure(num=None, figsize=(8,8))
-    plt.suptitle(f'Occurrences of fields in JR80 Journals (highly used journals) for provider: {provider_name}')
-    plt.barh(fields, counts, height=.8, color='green')
-#    plt.show()
-
-
-jr1_big5_jr80_journals_by_field('Wiley')
+# jr1_big5_jr80_jr90_jr95_stacked_bar()()
 
 def jr5_big5_jr80_jr90_jr95_stacked_bar():
-    """Creates stacked bar plot showing jr80, jr90, jr95 score for big 5 providers.
-    JR80 is journals that make up 80% of your insitution's jr5 downloads. JR90 are journals that make up 90% of your institution's jr5 downloads.
-    JR95 are journals that make up 95% of your institution's jr5 downloads. These will all be plotted together."""
+    """
+    Creates stacked bar graph showing jr80, jr90, jr95 score for big 5 providers
+
+    Chart Type: Stacked Bar Graph
+    Y-Axis: Percent of Total Titles
+    Y-Axis Data Source: JournalsPerProvider, Downloads JR1 2017
+    X-Axis: Publisher Names
+    X-Axis Data Source:
+
+    JR80 is journals that make up 80% of your institution's jr1 downloads. JR90 are journals that make up 90% of your institution's jr1 downloads.
+    JR95 are journals that make up 95% of your institution's jr1 downloads. These will all be plotted together.
+    """
 
 #    TODO: ADD LABELS TO PLOT
 
@@ -573,15 +592,23 @@ def jr5_big5_jr80_jr90_jr95_stacked_bar():
         plt.bar(provider, total_values, bottom=(jr80 + jr90 + jr95), color='silver')
 
 #    plt.show()
-    plt.savefig('test.jpg', bbox_inches='tight')      #saves image in working directory
+    plt.savefig('test.png', bbox_inches='tight')      #saves image in working directory
 
-
+# jr5_big5_jr80_jr90_jr95_stacked_bar()
 
 def references_big5_jr80_jr90_jr95_stacked_bar():
-    """Creates stacked bar plot showing jr80, jr90, jr95 score for big 5 providers.
-    JR80 is journals that make up 80% of your institution's references. JR90 are journals that make up 90% of your institution's references.
-    JR95 are journals that make up 95% of your institution's references. These will all be plotted together."""
+    """
+    Creates stacked bar graph showing jr80, jr90, jr95 score for big 5 providers
 
+    Chart Type: Stacked Bar Graph
+    Y-Axis: Percent of Total Titles
+    Y-Axis Data Source: JournalsPerProvider, Downloads JR1 2017
+    X-Axis: Publisher Names
+    X-Axis Data Source:
+
+    JR80 is journals that make up 80% of your institution's references. JR90 are journals that make up 90% of your institution's references.
+    JR95 are journals that make up 95% of your institution's references. These will all be plotted together.
+    """
 
 #    TODO: ADD LABELS TO PLOT
 
@@ -680,15 +707,23 @@ def references_big5_jr80_jr90_jr95_stacked_bar():
         plt.bar(provider, total_values, bottom=(jr80 + jr90 + jr95), color='silver')
         
 #    plt.show()
-    plt.savefig('test.jpg', bbox_inches='tight')      #saves image in working directory
+    plt.savefig('test.png', bbox_inches='tight')      #saves image in working directory
 
-
+# references_big5_jr80_jr90_jr95_stacked_bar()
 
 def papers_big5_jr80_jr90_jr95_stacked_bar():
-    """Creates stacked bar plot showing jr80, jr90, jr95 score for big 5 providers.
-    JR80 is journals that make up 80% of your institution's papers. JR90 are journals that make up 90% of your institution's papers.
-    JR95 are journals that make up 95% of your insitution's papers. These will all be plotted together."""
+    """
+    Creates stacked bar graph showing jr80, jr90, jr95 score for big 5 providers
 
+    Chart Type: Stacked Bar Graph
+    Y-Axis: Percent of Total Titles
+    Y-Axis Data Source: JournalsPerProvider, Downloads JR1 2017
+    X-Axis: Publisher Names
+    X-Axis Data Source:
+
+    JR80 is journals that make up 80% of your institution's papers. JR90 are journals that make up 90% of your institution's papers.
+    JR95 are journals that make up 95% of your insitution's papers. These will all be plotted together.
+    """
 
 #    TODO: ADD LABELS TO PLOT
 
@@ -787,14 +822,23 @@ def papers_big5_jr80_jr90_jr95_stacked_bar():
         plt.bar(provider, total_values, bottom=(jr80 + jr90 + jr95), color='silver')
 
 #    plt.show()
-    plt.savefig('test.jpg', bbox_inches='tight')      #saves image in working directory
+    plt.savefig('test.png', bbox_inches='tight')      #saves image in working directory
 
+# papers_big5_jr80_jr90_jr95_stacked_bar()
 
 #need to avoid hard coded list and populate list of providers dynamically
 def total_references_per_year():
-    """Total references by provider by year, referencing Scopus data.
-    Looks at columns under 'References to journal/provider by your institution's authors (as measured in Scopus)
-    References are defined as: Number of References made by researchers of your institution to an article from a given journal"""
+    """
+    Creates line graph of the number of references made by institution's researchers, during 2008 to 2017.
+
+    Chart Type: Line Graph
+    Y-Axis: Number of References
+    Y-Axis Data Source: JournalsPerProvider, References to journal/provider by your institution's authors (as measured in Scopus)
+    X-Axis: Year (2008, 2017)
+    X-Axis Data Source: Year (2008, 2017)
+
+    References are defined as: Number of References made by researchers of your institution to an article from a given journal
+    """
     
 
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
@@ -854,14 +898,26 @@ def total_references_per_year():
     plt.plot(years, totals_by_year)
 
 #    plt.show()    
-    plt.savefig('test.jpg', bbox_inches='tight')      #saves image in working directory
+    plt.savefig('test.png', bbox_inches='tight')      #saves image in working directory
 
+# total_references_per_year()
 
 ###################################################################################
 #JR1 functions. Chart sizing and labeling needs to be dynamic
 
 def jr1_by_field_by_provider(provider_name):
-    """Charts JR1 downloads by field for chosen provider. User inputs provider name and dynamically generates chart for that provider"""
+    """
+    Creates bar graph of the number of JR1 downloads by field for chosen provider.
+
+    Chart Type: Bar Graph
+    Y-Axis: Field
+    Y-Axis Data Source: 
+    X-Axis: Number of JR1 Downloads
+    X-Axis Data Source: Journals Per Provider, Downloads JR1 2017
+
+    User inputs provider name and dynamically generates chart for that provider
+    """
+    
     
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
@@ -888,9 +944,21 @@ def jr1_by_field_by_provider(provider_name):
     plt.grid()
     plt.show()
 
+# jr1_by_field_by_provider("Elsevier")
+
 
 def jr1_percent_field_by_provider(provider_name):
-    """Charts % of JR1 downloads by field for a given provider"""
+    """
+    Creates bar graph of the percentage of JR1 downloads by field for chosen provider.
+
+    Chart Type: Bar Graph
+    Y-Axis: Field
+    Y-Axis Data Source: 
+    X-Axis: Percentage of JR1 Downloads
+    X-Axis Data Source: Journals Per Provider, Downloads JR1 2017
+
+    User inputs provider name and dynamically generates chart for that provider
+    """
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
     subset_by_provider = data.loc[data['Provider'] == provider_name]
@@ -916,13 +984,22 @@ def jr1_percent_field_by_provider(provider_name):
     plt.figure(num=None, figsize=(8,8))
     plt.suptitle(f'Percent of total JR1 downloads by field for: {provider_name}')
     plt.barh(fields, percent_by_field, height=.8, color='green')
+    plt.gca().xaxis.set_major_formatter(StrMethodFormatter('{x:,.0%}'))    #formats y axis as %
     plt.grid()
     plt.show() 
 
-  
+# jr1_percent_field_by_provider("Elsevier")
 
 def jr1_jr80_value():
-    """Produces 'JR80' value by provider for JR1 downloads and charts each provider and its corresponding JR80 value.
+    """
+    Creates bar graph of 'JR80' value by provider for JR1 downloads
+
+    Chart Type: Bar Graph
+    Y-Axis: Provider
+    Y-Axis Data Source: 
+    X-Axis: 'JR80' Value
+    X-Axis Data Source: Journals Per Provider, Downloads JR1 2017
+
     JR80 is defined as: "Journals representing 80% of downloads for their respective provider"
     Here is how JR80 score is calculated:
         - Reads data for each provider individually
@@ -930,7 +1007,8 @@ def jr1_jr80_value():
         - Sorts individual jornals by provider in order of number of downloads
         - Counts jr1 download values until count surpasses 80% of total jr1 downloads
         - Calculates JR80 score as number of journals required to reach 80% / total journals by provider
-        - Charts JR80 score of all providers, with Big 5 in red"""
+        - Charts JR80 score of all providers, with Big 5 in red
+    """
     
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
 
@@ -996,10 +1074,18 @@ def jr1_jr80_value():
     plt.legend(handles=[big5])
     plt.show() 
 
-
+# jr1_jr80_value()
 
 def jr1_not_jr80_value():
-    """Produces 'Not-JR80' value by provider for JR1 downloads and charts each provider and its corresponding Not-JR80 value.
+    """
+    Creates bar graph of 'Not-JR80' value by provider for JR1 downloads
+
+    Chart Type: Bar Graph
+    Y-Axis: Provider
+    Y-Axis Data Source: 
+    X-Axis: 'Not-JR80' Value
+    X-Axis Data Source: Journals Per Provider, Downloads JR1 2017
+
     This is the inverse of the JR80 value.
     JR80 is defined as: "Journals representing 80% of downloads for their respective provider"
     Not-JR80 score is basically the rest of the journals that do not represent 80% of the use. 
@@ -1010,7 +1096,8 @@ def jr1_not_jr80_value():
         - Counts jr1 download values until count surpasses 80% of total jr1 downloads
         - Calculates JR80 score as number of journals required to reach 80% / total journals by provider
         - Then takes 1 - this number to get the not_jr80 score. 
-        - Charts not-JR80 score of all providers, with Big 5 in red"""
+        - Charts not-JR80 score of all providers, with Big 5 in red
+    """
     
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
 
@@ -1074,19 +1161,30 @@ def jr1_not_jr80_value():
     plt.legend(handles=[big5])
     plt.show() 
 
-
+# jr1_not_jr80_value()
 
 def jr1_jr80_big5_downloads():
-    """Produces 'JR80' value by provider for JR1 downloads and charts each provider and its corresponding JR80 value.
-    Only for Big 5 providers.
+    """
+    Creates bar graph of 'JR80' value by provider for JR1 downloads for Big 5 providers only.
+
+    Chart Type: Bar Graph
+    Y-Axis: Provider
+    Y-Axis Data Source: Big 5 Providers
+    X-Axis: 'JR80' Value
+    X-Axis Data Source: Journals Per Provider, Downloads JR1 2017
+
+    This is the inverse of the JR80 value.
     JR80 is defined as: "Journals representing 80% of downloads for their respective provider"
-    Here is how JR80 score is calculated:
+    Not-JR80 score is basically the rest of the journals that do not represent 80% of the use. 
+    Here is how Not-JR80 score is calculated:
         - Reads data for each provider individually
         - Finds total number of JR1 downloads
         - Sorts individual jornals by provider in order of number of downloads
         - Counts jr1 download values until count surpasses 80% of total jr1 downloads
         - Calculates JR80 score as number of journals required to reach 80% / total journals by provider
-        - Charts JR80 score of all providers, with Big 5 in red"""
+        - Then takes 1 - this number to get the not_jr80 score. 
+        - Charts not-JR80 score of all providers, with Big 5 in red
+    """
 
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
 
@@ -1139,57 +1237,73 @@ def jr1_jr80_big5_downloads():
     for i in plot:
         score = i.get_width()
         score = round(score, 4)
-        height = i.get_y()
         
-        plt.text(score / 2,                #sets x axis position of labels
-                 height + .35,
+        plt.text(i.get_width() - .02, 
+                 i.get_y() + .35,
                  '{:.2%}'.format(score),   #formats score as percentage
                  ha='center',
                  va='center')
+    plt.show()
 
-
+# jr1_jr80_big5_downloads()
 
 def jr1_jr80_big5_citations():
-    """Gets number of citations for each of the big 5 providers.
-    Citations are measured as publications that have cited an article authored by someone affiliated with your institution"""
-    
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
-    
-    big5 = ['Elsevier', 'Taylor & Francis', 'Sage', 'Springer', 'Wiley']    
+	""" Creates bar graph of number of citations by provider for Big 5 providers only. 
+	
+	Chart Type: Bar Graph 
+	Y-Axis: Provider 
+	Y-Axis Data Source: Big 5 Providers
+	X-Axis: Number of Citations 
+	X-Axis Data Source: Journals Per Provider, Downloads JR1 2017 
+	
+	Citations are measured as publications that have cited an article authored by someone affiliated with your institution 
+	"""
 
-    references_by_provider = []
-    
-    for provider_name in big5:
-        
-        subset_by_provider = data.loc[data['Provider'] == provider_name]
+	data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
 
-        journals_data = subset_by_provider.groupby('Journal', as_index=False).sum().values.tolist()
-        for i in journals_data:
-            if i[0] == provider_name:
-                total_references = i[4]
-                references_by_provider.append(total_references)
-                
-    mpl.rcParams['ytick.major.width'] = 1
-    mpl.rcParams['xtick.major.width'] = 1
-    plt.figure(num=None, figsize=(8,8))
-    plt.suptitle(f"Citations by Provider \n (# of your {your_institution} Authored Papers Cited)")
-    plot = plt.barh(big5, references_by_provider, height=.8, color='green')
-    
-    for i in plot:
-        score = i.get_width()
-        height = i.get_y()  
-        
-        plt.text(score / 2,          #sets x axis position of labels
-                 height + .35,
-                 score,
-                 ha='center',
-                 va='center')
+	big5 = ['Elsevier', 'Taylor & Francis', 'Sage', 'Springer', 'Wiley']    
 
+	references_by_provider = []
+
+	for provider_name in big5:
+	    
+	    subset_by_provider = data.loc[data['Provider'] == provider_name]
+
+	    journals_data = subset_by_provider.groupby('Journal', as_index=False).sum().values.tolist()
+	    for i in journals_data:
+	        if i[0] == provider_name:
+	            total_references = i[4]
+	            references_by_provider.append(total_references)
+	            
+	mpl.rcParams['ytick.major.width'] = 1
+	mpl.rcParams['xtick.major.width'] = 1
+	plt.figure(num=None, figsize=(8,8))
+	plt.suptitle(f"Citations by Provider \n (# of your {your_institution} Authored Papers Cited)")
+	plot = plt.barh(big5, references_by_provider, height=.8, color='green')
+
+	for i in plot:
+	    score = i.get_width()
+	    
+	    plt.text(i.get_width() - 5500,          #sets x axis position of labels
+	             i.get_y() + .35,
+	             score,
+	             ha='center',
+	             va='center')
+	plt.show()
+
+# jr1_jr80_big5_citations()
 
 def jr1_jr80_big5_publications():
-    """Gets number of papers/publications for each of big 5 providers.
-    Publications are measured as papers with at least one author from your institution"""
-    
+    """ Creates bar graph of number of papers/publications by provider for Big 5 providers only. 
+	
+	Chart Type: Bar Graph 
+	Y-Axis: Provider 
+	Y-Axis Data Source: Big 5 Providers
+	X-Axis: Number of Papers/Publications 
+	X-Axis Data Source: 
+	
+    Publications are measured as papers with at least one author from your institution
+    """
     
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
@@ -1216,16 +1330,27 @@ def jr1_jr80_big5_publications():
     for i in plot:
         score = i.get_width()
         
-        plt.text(score / 2,           #sets x axis position of labels
+        plt.text(i.get_width() - 275,           #sets x axis position of labels
                  i.get_y() + .35,
                  score,
                  ha='center',
                  va='center')
 
+    plt.show()
 
+# jr1_jr80_big5_publications()
 
 def jr1_big5_by_field(field_choice):
-    """Looks at jr1 downloads by field for the big 5 providers. Charts % use by field for each of the big 5 providers"""
+    """ Creates bar graph of percentage of jr1 downloads by provider for input field for Big 5 providers only. 
+	
+	Chart Type: Bar Graph 
+	Y-Axis: Provider 
+	Y-Axis Data Source: 
+	X-Axis: Percentage of JR1 Downloads
+	X-Axis Data Source: Journals Per Provider, Downloads JR1 2017 
+	
+    Looks at jr1 downloads by field for the big 5 providers. Charts % use by field for each of the big 5 providers
+    """
     
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
 
@@ -1259,7 +1384,15 @@ def jr1_big5_by_field(field_choice):
 #JR5 functions
 
 def jr5_by_field_by_provider(provider_name):
-    """Charts JR5 downloads by field for chosen provider. User inputs provider name and dynamically generates chart for that provider"""
+    """ Creates bar graph of percentage of jr5 downloads by provider for input field for Big 5 providers only. 
+	
+	Chart Type: Bar Graph 
+	Y-Axis: Provider 
+	Y-Axis Data Source: 
+	X-Axis: Percentage of JR5 Downloads
+	X-Axis Data Source: Journals Per Provider, Downloads JR5 2017 in 2017
+	
+    """
     
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
@@ -1285,66 +1418,82 @@ def jr5_by_field_by_provider(provider_name):
     plt.grid()
     plt.show() 
 
-
+# jr5_by_field_by_provider("Elsevier")
     
 def jr5_percent_field_by_provider(provider_name):
-    """Charts % of JR5 downloads by field for a given provider. This is in lieu of a stacked bar graph"""
-    
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
-    
-    subset_by_provider = data.loc[data['Provider'] == provider_name]
-    
-    fields_data = subset_by_provider.groupby(['Field'], as_index=False).sum().values.tolist()
-    fields = []
- 
-    for i in fields_data:
-        fields.append(i[0])
+	"""
+	Creates bar graph of the percentage of JR5 downloads by field for chosen provider.
 
-    fields = list(reversed(fields))             #to add to bar graph in reverse alphabetical order so it looks nicer
+	Chart Type: Bar Graph
+	Y-Axis: Field
+	Y-Axis Data Source: 
+	X-Axis: Percentage of JR5 Downloads
+	X-Axis Data Source: Journals Per Provider, Downloads JR5 2017 in 2017
+	"""
+	data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+	
+	subset_by_provider = data.loc[data['Provider'] == provider_name]
 
-    sums_by_field = subset_by_provider.groupby(['Field'])['Downloads JR5 2017 in 2017'].sum().tolist()     #sum of downloads per field
-    
-    sums_by_field = list(reversed(sums_by_field))
-    
-    total_downloads = sum(sums_by_field)
-        
-    percent_by_field = [round((i/total_downloads), 4) for i in sums_by_field]
+	fields_data = subset_by_provider.groupby(['Field'], as_index=False).sum().values.tolist()
+	fields = []
 
-    mpl.rcParams['ytick.major.width'] = 1
-    mpl.rcParams['xtick.major.width'] = 1
-    plt.figure(num=None, figsize=(8,8))
-    plt.suptitle(f'Percent of total JR5 downloads by field for: {provider_name}')
-    plt.barh(fields, percent_by_field, height=.8, color='green')
-    plt.grid()
-    plt.show()     
+	for i in fields_data:
+	    fields.append(i[0])
+
+	fields = list(reversed(fields))             #to add to bar graph in reverse alphabetical order so it looks nicer
+
+	sums_by_field = subset_by_provider.groupby(['Field'])['Downloads JR5 2017 in 2017'].sum().tolist()     #sum of downloads per field
+
+	sums_by_field = list(reversed(sums_by_field))
+
+	total_downloads = sum(sums_by_field)
+	    
+	percent_by_field = [round((i/total_downloads), 4) for i in sums_by_field]
+
+	mpl.rcParams['ytick.major.width'] = 1
+	mpl.rcParams['xtick.major.width'] = 1
+	plt.figure(num=None, figsize=(8,8))
+	plt.suptitle(f'Percent of total JR5 downloads by field for: {provider_name}')
+	plt.barh(fields, percent_by_field, height=.8, color='green')
+	plt.grid()
+	plt.show()     
 
     
     
 def jr5_big5_by_field(field_choice):
-    """Looks at jr5 downloads by field for the big 5 providers. Charts % use by field for each of the big 5 providers"""
+	"""
+	Creates bar graph of percentage of jr1 downloads by provider for input field for Big 5 providers only. 
+	
+	Chart Type: Bar Graph 
+	Y-Axis: Provider 
+	Y-Axis Data Source: 
+	X-Axis: Percentage of JR1 Downloads
+	X-Axis Data Source: Journals Per Provider, Downloads JR1 2017 
+	
+    Looks at jr1 downloads by field for the big 5 providers. Charts % use by field for each of the big 5 providers
+    """
+	data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
 
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+	big5 = ['Elsevier', 'Taylor & Francis', 'Sage', 'Springer', 'Wiley']
+	big5_data = []
+	for provider_name in big5:
+	    provider_subset = data.loc[data['Provider'] == provider_name]
+	    
+	    provider_list = provider_subset.groupby(['Provider', 'Field'], as_index=False).sum().values.tolist()
+	    for i in provider_list:
+	        if i[1] == field_choice:
+	            big5_data.append((i[0], i[1], i[4]))
 
-    big5 = ['Elsevier', 'Taylor & Francis', 'Sage', 'Springer', 'Wiley']
-    big5_data = []
-    for provider_name in big5:
-        provider_subset = data.loc[data['Provider'] == provider_name]
-        
-        provider_list = provider_subset.groupby(['Provider', 'Field'], as_index=False).sum().values.tolist()
-        for i in provider_list:
-            if i[1] == field_choice:
-                big5_data.append((i[0], i[1], i[4]))
+	big5_packages = [x[0] for x in big5_data]
+	big5_total_by_field = [x[2] for x in big5_data]
 
-    big5_packages = [x[0] for x in big5_data]
-    big5_total_by_field = [x[2] for x in big5_data]
-    
-    mpl.rcParams['ytick.major.width'] = 1
-    mpl.rcParams['xtick.major.width'] = 1
-    plt.figure(num=None, figsize=(8,8))
-    plt.suptitle(f'Big 5 Providers, JR5 downloads by field: {field_choice}')
-    plt.barh(big5_packages, big5_total_by_field, height=.8, color='green')
-    plt.grid()
-    plt.show()
+	mpl.rcParams['ytick.major.width'] = 1
+	mpl.rcParams['xtick.major.width'] = 1
+	plt.figure(num=None, figsize=(8,8))
+	plt.suptitle(f'Big 5 Providers, JR5 downloads by field: {field_choice}')
+	plt.barh(big5_packages, big5_total_by_field, height=.8, color='green')
+	plt.grid()
+	plt.show()
     
 
 
@@ -1352,31 +1501,47 @@ def jr5_big5_by_field(field_choice):
 #other functions. Chart sizing and labeling needs to be dynamic
 
 def journals_by_domain():
-    """Counting occurrences of downloads in each domain from JournalsPerPackage.csv
-    This is using the domain column."""
-    
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
-    
-    domains_list = data.Domain.tolist()
+	""" 
+	Creates bar graph of the number of journals assigned to each domain. 
 
-    counted_domains = pd.Series(domains_list).value_counts().reset_index().values.tolist()
-    
-    domains = [x[0] for x in counted_domains]
-    counts = [x[1] for x in counted_domains]
-    
-    mpl.rcParams['ytick.major.width'] = 1
-    mpl.rcParams['xtick.major.width'] = 1
-    plt.figure(num=None, figsize=(8,8))
-    plt.suptitle('Journals by Domain')
-    plt.barh(domains, counts, height=.8, color='green')
-    plt.grid()
-    plt.show()
-    
+	Chart Type: Bar Graph 
+	Y-Axis: Domain 
+	Y-Axis Data Source: Journals Per Provider, Domain
+	X-Axis: Count of Domain
+	X-Axis Data Source: Journals Per Provider, Domain 
+	"""
+	
 
+	data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+
+	domains_list = data.Domain.tolist()
+
+	counted_domains = pd.Series(domains_list).value_counts().reset_index().values.tolist()
+
+	domains = [x[0] for x in counted_domains]
+	counts = [x[1] for x in counted_domains]
+
+	mpl.rcParams['ytick.major.width'] = 1
+	mpl.rcParams['xtick.major.width'] = 1
+	plt.figure(num=None, figsize=(8,8))
+	plt.suptitle('Journals by Domain')
+	plt.barh(domains, counts, height=.8, color='green')
+	plt.grid()
+	plt.show()
     
+# journals_by_domain()
     
 def journals_by_field():
-    """Counting occurrences of downloads in each field from JournalsPerPackage.csv"""
+    """ 
+    Creates bar graph of the number of journal assigned to each field. 
+
+	Chart Type: Bar Graph 
+	Y-Axis: Field 
+	Y-Axis Data Source: Journals Per Provider, Field
+	X-Axis: Count of Field
+	X-Axis Data Source: Journals Per Provider, Field
+	"""
+    
     
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
@@ -1395,110 +1560,142 @@ def journals_by_field():
     plt.grid()
     plt.show()
 
-
+# journals_by_field()
 
 def journals_by_field_big5():
-    """Counting occurences of downloads in each field from Journals Per Package.csv
-    from the big5 publishers. Big 5 are: Elsevier, Wiley, Springer, Sage, Taylor & Francis"""
-    
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
-    
-    providers_list = data.Provider.tolist()
-    fields_list = data.Field.tolist()
-    
-    zipped = list(zip(providers_list, fields_list))
-    
-    big5 = ['Elsevier', 'Wiley', 'Springer', 'Taylor & Francis', 'Sage']
-    big5_data = []
-    
-    for i in zipped:
-        if i[0] in big5:
-            big5_data.append(i)
-            
-    fields_only = [x[1] for x in big5_data]
+	""" 
+	Creates bar graph of the number of journals assgined to each field for Big 5 Providers. 
 
-    counted_fields = pd.Series(fields_only).value_counts().reset_index().values.tolist()
+	Chart Type: Bar Graph 
+	Y-Axis: Field 
+	Y-Axis Data Source: Journals Per Provider, Field
+	X-Axis: Count of Field
+	X-Axis Data Source: Journals Per Provider, Field
+	"""
 
-    fields = [x[0] for x in counted_fields]
-    counts = [x[1] for x in counted_fields]
+	data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
 
-    mpl.rcParams['ytick.major.width'] = 1
-    mpl.rcParams['xtick.major.width'] = 1
-    plt.figure(num=None, figsize=(8,8))
-    plt.suptitle('Journals by field (Big5 Providers)')
-    plt.barh(fields, counts, height=.8, color='green')
-    plt.grid()
-    plt.show() 
+	providers_list = data.Provider.tolist()
+	fields_list = data.Field.tolist()
+
+	zipped = list(zip(providers_list, fields_list))
+
+	big5 = ['Elsevier', 'Wiley', 'Springer', 'Taylor & Francis', 'Sage']
+	big5_data = []
+
+	for i in zipped:
+	    if i[0] in big5:
+	        big5_data.append(i)
+	        
+	fields_only = [x[1] for x in big5_data]
+
+	counted_fields = pd.Series(fields_only).value_counts().reset_index().values.tolist()
+
+	fields = [x[0] for x in counted_fields]
+	counts = [x[1] for x in counted_fields]
+
+	mpl.rcParams['ytick.major.width'] = 1
+	mpl.rcParams['xtick.major.width'] = 1
+	plt.figure(num=None, figsize=(8,8))
+	plt.suptitle('Journals by field (Big5 Providers)')
+	plt.barh(fields, counts, height=.8, color='green')
+	plt.grid()
+	plt.show() 
 
 
 
 def journals_by_field_other_providers():
-    """Counting occurences of downloads in each field from Journals Per Package.csv
-    from all other publishers besides big 5. Big 5 are: Elsevier, Wiley, Springer, Sage, Taylor & Francis"""
-    
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
-    
-    providers_list = data.Provider.tolist()
-    fields_list = data.Field.tolist()
-    
-    zipped = list(zip(providers_list, fields_list))
-    
-    big5 = ['Elsevier', 'Wiley', 'Springer', 'Taylor & Francis', 'Sage']
-    not_big5_data = []
-    
-    for i in zipped:
-        if i[0] not in big5:
-            not_big5_data.append(i)
-            
-    fields_only = [x[1] for x in not_big5_data]
-    
-    counted_fields = pd.Series(fields_only).value_counts().reset_index().values.tolist()
-    
-    fields = [x[0] for x in counted_fields]
-    counts = [x[1] for x in counted_fields]
+	""" 
+	Creates bar graph of the number journals assigned to each field for non-Big 5 Providers. 
 
-    mpl.rcParams['ytick.major.width'] = 1
-    mpl.rcParams['xtick.major.width'] = 1
-    plt.figure(num=None, figsize=(8,8))
-    plt.suptitle('Journals by Field (Not Big5 Providers)')
-    plt.barh(fields, counts, height=.8, color='green')
-    plt.grid()
-    plt.show() 
+	Chart Type: Bar Graph 
+	Y-Axis: Field 
+	Y-Axis Data Source: Journals Per Provider, Feild
+	X-Axis: Count of Field
+	X-Axis Data Source: Data Source: Journals Per Provider, Field
+	"""
+    
+	data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+
+	providers_list = data.Provider.tolist()
+	fields_list = data.Field.tolist()
+
+	zipped = list(zip(providers_list, fields_list))
+
+	big5 = ['Elsevier', 'Wiley', 'Springer', 'Taylor & Francis', 'Sage']
+	not_big5_data = []
+
+	for i in zipped:
+	    if i[0] not in big5:
+	        not_big5_data.append(i)
+	        
+	fields_only = [x[1] for x in not_big5_data]
+
+	counted_fields = pd.Series(fields_only).value_counts().reset_index().values.tolist()
+
+	fields = [x[0] for x in counted_fields]
+	counts = [x[1] for x in counted_fields]
+
+	mpl.rcParams['ytick.major.width'] = 1
+	mpl.rcParams['xtick.major.width'] = 1
+	plt.figure(num=None, figsize=(8,8))
+	plt.suptitle('Journals by Field (Not Big5 Providers)')
+	plt.barh(fields, counts, height=.8, color='green')
+	plt.grid()
+	plt.show() 
 
 
     
 def references_by_field_by_provider(provider_name):
-    """Charts references by field for chosen provider. User inputs provider name and dynamically generates chart for that provider.
-    References are defined as: 'Number of references made by researchers of your institution to an article from a given journal.' """
+	""" 
+	Creates bar graph of the number of references in each field for input provider. 
+
+	Chart Type: Bar Graph 
+	Y-Axis: Field 
+	Y-Axis Data Source: Journals Per Provider, Domain
+	X-Axis: Number of References
+	X-Axis Data Source: Journals Per Provider, References
+
+    References are defined as the number of references made by researchers of your institution to an article from a given journal.'
+     """
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
-    
-    subset_by_provider = data.loc[data['Provider'] == provider_name]
-    
-    fields_data = subset_by_provider.groupby(['Field'], as_index=False).sum().values.tolist()
-    fields = []
-    
-    for i in fields_data:
-        fields.append(i[0])
-        
-    fields = list(reversed(fields))             #to add to bar graph in reverse alphabetical order so it looks nicer
-    
-    sums_by_field = subset_by_provider.groupby(['Field'])['References'].sum().tolist()     #sum of downloads per field
-    
-    sums_by_field = list(reversed(sums_by_field))
-    
-    mpl.rcParams['ytick.major.width'] = 1
-    mpl.rcParams['xtick.major.width'] = 1
-    plt.figure(num=None, figsize=(8,8))
-    plt.suptitle(f"References by {your_institution} Authors by field for Provider: {provider_name}")
-    plt.barh(fields, sums_by_field, height=.8, color='green')
-    plt.grid()
-    plt.show() 
+	data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+
+	subset_by_provider = data.loc[data['Provider'] == provider_name]
+
+	fields_data = subset_by_provider.groupby(['Field'], as_index=False).sum().values.tolist()
+	fields = []
+
+	for i in fields_data:
+	    fields.append(i[0])
+	    
+	fields = list(reversed(fields))             #to add to bar graph in reverse alphabetical order so it looks nicer
+
+	sums_by_field = subset_by_provider.groupby(['Field'])['References'].sum().tolist()     #sum of downloads per field
+
+	sums_by_field = list(reversed(sums_by_field))
+
+	mpl.rcParams['ytick.major.width'] = 1
+	mpl.rcParams['xtick.major.width'] = 1
+	plt.figure(num=None, figsize=(8,8))
+	plt.suptitle(f"References by {your_institution} Authors by field for Provider: {provider_name}")
+	plt.barh(fields, sums_by_field, height=.8, color='green')
+	plt.grid()
+	plt.show() 
     
 
-def publications_by_field_by_provider(provider_name):
-    """Charts publications by field for chosen provider. User inputs provider name and dynamically generates chart for that provider.
-    Papers are defined as: 'Number of documents published in peer-reviewed journals indexed in Scopus and for which at least one author was affiliated to your institution.'"""
+def papers_by_field_by_provider(provider_name):
+    """ 
+	Creates bar graph of the number of papers in each field for input provider. 
+
+	Chart Type: Bar Graph 
+	Y-Axis: Field 
+	Y-Axis Data Source: Journals Per Provider, Field
+	X-Axis: Number of Publications
+	X-Axis Data Source:  Journals Per Provider, Papers
+
+    Papers are defined as the number of documents published in peer-reviewed journals indexed in Scopus and for which at least one author was affiliated to your institution.
+    """
     
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
