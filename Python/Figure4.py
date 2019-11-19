@@ -25,8 +25,6 @@ def figure4b_references():
     
 #    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)   
     original_1figr_dataset = pd.read_excel('JournalsPerProvider.xls', skiprows=8)
-    elsevier_freedom_collection = sb.make_freedom_collection_provider()
-    elsevier_subscribed_titles = sb.make_elsevier_subscribed_titles_provider()
 
     #this holds reference totals for all providers in the end, which is used to make final plot
     ref_by_provider = []
@@ -113,14 +111,17 @@ def figure4b_references():
 
 
 
+
+
+
 def figure4b_percentage():
 
+    #    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)   
     original_1figr_dataset = pd.read_excel('JournalsPerProvider.xls', skiprows=8)
-    elsevier_freedom_collection = sb.make_freedom_collection_provider()
-    elsevier_subscribed_titles = sb.make_elsevier_subscribed_titles_provider()
 
 #    providers = ['Sage', 'Springer', 'Taylor & Francis', 'Wiley']
-    providers = ['Sage']
+    all_providers = original_1figr_dataset['Provider'].unique()     #makes list of unique providers
+
 
     #build total references for all providers by year
     sum_2008 = 0
@@ -134,7 +135,7 @@ def figure4b_percentage():
     sum_2016 = 0
     sum_2017 = 0
     
-    for provider_name in providers:
+    for provider_name in all_providers:
         
         subset_by_provider = original_1figr_dataset.loc[original_1figr_dataset['Provider'] == provider_name]
     
@@ -160,11 +161,10 @@ def figure4b_percentage():
         sum_2017 += ref_2017[0]
 
 
-
     #build references by provider for each year
+    providers = ['Sage', 'Springer', 'Taylor & Francis', 'Wiley']
 
-
-    ref_by_provider = []
+    ref_by_provider = []    #this holds percentage of total references for each year by provider, which is later plotted
     
     for provider_name in providers:
         
@@ -173,7 +173,7 @@ def figure4b_percentage():
         ref_by_year = []
     
         ref_2008 = subset_by_provider['2008.1'].tolist()
-        ref_by_year.append(ref_2008[0])
+        ref_by_year.append(ref_2008[0]/sum_2008)
         ref_2009 = subset_by_provider['2009.1'].tolist()
         ref_by_year.append(ref_2009[0]/sum_2009)
         ref_2010 = subset_by_provider['2010.1'].tolist()
@@ -194,8 +194,62 @@ def figure4b_percentage():
         ref_by_year.append(ref_2017[0]/sum_2017)
         
         ref_by_provider.append(ref_by_year)
-        
+
+
+    #Calculate number of references for Elsevier Freedom and Elsevier Subscribed titles
+    elsevier_freedom_collection = sb.make_freedom_collection_provider()
+    elsevier_subscribed_titles = sb.make_elsevier_subscribed_titles_provider()
     
-    print(ref_by_provider)
+    elsevier_providers = [elsevier_freedom_collection, elsevier_subscribed_titles]
+    
+    for provider_name in elsevier_providers:
+        
+        ref_by_year = []
+        
+        ref_2008 = provider_name['2008.1'].tolist()
+        ref_by_year.append((sum(ref_2008))/sum_2008)
+        ref_2009 = provider_name['2009.1'].tolist()
+        ref_by_year.append((sum(ref_2009))/sum_2009)
+        ref_2010 = provider_name['2010.1'].tolist()
+        ref_by_year.append((sum(ref_2010))/sum_2010)
+        ref_2011 = provider_name['2011.1'].tolist()
+        ref_by_year.append((sum(ref_2011))/sum_2011)
+        ref_2012 = provider_name['2012.1'].tolist()
+        ref_by_year.append((sum(ref_2012))/sum_2012)
+        ref_2013 = provider_name['2013.1'].tolist()
+        ref_by_year.append((sum(ref_2013))/sum_2013)
+        ref_2014 = provider_name['2014.1'].tolist()
+        ref_by_year.append((sum(ref_2014))/sum_2014)
+        ref_2015 = provider_name['2015.1'].tolist()
+        ref_by_year.append((sum(ref_2015))/sum_2015)
+        ref_2016 = provider_name['2016.1'].tolist()
+        ref_by_year.append((sum(ref_2016))/sum_2016)
+        ref_2017 = provider_name['2017.1'].tolist()
+        ref_by_year.append((sum(ref_2017))/sum_2017)
+
+        ref_by_provider.append(ref_by_year)
+        
+        
+    years = ['2008','2009','2010','2011','2012','2013','2014','2015','2016','2017']
+
+    plt.figure(num=None, figsize=(10,10))
+    plt.suptitle(f'Percent of All References Made by {your_institution} Authors')
+    plt.xlabel('Year')
+    plt.ylabel('Percentage')
+
+    plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.0%}'))    #formats y axis as %
+
+
+    plt.plot(years, ref_by_provider[0], label='Sage')
+    plt.plot(years, ref_by_provider[1], label='Springer')
+    plt.plot(years, ref_by_provider[2], label='Taylor & Francis')
+    plt.plot(years, ref_by_provider[3], label='Wiley')
+    plt.plot(years, ref_by_provider[4], label='Elsevier Freedom')
+    plt.plot(years, ref_by_provider[5], label='Elsevier Subscribed')
+
+
+
+    plt.legend()
         
 
+figure4b_percentage()
