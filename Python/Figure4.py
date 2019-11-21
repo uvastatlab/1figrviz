@@ -12,7 +12,8 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import StrMethodFormatter
 import matplotlib.patches as mpatches
 
-import sandbox as sb
+import reusable_functions as rf
+
 
 
 filename = '1figr_U_Virginia_Original (1) (1).xlsx'
@@ -20,11 +21,14 @@ your_institution = 'UVA'
 
 
 def figure4b_references():
-    """ Show references per year by UVA authors, separating Elsevier Freedom
+    """ Show references per year by your institution's affiliated authors, separating Elsevier Freedom
     and Elsevier Subscribed titles out from Elsevier as a whole."""
     
 #    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)   
     original_1figr_dataset = pd.read_excel('JournalsPerProvider.xls', skiprows=8)
+    elsevier_freedom_collection = rf.make_freedom_collection_provider()
+    elsevier_subscribed_titles = rf.make_elsevier_subscribed_titles_provider()
+
 
     #this holds reference totals for all providers in the end, which is used to make final plot
     ref_by_provider = []
@@ -99,12 +103,12 @@ def figure4b_references():
     plt.ylabel('Number References')
     plt.ylim(0, 12000)
 
-    plt.plot(years, ref_by_provider[0], label='Elsevier Freedom')
-    plt.plot(years, ref_by_provider[1], label='Elsevier Subscribed')
-    plt.plot(years, ref_by_provider[2], label='Sage')
-    plt.plot(years, ref_by_provider[3], label='Springer')
-    plt.plot(years, ref_by_provider[4], label='Taylor & Francis')
-    plt.plot(years, ref_by_provider[5], label='Wiley')
+    plt.plot(years, ref_by_provider[0], label='Elsevier Freedom', color='red', linestyle='dashed')
+    plt.plot(years, ref_by_provider[1], label='Elsevier Subscribed', color='red')
+    plt.plot(years, ref_by_provider[2], label='Sage', color='blue')
+    plt.plot(years, ref_by_provider[3], label='Springer', color='green')
+    plt.plot(years, ref_by_provider[4], label='Taylor & Francis', color='purple')
+    plt.plot(years, ref_by_provider[5], label='Wiley', color='orange')
 
     plt.legend()
     
@@ -115,7 +119,11 @@ def figure4b_references():
 
 
 def figure4b_percentage():
-
+    """ Show percent references per year as a part of all references for eadch provider, separating Elsevier Freedom
+    and Elsevier Subscribed titles out from Elsevier as a whole."""
+    
+    
+    
     #    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)   
     original_1figr_dataset = pd.read_excel('JournalsPerProvider.xls', skiprows=8)
 
@@ -197,8 +205,8 @@ def figure4b_percentage():
 
 
     #Calculate number of references for Elsevier Freedom and Elsevier Subscribed titles
-    elsevier_freedom_collection = sb.make_freedom_collection_provider()
-    elsevier_subscribed_titles = sb.make_elsevier_subscribed_titles_provider()
+    elsevier_freedom_collection = rf.make_freedom_collection_provider()
+    elsevier_subscribed_titles = rf.make_elsevier_subscribed_titles_provider()
     
     elsevier_providers = [elsevier_freedom_collection, elsevier_subscribed_titles]
     
@@ -240,16 +248,16 @@ def figure4b_percentage():
     plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.0%}'))    #formats y axis as %
 
 
-    plt.plot(years, ref_by_provider[0], label='Sage')
-    plt.plot(years, ref_by_provider[1], label='Springer')
-    plt.plot(years, ref_by_provider[2], label='Taylor & Francis')
-    plt.plot(years, ref_by_provider[3], label='Wiley')
-    plt.plot(years, ref_by_provider[4], label='Elsevier Freedom')
-    plt.plot(years, ref_by_provider[5], label='Elsevier Subscribed')
+    plt.plot(years, ref_by_provider[0], label='Sage', color='blue')
+    plt.plot(years, ref_by_provider[1], label='Springer', color='green')
+    plt.plot(years, ref_by_provider[2], label='Taylor & Francis', color='purple')
+    plt.plot(years, ref_by_provider[3], label='Wiley', color='orange')
+    plt.plot(years, ref_by_provider[4], label='Elsevier Freedom', color='red', linestyle='dashed')
+    plt.plot(years, ref_by_provider[5], label='Elsevier Subscribed', color='red')
 
 
 
-    plt.legend()
+    plt.legend(loc='center left', bbox_to_anchor=(1, 0.8))
         
 
 figure4b_percentage()
