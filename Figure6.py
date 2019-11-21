@@ -11,7 +11,8 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import StrMethodFormatter
 import matplotlib.patches as mpatches
 
-import sandbox as sb
+import reusable_functions as rf
+
 
 filename = '1figr_U_Virginia_Original (1) (1).xlsx'
 your_institution = 'UVA'
@@ -23,8 +24,8 @@ def figure6b_oa_available_articles():
     
 #    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)   
     original_1figr_dataset = pd.read_excel('JournalsPerProvider.xls', skiprows=8)
-    elsevier_freedom_collection = sb.make_freedom_collection_provider()
-    elsevier_subscribed_titles = sb.make_elsevier_subscribed_titles_provider()
+    elsevier_freedom_collection = rf.make_freedom_collection_provider()
+    elsevier_subscribed_titles = rf.make_elsevier_subscribed_titles_provider()
 
 
     oa_articles_by_provider = []
@@ -117,8 +118,8 @@ def figure_6b_percent_oa_available_articles():
     
 #    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)   
     original_1figr_dataset = pd.read_excel('JournalsPerProvider.xls', skiprows=8)
-    elsevier_freedom_collection = sb.make_freedom_collection_provider()
-    elsevier_subscribed_titles = sb.make_elsevier_subscribed_titles_provider()
+    elsevier_freedom_collection = rf.make_freedom_collection_provider()
+    elsevier_subscribed_titles = rf.make_elsevier_subscribed_titles_provider()
 
 
     all_providers = original_1figr_dataset['Provider'].unique()     #makes list of unique providers

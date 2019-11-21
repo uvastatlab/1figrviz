@@ -12,7 +12,8 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import StrMethodFormatter
 import matplotlib.patches as mpatches
 
-import sandbox as sb
+import reusable_functions as rf
+
 
 filename = '1figr_U_Virginia_Original (1) (1).xlsx'
 your_institution = 'UVA'
@@ -25,8 +26,8 @@ def figure5b_papers():
     
 #    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)   
     original_1figr_dataset = pd.read_excel('JournalsPerProvider.xls', skiprows=8)
-    elsevier_freedom_collection = sb.make_freedom_collection_provider()
-    elsevier_subscribed_titles = sb.make_elsevier_subscribed_titles_provider()
+    elsevier_freedom_collection = rf.make_freedom_collection_provider()
+    elsevier_subscribed_titles = rf.make_elsevier_subscribed_titles_provider()
 
 
 
@@ -232,8 +233,8 @@ def figure5b_percentage():
 
 
     #Calculate number of references for Elsevier Freedom and Elsevier Subscribed titles        
-    elsevier_freedom_collection = sb.make_freedom_collection_provider()
-    elsevier_subscribed_titles = sb.make_elsevier_subscribed_titles_provider()
+    elsevier_freedom_collection = rf.make_freedom_collection_provider()
+    elsevier_subscribed_titles = rf.make_elsevier_subscribed_titles_provider()
     
     elsevier_providers = [elsevier_freedom_collection, elsevier_subscribed_titles]
     

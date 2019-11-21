@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import StrMethodFormatter
 import matplotlib.patches as mpatches
 
-import sandbox as sb
+import reusable_functions as rf
 
 filename = '1figr_U_Virginia_Original (1) (1).xlsx'
 your_institution = 'UVA'
@@ -44,12 +44,12 @@ def figure3c():
                 stats_by_provider.append((i[0], jr1_total))    #i[0] = name of provider
 
     #calculate downloads for elsevier freedom collection
-    elsevier_freedom_collection = sb.make_freedom_collection_provider()
+    elsevier_freedom_collection = rf.make_freedom_collection_provider()
     elsevier_freedom_jr1_downloads = elsevier_freedom_collection['Downloads JR1 2017'].sum()
     stats_by_provider.append(('Elsevier Freedom', elsevier_freedom_jr1_downloads))
     
     #calculate downloads for elsevier subscribed titles
-    elsevier_subscribed_titles = sb.make_elsevier_subscribed_titles_provider()
+    elsevier_subscribed_titles = rf.make_elsevier_subscribed_titles_provider()
     elsevier_subscribed_jr1_downloads = elsevier_subscribed_titles['Downloads JR1 2017'].sum()
     stats_by_provider.append(('Elsevier Subscribed', elsevier_subscribed_jr1_downloads))
     
@@ -117,14 +117,14 @@ def figure3d():
                 jr5_total = i[5]
                 stats_by_provider.append((i[0], jr5_total))    #i[0] = name of provider
 
-    elsevier_freedom_collection = sb.make_freedom_collection_provider()
+    elsevier_freedom_collection = rf.make_freedom_collection_provider()
 
     elsevier_freedom_jr5_downloads = elsevier_freedom_collection['Downloads JR5 2017 in 2017'].sum()
     
     stats_by_provider.append(('Elsevier Freedom', elsevier_freedom_jr5_downloads))
     
     
-    elsevier_subscribed_titles = sb.make_elsevier_subscribed_titles_provider()
+    elsevier_subscribed_titles = rf.make_elsevier_subscribed_titles_provider()
     
     elsevier_subscribed_jr5_downloads = elsevier_subscribed_titles['Downloads JR5 2017 in 2017'].sum()
     
