@@ -241,7 +241,6 @@ def make_disciplines_column():
     original_1figr_dataset.loc[(original_1figr_dataset['Domain'] == 'Natural Sciences') & (original_1figr_dataset['Field'] == 'Biology') & (original_1figr_dataset['Subfield'] == 'Ornithology'), 'Discipline'] = 'Biology'
     original_1figr_dataset.loc[(original_1figr_dataset['Domain'] == 'Natural Sciences') & (original_1figr_dataset['Field'] == 'Biology') & (original_1figr_dataset['Subfield'] == 'Plant Biology & Botany'), 'Discipline'] = 'Biology'
     original_1figr_dataset.loc[(original_1figr_dataset['Domain'] == 'Natural Sciences') & (original_1figr_dataset['Field'] == 'Biology') & (original_1figr_dataset['Subfield'] == 'Zoology'), 'Discipline'] = 'Biology'
-
     original_1figr_dataset.loc[(original_1figr_dataset['Domain'] == 'Natural Sciences') & (original_1figr_dataset['Field'] == 'Chemistry') & (original_1figr_dataset['Subfield'] == 'Analytical Chemistry'), 'Discipline'] = 'Chemistry'
     original_1figr_dataset.loc[(original_1figr_dataset['Domain'] == 'Natural Sciences') & (original_1figr_dataset['Field'] == 'Chemistry') & (original_1figr_dataset['Subfield'] == 'General Chemistry'), 'Discipline'] = 'Chemistry'
     original_1figr_dataset.loc[(original_1figr_dataset['Domain'] == 'Natural Sciences') & (original_1figr_dataset['Field'] == 'Chemistry') & (original_1figr_dataset['Subfield'] == 'Inorganic & Nuclear Chemistry'), 'Discipline'] = 'Chemistry'
@@ -249,19 +248,16 @@ def make_disciplines_column():
     original_1figr_dataset.loc[(original_1figr_dataset['Domain'] == 'Natural Sciences') & (original_1figr_dataset['Field'] == 'Chemistry') & (original_1figr_dataset['Subfield'] == 'Organic Chemistry'), 'Discipline'] = 'Chemistry'
     original_1figr_dataset.loc[(original_1figr_dataset['Domain'] == 'Natural Sciences') & (original_1figr_dataset['Field'] == 'Chemistry') & (original_1figr_dataset['Subfield'] == 'Physical Chemistry'), 'Discipline'] = 'Chemistry'
     original_1figr_dataset.loc[(original_1figr_dataset['Domain'] == 'Natural Sciences') & (original_1figr_dataset['Field'] == 'Chemistry') & (original_1figr_dataset['Subfield'] == 'Polymers'), 'Discipline'] = 'Chemistry'
-
     original_1figr_dataset.loc[(original_1figr_dataset['Domain'] == 'Natural Sciences') & (original_1figr_dataset['Field'] == 'Earth & Environmental Sciences') & (original_1figr_dataset['Subfield'] == 'Environmental Sciences'), 'Discipline'] = 'Earth & Environmental Sciences'
     original_1figr_dataset.loc[(original_1figr_dataset['Domain'] == 'Natural Sciences') & (original_1figr_dataset['Field'] == 'Earth & Environmental Sciences') & (original_1figr_dataset['Subfield'] == 'Geochemistry & Geophysics'), 'Discipline'] = 'Earth & Environmental Sciences'
     original_1figr_dataset.loc[(original_1figr_dataset['Domain'] == 'Natural Sciences') & (original_1figr_dataset['Field'] == 'Earth & Environmental Sciences') & (original_1figr_dataset['Subfield'] == 'Geology'), 'Discipline'] = 'Earth & Environmental Sciences'
     original_1figr_dataset.loc[(original_1figr_dataset['Domain'] == 'Natural Sciences') & (original_1figr_dataset['Field'] == 'Earth & Environmental Sciences') & (original_1figr_dataset['Subfield'] == 'Meteorology & Atmospheric Sciences'), 'Discipline'] = 'Earth & Environmental Sciences'
     original_1figr_dataset.loc[(original_1figr_dataset['Domain'] == 'Natural Sciences') & (original_1figr_dataset['Field'] == 'Earth & Environmental Sciences') & (original_1figr_dataset['Subfield'] == 'Oceanography'), 'Discipline'] = 'Earth & Environmental Sciences'
     original_1figr_dataset.loc[(original_1figr_dataset['Domain'] == 'Natural Sciences') & (original_1figr_dataset['Field'] == 'Earth & Environmental Sciences') & (original_1figr_dataset['Subfield'] == 'Paleontology'), 'Discipline'] = 'Earth & Environmental Sciences'
-
     original_1figr_dataset.loc[(original_1figr_dataset['Domain'] == 'Natural Sciences') & (original_1figr_dataset['Field'] == 'Mathematics & Statistics') & (original_1figr_dataset['Subfield'] == 'Applied Mathematics'), 'Discipline'] = 'Mathematics & Statistics'
     original_1figr_dataset.loc[(original_1figr_dataset['Domain'] == 'Natural Sciences') & (original_1figr_dataset['Field'] == 'Mathematics & Statistics') & (original_1figr_dataset['Subfield'] == 'General Mathematics'), 'Discipline'] = 'Mathematics & Statistics'
     original_1figr_dataset.loc[(original_1figr_dataset['Domain'] == 'Natural Sciences') & (original_1figr_dataset['Field'] == 'Mathematics & Statistics') & (original_1figr_dataset['Subfield'] == 'Numerical & Computational Mathematics'), 'Discipline'] = 'Mathematics & Statistics'
     original_1figr_dataset.loc[(original_1figr_dataset['Domain'] == 'Natural Sciences') & (original_1figr_dataset['Field'] == 'Mathematics & Statistics') & (original_1figr_dataset['Subfield'] == 'Statistics & Probability'), 'Discipline'] = 'Mathematics & Statistics'
-
     original_1figr_dataset.loc[(original_1figr_dataset['Domain'] == 'Natural Sciences') & (original_1figr_dataset['Field'] == 'Physics & Astronomy') & (original_1figr_dataset['Subfield'] == 'Acoustics'), 'Discipline'] = 'Physics & Astronomy'
     original_1figr_dataset.loc[(original_1figr_dataset['Domain'] == 'Natural Sciences') & (original_1figr_dataset['Field'] == 'Physics & Astronomy') & (original_1figr_dataset['Subfield'] == 'Applied Physics'), 'Discipline'] = 'Physics & Astronomy'
     original_1figr_dataset.loc[(original_1figr_dataset['Domain'] == 'Natural Sciences') & (original_1figr_dataset['Field'] == 'Physics & Astronomy') & (original_1figr_dataset['Subfield'] == 'Astronomy & Astrophysics'), 'Discipline'] = 'Physics & Astronomy'
@@ -272,13 +268,14 @@ def make_disciplines_column():
     original_1figr_dataset.loc[(original_1figr_dataset['Domain'] == 'Natural Sciences') & (original_1figr_dataset['Field'] == 'Physics & Astronomy') & (original_1figr_dataset['Subfield'] == 'Nuclear & Particle Physics'), 'Discipline'] = 'Physics & Astronomy'
     original_1figr_dataset.loc[(original_1figr_dataset['Domain'] == 'Natural Sciences') & (original_1figr_dataset['Field'] == 'Physics & Astronomy') & (original_1figr_dataset['Subfield'] == 'Optics'), 'Discipline'] = 'Physics & Astronomy'
 
+#    print(original_1figr_dataset['Discipline'])
 
 
 
 
-
-
-    print(original_1figr_dataset['Discipline'].value_counts())
+    #prints count of number of journals in each discipline
+#    print(original_1figr_dataset['Discipline'].value_counts())  #23873 total
     
+    return original_1figr_dataset
 
 make_disciplines_column()
