@@ -84,13 +84,13 @@ big5ref <- big5 %>%
 
 # create total citations
 totalref <- journal %>% 
-  filter(type == "Package") %>% 
+  filter(type == "Package") %>%    # all packages!
   mutate(tot2008 = sum(cite2008), tot2009 = sum(cite2009),
          tot2010 = sum(cite2010), tot2011 = sum(cite2011),
          tot2012 = sum(cite2012), tot2013 = sum(cite2013),
          tot2014 = sum(cite2014), tot2015 = sum(cite2015),
          tot2016 = sum(cite2016), tot2017 = sum(cite2017)) %>% 
-  filter(provider == "Elsevier") %>%  
+  filter(provider == "Elsevier") %>%  # just get the first replication of the totals
   select(tot2008:tot2017) %>% 
   pivot_longer(tot2008:tot2017, 
                names_to = c(".value", "year"),
@@ -135,11 +135,11 @@ Same figure as above with Elsevier broken down by Freedom versus Subscribed.
 
 ```{r }
 # Big 6 (Elsevier Free and Elsevier Subscribed)
-big6ref <- big6 %>% 
-  select(provider, cite2008:cite2017) %>% 
-  pivot_longer(-provider, 
-               names_to = c(".value", "year"),
-               names_sep = -4) %>% 
+  big6ref <- big6 %>% 
+    select(provider, cite2008:cite2017) %>% 
+    pivot_longer(-provider, 
+                 names_to = c(".value", "year"),
+                 names_sep = -4) %>% 
   full_join(totalref, by = "year") %>% 
   mutate(uvaper = (cite/tot)*100,
          els = if_else(str_detect(provider,"Freedom"), "Yes", "No"))

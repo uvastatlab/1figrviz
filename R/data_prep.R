@@ -79,4 +79,6 @@ journal <- journal %>% select(sort, journal, issn, provider, provider2, everythi
 # End Univ of Virginia specific work
 ################################################################################
 
+
+
 saveRDS(journal, file = "1science/journal.rds")
