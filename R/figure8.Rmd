@@ -64,14 +64,14 @@ plot_fn <- function(x, title){
 ## Use by Discipline
 
 
-### 8a. All Article Downloads by Domain
+### 8a. All Article Downloads by Discipline
 
 ```{r}
 # plot jr1 by domain
 plot_fn(jr1, title = "All 2017 Downloads from Elsevier Journals")
 ```
 
-### 8b. Current Year Article Downloads by Domain
+### 8b. Current Year Article Downloads by Discipline
 
 ```{r}
 # plot jr5 by domain
@@ -79,7 +79,7 @@ plot_fn(jr5, title = "Current Year 2017 Downloads from Elsevier Journals")
 
 ```
 
-### 8c. UVA References by Domain
+### 8c. UVA References by Discipline
 
 ```{r}
 # plot refs by domain
@@ -88,7 +88,7 @@ plot_fn(refs, title = "UVA References in Elsevier Journals")
 ```
 
 
-### 8d. UVA-Authored Publications by Domain
+### 8d. UVA-Authored Publications by Discipline
 
 
 ```{r}
@@ -161,7 +161,7 @@ plot_fn2 <- function(x, title){
 ```
 
 
-### 8e. All Article Downloads by Domain
+### 8e. All Article Downloads by Discipline
 
 ```{r}
 plot_fn2(jr1, title = "All 2017 Downloads from Elsevier Journals")
@@ -169,21 +169,21 @@ plot_fn2(jr1, title = "All 2017 Downloads from Elsevier Journals")
 ```
 
 
-### 8f. Current Year Article Downloads by Domain
+### 8f. Current Year Article Downloads by Discipline
 
 ```{r}
 plot_fn2(jr5, title = "Current Year 2017 Downloads from Elsevier Journals")
 
 ```
 
-### 8g. UVA References by Domain
+### 8g. UVA References by Discipline
 ```{r}
 plot_fn2(refs, title = "UVA References in Elsevier Journals")
 
 ```
 
 
-### 8h. UVA-Authored Publications by Domain
+### 8h. UVA-Authored Publications by Discipline
 ```{r}
 plot_fn2(pubs, title = "UVA-Authored Publications in Elsevier Journals")
 ```
