@@ -1,7 +1,5 @@
 # 1figr data prep
 library(tidyverse)
-library(RColorBrewer)
-library(scales)
 library(readxl)
 
 # read in original unedited data
@@ -43,37 +41,95 @@ journal <- journal %>%
   select(sort:jr5, currentper, cites, citeper, pubs, pubsper,
          synth:jr12018,jr12015_2018,jid, journalname)
 
-# add Elsevier "freedom" indicator to journal
+# add Elsevier grouping to journal
 
 ################################################################################
 # If not affiliated with the Univ of Virginia, comment out the following lines;
 ################################################################################
 
-# “Freedom Collection” titles are NOT in this data
-elsevier_subscribed <- read_excel("1science/Elsevier_2019.xlsx", sheet = 5)
-elsevier_subscribed <- elsevier_subscribed %>% filter(!is.na(ISSN))
+# Here is the spreadsheet with the ISSN’s for the Subscribed and Freedom
+# Collections
+#
+# The two worksheets to use are "All Subscribed Journals" and "All Freedom
+# Journals" which are the 6th and 7th tabs. The column to use is the second one
+# “ISSN”. Anything which isn’t in either of these two lists, but is in the 1figr
+# Elsevier list, goes into the "Elsevier Unmatched" category for the figures.
+
+# “All Subscribed Journals”
+elsevier_subscribed <- read_excel("1science/Elsevier_2019_Dec_05.xlsx", 
+                                  sheet = "All Subscribed Journals")
+elsevier_subscribed <- elsevier_subscribed %>% filter(!is.na(ISSN)) %>% 
+  select(ISSN, Product)
+nrow(elsevier_subscribed)
+
+# "All Freedom Journals"
+elsevier_freedom <- read_excel("1science/Elsevier_2019_Dec_05.xlsx", 
+                                  sheet = "All Freedom Journals")
+elsevier_freedom <- elsevier_freedom %>% filter(!is.na(ISSN)) %>% 
+  select(ISSN, Product)
+nrow(elsevier_freedom)
 
 # all 1figr Elsevier journals
-elsevier_all_1figr <- journal %>% filter(provider == "Elsevier" & !is.na(issn))
+elsevier_1figr <- journal %>% 
+  filter(provider == "Elsevier" & !is.na(issn)) %>% 
+  select(issn, journal)
+nrow(elsevier_1figr)
 
-# split ISSN by ||, for Elsevier journals
-journal_issn <- str_split(elsevier_all_1figr$issn, pattern = "\\|\\|") %>% map(str_trim)
+# split ISSN by ||, for 1figr Elsevier journals
+journal_issn <- str_split(elsevier_1figr$issn, pattern = "\\|\\|") %>% map(str_trim)
 
-# find journal_issn ISSN not in elsevier_subscribed;
-# all NA means not in elsevier_subscribed, therefore part of "freedom collection"
+# find 1figr ISSN not in elsevier_subscribed
+# TRUE = not in elsevier_subscribed
+# FALSE = in elsevier_subscribed
 lst.out <- sapply(journal_issn, function(x)all(is.na(match(x, elsevier_subscribed$ISSN))))
 
-# add freedom indicator
-elsevier_all_1figr$freedom <- lst.out
+# find 1figr ISSN not in elsevier_freedom;
+# TRUE = not in elsevier_freedom
+# FALSE = in elsevier_freedom
+lst.out2 <- sapply(journal_issn, function(x)all(is.na(match(x, elsevier_freedom$ISSN))))
+
+# create unmatched indicator
+table(lst.out)
+table(lst.out2)
+table(lst.out,lst.out2)
+which(lst.out == FALSE & lst.out2 == FALSE)
+
+unmatched <- lst.out & lst.out2
+sum(unmatched)
+
+# create variable to indicate unmatched, subscribed, freedom;
+# unmatched == 1
+elsevier_1figr$subscription <- as.numeric(unmatched)
+
+# freedom
+elsevier_1figr$subscription <- if_else(!lst.out2, 2, elsevier_1figr$subscription)
+
+# subscribed
+elsevier_1figr$subscription <- if_else(!lst.out, 3, elsevier_1figr$subscription)
+
+# recode the numbers
+elsevier_1figr$subscription <- recode(elsevier_1figr$subscription, 
+                                      `1` = "Elsevier Unmatched",
+                                      `2` = "Elsevier Freedom",
+                                      `3` = "Elsevier Subscribed")
+
+# Check EP's results
+# cf_unmatched <- filter(elsevier_1figr, unmatched)
+# ep_unmatched <- read_csv("Elsevier_Unmatched_Titles.csv") %>% select(Journal, `ISSN/eISSN`)
+# 
+# anti_join(ep_unmatched, cf_unmatched, by = c("Journal" = "journal"))
 
 # merge freedom indicator back into data
-journal <- elsevier_all_1figr %>% select(issn, provider, freedom) %>% left_join(journal, ., by = c("issn", "provider"))
+journal <- elsevier_1figr %>% 
+  left_join(journal, ., by = c("issn", "journal"))
 
-# create second provider column that distinguishes between elsevier subscribed
-# and freedom
+# create second provider column that distinguishes between elsevier unmatched,
+# freedom and subscribed
 journal$provider2 <- journal$provider
-journal$provider2 <- if_else(journal$freedom, "Elsevier Freedom", "Elsevier Subscribed", journal$provider2)
-journal <- journal %>% select(sort, journal, issn, provider, provider2, everything())
+journal$provider2 <- if_else(journal$provider == "Elsevier", 
+                             true = journal$subscription, 
+                             false = journal$provider)
+journal <- journal %>% select(sort, journal, issn, provider, provider2, everything(), -subscription)
 
 ################################################################################
 # End Univ of Virginia specific work
@@ -82,3 +138,32 @@ journal <- journal %>% select(sort, journal, issn, provider, provider2, everythi
 
 
 saveRDS(journal, file = "1science/journal.rds")
+
+# 12/6/2019
+
+# send me the list of the journals in the Elsevier_2019_Dec_05 “All Subscribed”
+# and “All Freedom” tabs that don’t match anything in 1figr.
+
+all_1figr_issn <- str_split(journal$issn, pattern = "\\|\\|") %>% 
+  map(str_trim)
+which(sapply(all_1figr_issn, length) == 6)
+
+# reshape
+journal2 <- journal %>% select(issn, journal) %>% 
+  separate(issn, into = paste0("issn",1:6), sep = "\\|\\|") %>% 
+  gather(key = which_issn, value = issn, -journal) %>% 
+  filter(!is.na(issn)) %>% 
+  str_trim(issn)
+
+journal2$issn <- str_remove_all(journal2$issn, pattern = "[[:space:]]")
+
+# remove duplicates
+journal2 <- journal2[!duplicated(journal2$issn),]
+
+# all Elsevier_2019_Dec_05
+free_and_sub <- bind_rows(elsevier_freedom, elsevier_subscribed)
+
+# journals in the Elsevier_2019_Dec_05 "All Subscribed" # and "All Freedom" tabs
+# that don’t match anything in 1figr.
+reverse_unmatched <- free_and_sub[!free_and_sub$ISSN %in% journal2$issn,]
+write.csv(reverse_unmatched, file = "reverse_unmatched.csv", row.names = FALSE)
