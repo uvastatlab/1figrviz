@@ -156,7 +156,8 @@ els_group2 <- els %>%
             refs = sum(cites, na.rm = TRUE),
             pubs = sum(pubs, na.rm = TRUE)) %>% 
   ungroup() %>% 
-  mutate(domain = factor(domain))
+  mutate(domain = factor(domain)) %>% 
+  filter(provider2 != "Elsevier Unmatched")
 
 # Two colors taken from brewer.pal(n = 7, name = "BuPu")
 pal <- c("#8C96C6", "#6E016B")
