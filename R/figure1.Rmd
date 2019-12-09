@@ -78,18 +78,19 @@ fig1 <- function(use, provider, title, subtitle){
   
   assign(x = "highuse_counts", highuse_counts, envir = .GlobalEnv)
   
-  highuse_counts %>% 
-    ggplot(aes(x = !! provider, y = pct, fill = fct_rev(!! use))) +
+  p <- highuse_counts %>% 
+    ggplot(aes(x = !! provider, y = pct, fill = fct_rev(!! use), label = n)) +
     geom_col() +
     scale_y_continuous(labels = scales::percent) +
     scale_fill_brewer(type = 'seq', palette = 'BuPu') +
     labs(title = title,
          subtitle = subtitle,
          x = "", y = "Percent") +
-    geom_text(aes(label=paste0(n), y=ypos - 0.05)) +
+   # geom_text(aes(label=paste0(n), y=ypos - 0.05)) +
     guides(fill = guide_legend(reverse=TRUE, title = NULL)) +
     theme(legend.position = "bottom") +
     coord_flip()
+  plotly::ggplotly(p)
 }
 
 

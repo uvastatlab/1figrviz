@@ -153,7 +153,7 @@ journal2 <- journal %>% select(issn, journal) %>%
   separate(issn, into = paste0("issn",1:6), sep = "\\|\\|") %>% 
   gather(key = which_issn, value = issn, -journal) %>% 
   filter(!is.na(issn)) %>% 
-  str_trim(issn)
+  mutate(issn = str_trim(issn))
 
 journal2$issn <- str_remove_all(journal2$issn, pattern = "[[:space:]]")
 
