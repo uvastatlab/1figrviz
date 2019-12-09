@@ -20,11 +20,39 @@ filename = '1figr_U_Virginia_Original (1) (1).xlsx'
 your_institution = 'UVA'
 
 
+"""
+Documentation Format
+----------------------------------------------------------------
+Summary
+
+Chart Type: Chart Type Name
+Y-Axis: Dependent Variable Name
+Y-Axis Data Source: SheetName, ColumnName
+X-Axis:
+X-Axis Data Source:
+
+Supplemental Information
+"""
+
+
 def figure1e():
     """Makes JR80, JR90, JR95 graph for all 6 big providers,
     splitting elsevier into Elseveier Freedom and Elsevier Subscribed.
     
-    Plots JR1 Downloads"""
+    Plots JR1 Downloads (Articles published in any year, downloaded in 2017)
+    
+    JR80 = Journals which make up 80% of JR1 Downloads
+    JR90 = Journals which make up 90% of JR1 Downloads
+    JR95 = Journals which make up 95% of JR1 Downloads
+    
+    Chart Type: Stacked Bar Graph
+    Y-Axis: Percent of Total Titles
+    Y-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
+                        Elsevier_2019, Subscribed Journal List 2019
+    X-Axis: Provider Name
+    X-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
+                        Elsevier_2019, Subscribed Journal List 2019
+    """
     
 #    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     data = pd.read_excel('JournalsPerProvider.xls', skiprows=8)      #for testing purposes, xls reads faster than xlsx
@@ -86,13 +114,16 @@ def figure1e():
 
         stats_by_provider.append((provider_name, jr80_score, jr90_score, jr95_score, total_score, len(jr80_highly_used_journals), len(jr90_highly_used_journals), len(jr95_highly_used_journals)))
 
+    unmatched_collection_provider = rf.make_elsevier_unmatched_provider()
+    unmatched_collection_provider['Provider Name'] = 'Elsevier Unmatched'   #need to create a column which holds provider name
+
     subscribed_titles_provider = rf.make_elsevier_subscribed_titles_provider()
     subscribed_titles_provider['Provider Name'] = 'Elsevier Subscribed'    #need to create a column which holds provider name
     
     freedom_collection_provider = rf.make_freedom_collection_provider()
     freedom_collection_provider['Provider Name'] = 'Elsevier Freedom'  #need to create a column which holds provider name
     
-    elsevier_providers = [subscribed_titles_provider, freedom_collection_provider]
+    elsevier_providers = [unmatched_collection_provider, subscribed_titles_provider, freedom_collection_provider]
     
     for provider_name in elsevier_providers:
         
@@ -164,17 +195,12 @@ def figure1e():
         jr90 = i[2]
         jr95 = i[3]
         total_values = i[4]
-        jr80_size = i[5]
-        jr90_size = i[6]
-        jr95_size = i[7]
+
         
         plot1 = plt.bar(provider, jr80, color='violet')
         plot2 = plt.bar(provider, jr90, bottom=jr80, color='moccasin')
         plot3 = plt.bar(provider, jr95, bottom=(jr80 + jr90), color='paleturquoise')
         plot4 = plt.bar(provider, total_values, bottom=(jr80 + jr90 + jr95), color='silver')
-
-
-
 
         
     
@@ -182,7 +208,20 @@ def figure1f():
     """Makes JR80, JR90, JR95 graph for all 6 big providers,
     splitting elsevier into Elseveier Freedom and Elsevier Subscribed.
     
-    Plots JR5 Downloads"""
+    Plots JR5 Downloads (Articles published in 2017, downloaded in 2017)
+    
+    JR80 = Journals which make up 80% of JR5 Downloads
+    JR90 = Journals which make up 90% of JR5 Downloads
+    JR95 = Journals which make up 95% of JR5 Downloads
+    
+    Chart Type: Stacked Bar Graph
+    Y-Axis: Percent of Total Titles
+    Y-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
+                        Elsevier_2019, Subscribed Journal List 2019
+    X-Axis: Provider Name
+    X-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
+                        Elsevier_2019, Subscribed Journal List 2019
+    """  
     
 #    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     data = pd.read_excel('JournalsPerProvider.xls', skiprows=8)      #for testing purposes, xls reads faster than xlsx
@@ -243,6 +282,9 @@ def figure1f():
         total_score = (1- (jr80_score+jr90_score+jr95_score))
 
         stats_by_provider.append((provider_name, jr80_score, jr90_score, jr95_score, total_score, len(jr80_highly_used_journals), len(jr90_highly_used_journals), len(jr95_highly_used_journals)))
+ 
+    unmatched_collection_provider = rf.make_elsevier_unmatched_provider()
+    unmatched_collection_provider['Provider Name'] = 'Elsevier Unmatched'   #need to create a column which holds provider name
 
     subscribed_titles_provider = rf.make_elsevier_subscribed_titles_provider()
     subscribed_titles_provider['Provider Name'] = 'Elsevier Subscribed'    #need to create a column which holds provider name
@@ -250,7 +292,7 @@ def figure1f():
     freedom_collection_provider = rf.make_freedom_collection_provider()
     freedom_collection_provider['Provider Name'] = 'Elsevier Freedom'  #need to create a column which holds provider name
     
-    elsevier_providers = [subscribed_titles_provider, freedom_collection_provider]
+    elsevier_providers = [unmatched_collection_provider, subscribed_titles_provider, freedom_collection_provider]
     
     for provider_name in elsevier_providers:
         
@@ -322,9 +364,7 @@ def figure1f():
         jr90 = i[2]
         jr95 = i[3]
         total_values = i[4]
-        jr80_size = i[5]
-        jr90_size = i[6]
-        jr95_size = i[7]
+
         
         plot1 = plt.bar(provider, jr80, color='violet')
         plot2 = plt.bar(provider, jr90, bottom=jr80, color='moccasin')
@@ -333,13 +373,25 @@ def figure1f():
     
     
     
-    
 
 def figure1g():
     """Makes JR80, JR90, JR95 graph for all 6 big providers,
     splitting elsevier into Elseveier Freedom and Elsevier Subscribed.
     
-    Plots References"""
+    Plots References (Articles published by your institution, referenced by other authors)
+    
+    JR80 = Journals which make up 80% of References
+    JR90 = Journals which make up 90% of References
+    JR95 = Journals which make up 95% of References
+    
+    Chart Type: Stacked Bar Graph
+    Y-Axis: Percent of Total Titles
+    Y-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
+                        Elsevier_2019, Subscribed Journal List 2019
+    X-Axis: Provider Name
+    X-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
+                        Elsevier_2019, Subscribed Journal List 2019
+    """
     
 #    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     data = pd.read_excel('JournalsPerProvider.xls', skiprows=8)      #for testing purposes, xls reads faster than xlsx
@@ -401,13 +453,16 @@ def figure1g():
 
         stats_by_provider.append((provider_name, jr80_score, jr90_score, jr95_score, total_score, len(jr80_highly_used_journals), len(jr90_highly_used_journals), len(jr95_highly_used_journals)))
 
+    unmatched_collection_provider = rf.make_elsevier_unmatched_provider()
+    unmatched_collection_provider['Provider Name'] = 'Elsevier Unmatched'   #need to create a column which holds provider name
+
     subscribed_titles_provider = rf.make_elsevier_subscribed_titles_provider()
     subscribed_titles_provider['Provider Name'] = 'Elsevier Subscribed'    #need to create a column which holds provider name
     
     freedom_collection_provider = rf.make_freedom_collection_provider()
     freedom_collection_provider['Provider Name'] = 'Elsevier Freedom'  #need to create a column which holds provider name
     
-    elsevier_providers = [subscribed_titles_provider, freedom_collection_provider]
+    elsevier_providers = [unmatched_collection_provider, subscribed_titles_provider, freedom_collection_provider]
     
     for provider_name in elsevier_providers:
         
@@ -479,15 +534,12 @@ def figure1g():
         jr90 = i[2]
         jr95 = i[3]
         total_values = i[4]
-        jr80_size = i[5]
-        jr90_size = i[6]
-        jr95_size = i[7]
+
         
         plot1 = plt.bar(provider, jr80, color='violet')
         plot2 = plt.bar(provider, jr90, bottom=jr80, color='moccasin')
         plot3 = plt.bar(provider, jr95, bottom=(jr80 + jr90), color='paleturquoise')
         plot4 = plt.bar(provider, total_values, bottom=(jr80 + jr90 + jr95), color='silver')
-        
         
 
 
@@ -495,7 +547,20 @@ def figure1h():
     """Makes JR80, JR90, JR95 graph for all 6 big providers,
     splitting elsevier into Elseveier Freedom and Elsevier Subscribed.
     
-    Plots Papers (articles published)"""
+    Plots Papers (Articles published by authors affiliated with your institution)
+    
+    JR80 = Journals which make up 80% of Papers
+    JR90 = Journals which make up 90% of Papers
+    JR95 = Journals which make up 95% of Papers
+    
+    Chart Type: Stacked Bar Graph
+    Y-Axis: Percent of Total Titles
+    Y-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
+                        Elsevier_2019, Subscribed Journal List 2019
+    X-Axis: Provider Name
+    X-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
+                        Elsevier_2019, Subscribed Journal List 2019
+    """
     
 #    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     data = pd.read_excel('JournalsPerProvider.xls', skiprows=8)      #for testing purposes, xls reads faster than xlsx
@@ -557,13 +622,16 @@ def figure1h():
 
         stats_by_provider.append((provider_name, jr80_score, jr90_score, jr95_score, total_score, len(jr80_highly_used_journals), len(jr90_highly_used_journals), len(jr95_highly_used_journals)))
 
+    unmatched_collection_provider = rf.make_elsevier_unmatched_provider()
+    unmatched_collection_provider['Provider Name'] = 'Elsevier Unmatched'   #need to create a column which holds provider name
+
     subscribed_titles_provider = rf.make_elsevier_subscribed_titles_provider()
     subscribed_titles_provider['Provider Name'] = 'Elsevier Subscribed'    #need to create a column which holds provider name
     
     freedom_collection_provider = rf.make_freedom_collection_provider()
     freedom_collection_provider['Provider Name'] = 'Elsevier Freedom'  #need to create a column which holds provider name
     
-    elsevier_providers = [subscribed_titles_provider, freedom_collection_provider]
+    elsevier_providers = [unmatched_collection_provider, subscribed_titles_provider, freedom_collection_provider]
     
     for provider_name in elsevier_providers:
         
@@ -635,9 +703,7 @@ def figure1h():
         jr90 = i[2]
         jr95 = i[3]
         total_values = i[4]
-        jr80_size = i[5]
-        jr90_size = i[6]
-        jr95_size = i[7]
+
         
         plot1 = plt.bar(provider, jr80, color='violet')
         plot2 = plt.bar(provider, jr90, bottom=jr80, color='moccasin')
@@ -645,5 +711,3 @@ def figure1h():
         plot4 = plt.bar(provider, total_values, bottom=(jr80 + jr90 + jr95), color='silver')
 
 
-
-figure1h()

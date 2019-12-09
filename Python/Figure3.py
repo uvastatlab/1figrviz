@@ -22,7 +22,17 @@ def figure3c():
     """Represents cost per JR1 download by provider
     Reads in cost data from supplementary file for each provider
     Cost per JR1 download = total cost per provider / # of JR1 downloads by provider
-    Represented as "big 7" providers, including Elsevier Freedom and Elsevier Subscribed titles"""
+    Represented as "big 7" providers, including Elsevier Freedom and Elsevier Subscribed titles
+    
+    
+    Chart Type: Bar Graph
+    Y-Axis: Cost (in dollars) per JR1 Download
+    Y-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
+                        1figr_U_Virginia_edit_Supp_Data, Total cost for 2017
+    X-Axis: Provider Name
+    X-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
+                        1figr_U_Virginia_edit_Supp_Data, Total cost for 2017
+    """
     
 #    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     data = pd.read_excel('JournalsPerProvider.xls', skiprows=8)      #for testing purposes, xls reads faster than xlsx
@@ -88,15 +98,22 @@ def figure3c():
 #    plt.savefig('test.jpg', bbox_inches='tight')      #saves image in working directory
 
 
-figure3c()
 
 
 def figure3d():
     """Represents cost per JR5 download by provider
     Reads in cost data from supplementary file for each provider
     Cost per JR1 download = total cost per provider / # of JR5 downloads by provider
-    Represented as "big 7" providers, including Elsevier Freedom and Elsevier Subscribed titles"""
+    Represented as "big 7" providers, including Elsevier Freedom and Elsevier Subscribed titles
     
+    Chart Type: Bar Graph
+    Y-Axis: Cost (in dollars) per JR5 Download
+    Y-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
+                        1figr_U_Virginia_edit_Supp_Data, Total cost for 2017
+    X-Axis: Provider Name
+    X-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
+                        1figr_U_Virginia_edit_Supp_Data, Total cost for 2017
+    """
     
 #    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     data = pd.read_excel('JournalsPerProvider.xls', skiprows=8)      #for testing purposes, xls reads faster than xlsx
@@ -164,4 +181,3 @@ def figure3d():
 
 #    plt.show()        
     plt.savefig('test.jpg', bbox_inches='tight')      #saves image in working directory
-

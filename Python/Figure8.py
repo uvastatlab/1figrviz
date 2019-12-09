@@ -22,7 +22,16 @@ def figure8e():
     """First creates 'discipline' field for all providers in the Original 1figr dataset.
     Then splits elsevier into elsevier freedom provider and elsevier subscribed titles provider
     
-    This is counting JR1 downloads by discipline for the subscribed titles and freedom collection providers"""
+    This is counting JR1 downloads by discipline for the subscribed titles and freedom collection providers
+    
+    Chart Type: Dot Plot/Scatter Plot
+    Y-Axis: Discipline
+    Y-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
+                        Elsevier_2019, Subscribed Journal List 2019
+    X-Axis: Number of JR1 Downloads
+    X-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
+                        Elsevier_2019, Subscribed Journal List 2019
+    """
     
     original_1figr_data_with_disciplines = rf.make_disciplines_column()
     subscribed_titles_provider = rf.make_elsevier_subscribed_titles_with_disciplines(original_1figr_data_with_disciplines)
@@ -55,7 +64,7 @@ def figure8e():
     subscribed_total = [i[1] for i in arrangement]
     freedom_total = [i[2] for i in arrangement]
 
-
+    #make plot
     mpl.rcParams['ytick.major.width'] = 1
     mpl.rcParams['xtick.major.width'] = 1
     plt.figure(num=None, figsize=(8,8))
@@ -66,16 +75,25 @@ def figure8e():
 
     subscribed_legend_label = mpatches.Patch(color='blue', label='Elsevier Subscribed')
     freedom_legend_label = mpatches.Patch(color='orange', label='Elsevier Freedom')
+    plt.xlabel('Number of JR1 Downloads')
     plt.legend(loc='lower right', handles=[subscribed_legend_label, freedom_legend_label])
     
-       
     
 
 def figure8f():
     """First creates 'discipline' field for all providers in the Original 1figr dataset.
     Then splits elsevier into elsevier freedom provider and elsevier subscribed titles provider
     
-    This is counting JR5 downloads by discipline for the subscribed titles and freedom collection providers"""
+    This is counting JR5 downloads by discipline for the subscribed titles and freedom collection providers
+    
+    Chart Type: Dot Plot/Scatter Plot
+    Y-Axis: Discipline
+    Y-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
+                        Elsevier_2019, Subscribed Journal List 2019
+    X-Axis: Number of JR5 Downloads
+    X-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
+                        Elsevier_2019, Subscribed Journal List 2019
+    """
  
     original_1figr_data_with_disciplines = rf.make_disciplines_column()
     subscribed_titles_provider = rf.make_elsevier_subscribed_titles_with_disciplines(original_1figr_data_with_disciplines)
@@ -119,14 +137,25 @@ def figure8f():
 
     subscribed_legend_label = mpatches.Patch(color='blue', label='Elsevier Subscribed')
     freedom_legend_label = mpatches.Patch(color='orange', label='Elsevier Freedom')
+    plt.xlabel('Number of JR5 Downloads')
     plt.legend(loc='lower right', handles=[subscribed_legend_label, freedom_legend_label])
-    
+
+
 
 def figure8g():
     """First creates 'discipline' field for all providers in the Original 1figr dataset.
     Then splits elsevier into elsevier freedom provider and elsevier subscribed titles provider
     
-    This is counting references by discipline for the subscribed titles and freedom collection providers"""
+    This is counting references by discipline for the subscribed titles and freedom collection providers.
+    
+    Chart Type: Dot Plot/Scatter Plot
+    Y-Axis: Discipline
+    Y-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
+                        Elsevier_2019, Subscribed Journal List 2019
+    X-Axis: Number of References
+    X-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
+                        Elsevier_2019, Subscribed Journal List 2019
+    """
    
     original_1figr_data_with_disciplines = rf.make_disciplines_column()
     subscribed_titles_provider = rf.make_elsevier_subscribed_titles_with_disciplines(original_1figr_data_with_disciplines)
@@ -170,8 +199,8 @@ def figure8g():
 
     subscribed_legend_label = mpatches.Patch(color='blue', label='Elsevier Subscribed')
     freedom_legend_label = mpatches.Patch(color='orange', label='Elsevier Freedom')
+    plt.xlabel('Number of References')
     plt.legend(loc='lower right', handles=[subscribed_legend_label, freedom_legend_label])
-
 
 
 
@@ -179,7 +208,17 @@ def figure8h():
     """First creates 'discipline' field for all providers in the Original 1figr dataset.
     Then splits elsevier into elsevier freedom provider and elsevier subscribed titles provider
     
-    This is counting papers by discipline for the subscribed titles and freedom collection providers"""
+    This is counting papers by discipline for the subscribed titles and freedom collection providers
+    
+    Chart Type: Dot Plot/Scatter Plot
+    Y-Axis: Discipline
+    Y-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
+                        Elsevier_2019, Subscribed Journal List 2019
+    X-Axis: Number of Papers
+    X-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
+                        Elsevier_2019, Subscribed Journal List 2019
+
+    """
 
     original_1figr_data_with_disciplines = rf.make_disciplines_column()
     subscribed_titles_provider = rf.make_elsevier_subscribed_titles_with_disciplines(original_1figr_data_with_disciplines)
@@ -223,10 +262,9 @@ def figure8h():
 
     subscribed_legend_label = mpatches.Patch(color='blue', label='Elsevier Subscribed')
     freedom_legend_label = mpatches.Patch(color='orange', label='Elsevier Freedom')
+    plt.xlabel('Number of Papers')
     plt.legend(loc='lower right', handles=[subscribed_legend_label, freedom_legend_label])
     
-
-
 
     
     

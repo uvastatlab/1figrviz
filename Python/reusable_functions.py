@@ -8,6 +8,7 @@ Created on Thu Nov 21 15:05:10 2019
 
 import pandas as pd
 
+
 filename = 'JournalsPerProvider.xls'
 
 def make_elsevier_subscribed_titles_provider():
@@ -17,26 +18,21 @@ def make_elsevier_subscribed_titles_provider():
     Creates elsevier subscribed titles provider as pandas dataframe, which is used to create various figures in other files."""
     
     
-    subscribed_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019.xlsx', sheet_name='Subscribed Journal List 2019')
+    subscribed_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019_Dec_05.xlsx', sheet_name='All Subscribed Journals')
 #    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     original_1figr_dataset = pd.read_excel('JournalsPerProvider.xls', skiprows=8)
 
-
-    subscribed_journal_list_issns = subscribed_journal_list['ISSN'].tolist()  #637 issn #s in list   
-    
-#    subscribed_journals_subset = elsevier_journal_list[elsevier_journal_list['ISSN'].isin(subscribed_journal_list_issns)]  #634 journals
-    
+    subscribed_journal_list = subscribed_journal_list[pd.notnull(subscribed_journal_list['ISSN'])]   #removes null values
+    subscribed_journal_list_issns = subscribed_journal_list['ISSN'].tolist()
+        
     provider_name = 'Elsevier'
     subset_by_provider = original_1figr_dataset.loc[original_1figr_dataset['Provider'] == provider_name]     #2803 journals
 
-#    #logic to match the ISSN string from the subscribed_titles_issns list to any of the ISSN/eISSN numbers for elsevier titles
-    subscribed_titles_subset = subset_by_provider[subset_by_provider['ISSN/eISSN'].str.split(expand=True).isin(subscribed_journal_list_issns).any(1)]    #610 titles matched with Original 1Figr Data
-    subscribed_titles_subset = subscribed_titles_subset.iloc[1:]            #first column is an aggregator for entire elsevier provider and must be dropped
+    #logic to match the ISSN string from the subscribed_titles_issns list to any of the ISSN/eISSN numbers for elsevier titles
+    subscribed_titles_subset = subset_by_provider[subset_by_provider['ISSN/eISSN'].str.split(expand=True).isin(subscribed_journal_list_issns).any(1)]    #678 titles matched with Original 1Figr Data
 
-    
     return subscribed_titles_subset
-    
-
+  
 
 def make_elsevier_subscribed_titles_with_disciplines(input_dataframe):
     """First, you must run the make_disciplines_column function to add the disciplines column to the original 1figr data. That result is used as input to this function.
@@ -45,49 +41,42 @@ def make_elsevier_subscribed_titles_with_disciplines(input_dataframe):
     
     Creates elsevier subscribed titles provider as pandas dataframe, including the discipline column, which is used to create various figures 8e through 8h."""
 
-    subscribed_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019.xlsx', sheet_name='Subscribed Journal List 2019')
-    
-    subscribed_journal_list_issns = subscribed_journal_list['ISSN'].tolist()  #637 issn #s in list   
-    
-#    subscribed_journals_subset = elsevier_journal_list[elsevier_journal_list['ISSN'].isin(subscribed_journal_list_issns)]  #634 journals
+#    subscribed_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019.xlsx', sheet_name='Subscribed Journal List 2019')
+    subscribed_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019_Dec_05.xlsx', sheet_name='All Subscribed Journals')
+
+    subscribed_journal_list = subscribed_journal_list[pd.notnull(subscribed_journal_list['ISSN'])]   #removes null values    
+    subscribed_journal_list_issns = subscribed_journal_list['ISSN'].tolist()     
+        
+#    subscribed_journals_subset = elsevier_journal_list[elsevier_journal_list['ISSN'].isin(subscribed_journal_list_issns)]  
     
     provider_name = 'Elsevier'
     subset_by_provider = input_dataframe.loc[input_dataframe['Provider'] == provider_name]     #2803 journals
 
 #    #logic to match the ISSN string from the subscribed_titles_issns list to any of the ISSN/eISSN numbers for elsevier titles
-    subscribed_titles_subset = subset_by_provider[subset_by_provider['ISSN/eISSN'].str.split(expand=True).isin(subscribed_journal_list_issns).any(1)]    #610 titles matched with Original 1Figr Data
-    subscribed_titles_subset = subscribed_titles_subset.iloc[1:]            #first column is an aggregator for entire elsevier provider and must be dropped
-
+    subscribed_titles_subset = subset_by_provider[subset_by_provider['ISSN/eISSN'].str.split(expand=True).isin(subscribed_journal_list_issns).any(1)]    #678 titles    
+    
     return subscribed_titles_subset
 
 
+
 def make_freedom_collection_provider():
-    """These will be the Elsevier tiles which we do not subscribe to, the Freedom Collection titles, from the 'Elsevier_2019' dataset. First, uses
-    ISSN of each title from 'Elsevier 2019' dataset, subscribed journals list tab, (638 titles). Uses ISSN of each title to extract the ones that do not
-    match from the Elsevier Journal List 2019 tab and gets the ISSNs of the freedom collection. Then uses those ISSNs to check against UVA_1figr_original_dataset
-    to see if ISSN is in any Elsevier title.
+    """Checks freedom title list from 'Elsevier_2019' file, All Freedom Journals tab, (1162 titles). Uses ISSN of each title and checks that against the
+    UVA_1figr_original_dataset to see if ISSN is in any Elsevier title.
     
     Creates elsevier freedom collection provider as pandas dataframe, which is used to create various figures in other files."""
     
-    subscribed_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019.xlsx', sheet_name='Subscribed Journal List 2019')
-    elsevier_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019.xlsx', sheet_name='Elsevier Journal List 2019')
+    freedom_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019_Dec_05.xlsx', sheet_name='All Freedom Journals')
 #    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     original_1figr_dataset = pd.read_excel('JournalsPerProvider.xls', skiprows=8)
 
+    freedom_journal_list = freedom_journal_list[pd.notnull(freedom_journal_list['ISSN'])]   #removes null values
+    freedom_journal_list_issns = freedom_journal_list['ISSN'].tolist()      #1162 issn #s in list
 
-    subscribed_journal_list_issns = subscribed_journal_list['ISSN'].tolist()
-    
-    freedom_collection_subset = elsevier_journal_list[elsevier_journal_list['ISSN'].isin(subscribed_journal_list_issns) == False]
-    
-    freedom_collection_subset_issns = freedom_collection_subset['ISSN'].tolist()   #1328 titles
-    
     provider_name = 'Elsevier'
     subset_by_provider = original_1figr_dataset.loc[original_1figr_dataset['Provider'] == provider_name]     #2803 journals
-    
 
     #logic to get the 'freedom collection' providers from the Elsevier Journal List   
-    freedom_collection_subset = subset_by_provider[subset_by_provider['ISSN/eISSN'].str.split(expand=True).isin(freedom_collection_subset_issns).any(1)]    #1122 titles
-
+    freedom_collection_subset = subset_by_provider[subset_by_provider['ISSN/eISSN'].str.split(expand=True).isin(freedom_journal_list_issns).any(1)]   #1085 titles
 
     return freedom_collection_subset
 
@@ -95,33 +84,90 @@ def make_freedom_collection_provider():
 def make_freedom_collection_provider_with_disciplines(input_dataframe):
     """First, you must run the make_disciplines_column function to add the disciplines column to the original 1figr data. That result is used as input to this function.
 
-    These will be the Elsevier tiles which we do not subscribe to, the Freedom Collection titles, from the 'Elsevier_2019' dataset. First, uses
-    ISSN of each title from 'Elsevier 2019' dataset, subscribed journals list tab, (638 titles). Uses ISSN of each title to extract the ones that do not
-    match from the Elsevier Journal List 2019 tab and gets the ISSNs of the freedom collection. Then uses those ISSNs to check against UVA_1figr_original_dataset
+    Checks freedom title list from 'Elsevier_2019' file, All Freedom Journals tab, (1162 titles). Uses ISSN of each title and checks that against the
+    UVA_1figr_original_dataset to see if ISSN is in any Elsevier title. Then uses those ISSNs to check against UVA_1figr_original_dataset
     to see if ISSN is in any Elsevier title.
     
     Creates elsevier freedom collection provider as pandas dataframe, which is used to create various figures in other files."""
    
-    subscribed_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019.xlsx', sheet_name='Subscribed Journal List 2019')
-    elsevier_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019.xlsx', sheet_name='Elsevier Journal List 2019')
+    freedom_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019_Dec_05.xlsx', sheet_name='All Freedom Journals')
 
-    subscribed_journal_list_issns = subscribed_journal_list['ISSN'].tolist()
-    
-    freedom_collection_subset = elsevier_journal_list[elsevier_journal_list['ISSN'].isin(subscribed_journal_list_issns) == False]
-    
-    freedom_collection_subset_issns = freedom_collection_subset['ISSN'].tolist()   #1328 titles
-    
+    freedom_journal_list = freedom_journal_list[pd.notnull(freedom_journal_list['ISSN'])]   #removes null values
+    freedom_journal_list_issns = freedom_journal_list['ISSN'].tolist()
+        
     provider_name = 'Elsevier'
     subset_by_provider = input_dataframe.loc[input_dataframe['Provider'] == provider_name]     #2803 journals
     
     #logic to get the 'freedom collection' providers from the Elsevier Journal List   
-    freedom_collection_subset = subset_by_provider[subset_by_provider['ISSN/eISSN'].str.split(expand=True).isin(freedom_collection_subset_issns).any(1)]    #1122 titles
-
+    freedom_collection_subset = subset_by_provider[subset_by_provider['ISSN/eISSN'].str.split(expand=True).isin(freedom_journal_list_issns).any(1)]    #1085 titles
 
     return freedom_collection_subset
 
 
+def make_elsevier_unmatched_provider():
+    """Elsevier unmatched titles are those which have an ISSN number that is not present in either the Elsevier Subscribed titles list or the elsevier freedom
+    collection list. We are unsure what is going on here, so we have separated them into a third category.
+    
+    Checks subscribed titles list from 'elsevier_2019' All Subscribed Titles tab and freedom titles list from the All Freedom Journals tab to build list of
+    all known ISSN numbers. Then takes that list and compares it to Original 1Figr Dataset's (ISSN/eISSN) column. If there is NOT a match, the journal is assumed
+    to be an elsevier unmatched journal.
+    """
 
+#    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
+    original_1figr_dataset = pd.read_excel('JournalsPerProvider.xls', skiprows=8)
+    
+    subscribed_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019_Dec_05.xlsx', sheet_name='All Subscribed Journals')
+    freedom_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019_Dec_05.xlsx', sheet_name='All Freedom Journals')
+
+    subscribed_journal_list = subscribed_journal_list[pd.notnull(subscribed_journal_list['ISSN'])]   #removes null values
+    subscribed_journal_list_issns = subscribed_journal_list['ISSN'].tolist()                #681 Journals
+    
+    freedom_journal_list = freedom_journal_list[pd.notnull(freedom_journal_list['ISSN'])]   #removes null values
+    freedom_journal_list_issns = freedom_journal_list['ISSN'].tolist()              #1162 Journals
+    
+    combined_issn_list = subscribed_journal_list_issns + freedom_journal_list_issns  #1843 journals
+    
+    provider_name = 'Elsevier'
+    subset_by_provider = original_1figr_dataset.loc[original_1figr_dataset['Provider'] == provider_name]     #2803 journals
+    
+    #matches combined_issn_list to subscribed_titles_subset
+    unmatched_titles_subset = subset_by_provider[subset_by_provider['ISSN/eISSN'].str.split(expand=True).isin(combined_issn_list).any(1) == False]     #1040 titles
+    unmatched_titles_subset = unmatched_titles_subset.iloc[1:]            #first column is an aggregator for entire elsevier provider and must be dropped
+
+    return unmatched_titles_subset
+
+
+def make_elsevier_unmatched_provider_with_disciplines(input_dataframe):
+    """First, you must run the make_disciplines_column function to add the disciplines column to the original 1figr data. That result is used as input to this function.
+
+    Checks freedom title list from 'Elsevier_2019' file, All Subscribed Journals and All Freedom Journals tab. Uses ISSN of each title and checks that against the
+    UVA_1figr_original_dataset to see if ISSN is in any Elsevier title. If there is NOT a match, the journals is assumed to be a part of the 'elsevier unmatched' provicer.
+    Then assigns values in discipline column to each journal.
+    
+    Creates elsevier freedom collection provider as pandas dataframe, which is used to create various figures in other files."""
+        
+    subscribed_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019_Dec_05.xlsx', sheet_name='All Subscribed Journals')
+    freedom_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019_Dec_05.xlsx', sheet_name='All Freedom Journals')
+
+    subscribed_journal_list = subscribed_journal_list[pd.notnull(subscribed_journal_list['ISSN'])]   #removes null values
+    subscribed_journal_list_issns = subscribed_journal_list['ISSN'].tolist()                #681 Journals
+    
+    freedom_journal_list = freedom_journal_list[pd.notnull(freedom_journal_list['ISSN'])]   #removes null values
+    freedom_journal_list_issns = freedom_journal_list['ISSN'].tolist()              #1162 Journals
+    
+    combined_issn_list = subscribed_journal_list_issns + freedom_journal_list_issns  #1843 journals
+
+    provider_name = 'Elsevier'
+    subset_by_provider = input_dataframe.loc[input_dataframe['Provider'] == provider_name]     #2803 journals
+
+    #logic to get the 'elsevier unmatched' providers from the Elsevier Journal List   
+    unmatched_titles_subset = subset_by_provider[subset_by_provider['ISSN/eISSN'].str.split(expand=True).isin(combined_issn_list).any(1) == False]    #1040 titles
+    unmatched_titles_subset = unmatched_titles_subset.iloc[1:]            #first column is an aggregator for entire elsevier provider and must be dropped
+   
+    
+    return unmatched_titles_subset
+    
+    
 def make_disciplines_column():
     """This generates the disciplines column on the fly for each journal. The disciplines column in a combination of various permutations of each journal's
     domain, field, subfield columns. The discipline column is meant to be something more analagous to departments at the university. The disciplines column does
@@ -330,4 +376,5 @@ def make_disciplines_column():
     
     return original_1figr_dataset
 
-make_disciplines_column()
+
+    

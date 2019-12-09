@@ -20,22 +20,31 @@ your_institution = 'UVA'
 
 
 def figure5b_papers():
-    """Show papers per year by your institution's affiliated authors, separating Elsevier Freedom
+    """Show papers per year (2008-2017) by your institution's affiliated authors, separating Elsevier Freedom
     and Elsevier Subscribed titles out from Elsevier as a whole.  Papers are publications
-    by you institution's affiliated authors"""
+    by you institution's affiliated authors.
+    
+    Chart Type: Line Graph
+    Y-Axis: Number of Papers
+    Y-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Total papers in Scopus per journal/provider
+                        Elsevier_2019, Subscribed Journal List 2019
+    X-Axis: Year
+    X-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
+                        Elsevier_2019, Subscribed Journal List 2019 
+    """
     
 #    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)   
     original_1figr_dataset = pd.read_excel('JournalsPerProvider.xls', skiprows=8)
     elsevier_freedom_collection = rf.make_freedom_collection_provider()
     elsevier_subscribed_titles = rf.make_elsevier_subscribed_titles_provider()
-
+    elsevier_unmatched_titles = rf.make_elsevier_unmatched_provider()
 
 
     #this holds papers totals for all providers in the end, which is used to make final plot
     papers_by_provider = []
     
     #populate papers totals for elsevier subset providers    
-    elsevier_providers = [elsevier_freedom_collection, elsevier_subscribed_titles]
+    elsevier_providers = [elsevier_freedom_collection, elsevier_subscribed_titles, elsevier_unmatched_titles]
     
     
     for provider_name in elsevier_providers:
@@ -111,19 +120,28 @@ def figure5b_papers():
 
     plt.plot(years, papers_by_provider[0], label='Elsevier Freedom', color='red', linestyle='dashed')
     plt.plot(years, papers_by_provider[1], label='Elsevier Subscribed', color='red')
-    plt.plot(years, papers_by_provider[2], label='Sage', color='blue')
-    plt.plot(years, papers_by_provider[3], label='Springer', color='green')
-    plt.plot(years, papers_by_provider[4], label='Taylor & Francis', color='purple')
-    plt.plot(years, papers_by_provider[5], label='Wiley', color='orange')
+    plt.plot(years, papers_by_provider[2], label='Elsevier Unmatched Titles', color='black')
+    plt.plot(years, papers_by_provider[3], label='Sage', color='blue')
+    plt.plot(years, papers_by_provider[4], label='Springer', color='green')
+    plt.plot(years, papers_by_provider[5], label='Taylor & Francis', color='purple')
+    plt.plot(years, papers_by_provider[6], label='Wiley', color='orange')
 
     plt.legend(loc='center left', bbox_to_anchor=(1, 0.8))
 
 
 
-
 def figure5b_percentage():
     """ Show percent papers per year published by UVA authors as a percentage of all papers for each provider, separating Elsevier Freedom
-    and Elsevier Subscribed titles out from Elsevier as a whole. All papers are the 'total papers in scopus' columns"""
+    and Elsevier Subscribed titles out from Elsevier as a whole. All papers are the 'total papers in scopus' columns
+    
+    Chart Type: Line Graph
+    Y-Axis: Number of Papers
+    Y-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Total papers in Scopus per journal/provider
+                        Elsevier_2019, Subscribed Journal List 2019
+    X-Axis: Year
+    X-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
+                        Elsevier_2019, Subscribed Journal List 2019 
+    """
     
     #    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)   
     original_1figr_dataset = pd.read_excel('JournalsPerProvider.xls', skiprows=8)
@@ -178,8 +196,9 @@ def figure5b_percentage():
     #populate papers totals for elsevier freedom and elsevier subscribed providers
     elsevier_freedom_collection = rf.make_freedom_collection_provider()
     elsevier_subscribed_titles = rf.make_elsevier_subscribed_titles_provider()
+    elsevier_unmatched_titles = rf.make_elsevier_unmatched_provider()
     
-    elsevier_providers = [elsevier_freedom_collection, elsevier_subscribed_titles]
+    elsevier_providers = [elsevier_freedom_collection, elsevier_subscribed_titles, elsevier_unmatched_titles]
     
     for provider_name in elsevier_providers:
 
@@ -235,9 +254,8 @@ def figure5b_percentage():
     plt.plot(years, percent_papers_by_provider[3], label='Wiley', color='orange')
     plt.plot(years, percent_papers_by_provider[4], label='Elsevier Freedom', color='red', linestyle='dashed')
     plt.plot(years, percent_papers_by_provider[5], label='Elsevier Subscribed', color='red')
+    plt.plot(years, percent_papers_by_provider[6], label='Elsevier Unmatched', color='black')
         
     plt.legend(loc='center left', bbox_to_anchor=(1, 0.8))
     
- 
-
 

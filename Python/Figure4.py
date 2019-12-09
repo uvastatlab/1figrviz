@@ -21,20 +21,29 @@ your_institution = 'UVA'
 
 
 def figure4b_references():
-    """ Show references per year by your institution's affiliated authors, separating Elsevier Freedom
-    and Elsevier Subscribed titles out from Elsevier as a whole."""
+    """ Show references per year (2008-2017) by your institution's affiliated authors, separating Elsevier Freedom
+    and Elsevier Subscribed titles out from Elsevier as a whole.
+    
+    Chart Type: Line Graph
+    Y-Axis: Number of References
+    Y-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, References to journal/provider by your institution's authors (as measured in Scopus)
+                        Elsevier_2019, Subscribed Journal List 2019
+    X-Axis: Year
+    X-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
+                        Elsevier_2019, Subscribed Journal List 2019 
+    """
     
 #    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)   
     original_1figr_dataset = pd.read_excel('JournalsPerProvider.xls', skiprows=8)
     elsevier_freedom_collection = rf.make_freedom_collection_provider()
     elsevier_subscribed_titles = rf.make_elsevier_subscribed_titles_provider()
-
+    elsevier_unmatched_titles = rf.make_elsevier_unmatched_provider()
 
     #this holds reference totals for all providers in the end, which is used to make final plot
     ref_by_provider = []
 
     #populate references totals for elsevier subset providers    
-    elsevier_providers = [elsevier_freedom_collection, elsevier_subscribed_titles]
+    elsevier_providers = [elsevier_freedom_collection, elsevier_subscribed_titles, elsevier_unmatched_titles]
     
     for provider_name in elsevier_providers:
         
@@ -105,22 +114,28 @@ def figure4b_references():
 
     plt.plot(years, ref_by_provider[0], label='Elsevier Freedom', color='red', linestyle='dashed')
     plt.plot(years, ref_by_provider[1], label='Elsevier Subscribed', color='red')
-    plt.plot(years, ref_by_provider[2], label='Sage', color='blue')
-    plt.plot(years, ref_by_provider[3], label='Springer', color='green')
-    plt.plot(years, ref_by_provider[4], label='Taylor & Francis', color='purple')
-    plt.plot(years, ref_by_provider[5], label='Wiley', color='orange')
+    plt.plot(years, ref_by_provider[2], label='Elsevier Unmatched', color='black')
+    plt.plot(years, ref_by_provider[3], label='Sage', color='blue')
+    plt.plot(years, ref_by_provider[4], label='Springer', color='green')
+    plt.plot(years, ref_by_provider[5], label='Taylor & Francis', color='purple')
+    plt.plot(years, ref_by_provider[6], label='Wiley', color='orange')
 
     plt.legend()
-    
-
-
-
-
+  
 
 
 def figure4b_percentage():
-    """ Show percent references per year as a part of all references for eadch provider, separating Elsevier Freedom
-    and Elsevier Subscribed titles out from Elsevier as a whole."""
+    """ Show percent references per year as a part of all references for each provider, separating Elsevier Freedom
+    and Elsevier Subscribed titles out from Elsevier as a whole.
+    
+    Chart Type: Line Graph
+    Y-Axis: Number of References
+    Y-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, References to journal/provider by your institution's authors (as measured in Scopus)
+                        Elsevier_2019, Subscribed Journal List 2019
+    X-Axis: Year
+    X-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
+                        Elsevier_2019, Subscribed Journal List 2019 
+    """
     
     
     
@@ -207,8 +222,9 @@ def figure4b_percentage():
     #Calculate number of references for Elsevier Freedom and Elsevier Subscribed titles
     elsevier_freedom_collection = rf.make_freedom_collection_provider()
     elsevier_subscribed_titles = rf.make_elsevier_subscribed_titles_provider()
+    elsevier_unmatched_titles = rf.make_elsevier_unmatched_provider()
     
-    elsevier_providers = [elsevier_freedom_collection, elsevier_subscribed_titles]
+    elsevier_providers = [elsevier_freedom_collection, elsevier_subscribed_titles, elsevier_unmatched_titles]
     
     for provider_name in elsevier_providers:
         
@@ -254,10 +270,10 @@ def figure4b_percentage():
     plt.plot(years, ref_by_provider[3], label='Wiley', color='orange')
     plt.plot(years, ref_by_provider[4], label='Elsevier Freedom', color='red', linestyle='dashed')
     plt.plot(years, ref_by_provider[5], label='Elsevier Subscribed', color='red')
-
+    plt.plot(years, ref_by_provider[6], label='Elsevier Unmatched', color='black')
 
 
     plt.legend(loc='center left', bbox_to_anchor=(1, 0.8))
         
 
-figure4b_percentage()
+

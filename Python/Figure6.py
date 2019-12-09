@@ -19,19 +19,28 @@ your_institution = 'UVA'
 
 
 def figure6b_oa_available_articles():
-    """Show number Open Access (OA) available articles per provider over time for provider,
-    separating our Elsevier subscribed and Elsevier Freedom collection from Elsevier as a whole"""
+    """Show number Open Access (OA) available articles per provider over time (2008-2017) for provider,
+    separating our Elsevier subscribed and Elsevier Freedom collection from Elsevier as a whole
+    
+    Chart Type: Line Graph
+    Y-Axis: Number of Open access Articles
+    Y-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, OA papers in 1findr per journal/provider (intersection with Scopus)
+                        Elsevier_2019, Subscribed Journal List 2019
+    X-Axis: Year
+    X-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
+                        Elsevier_2019, Subscribed Journal List 2019 
+    """
     
 #    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)   
     original_1figr_dataset = pd.read_excel('JournalsPerProvider.xls', skiprows=8)
 
     elsevier_freedom_collection = rf.make_freedom_collection_provider()
     elsevier_subscribed_titles = rf.make_elsevier_subscribed_titles_provider()
-
+    elsevier_unmatched_titles = rf.make_elsevier_unmatched_provider()
 
     oa_articles_by_provider = []
     
-    elsevier_providers = [elsevier_freedom_collection, elsevier_subscribed_titles]    
+    elsevier_providers = [elsevier_freedom_collection, elsevier_subscribed_titles, elsevier_unmatched_titles]    
 
 
     for provider_name in elsevier_providers:
@@ -103,18 +112,28 @@ def figure6b_oa_available_articles():
 
     plt.plot(years, oa_articles_by_provider[0], label='Elsevier Freedom', color='red', linestyle='dashed')
     plt.plot(years, oa_articles_by_provider[1], label='Elsevier Subscribed', color='red')
-    plt.plot(years, oa_articles_by_provider[2], label='Sage', color='blue')
-    plt.plot(years, oa_articles_by_provider[3], label='Springer', color='green')
-    plt.plot(years, oa_articles_by_provider[4], label='Taylor & Francis', color='purple')
-    plt.plot(years, oa_articles_by_provider[5], label='Wiley', color='orange')
+    plt.plot(years, oa_articles_by_provider[2], label='Elsevier Unmatched', color='black')
+    plt.plot(years, oa_articles_by_provider[3], label='Sage', color='blue')
+    plt.plot(years, oa_articles_by_provider[4], label='Springer', color='green')
+    plt.plot(years, oa_articles_by_provider[5], label='Taylor & Francis', color='purple')
+    plt.plot(years, oa_articles_by_provider[6], label='Wiley', color='orange')
 
     plt.legend(loc='center left', bbox_to_anchor=(1, 0.8))
 
 
-
 def figure6b_percent_oa_articles():
     """ Show percent papers per year published open access per provider per year as a percentage of all papers
-    published per provider per year. Separates elsevier freedom an elsevier subscribed titles out from the whole"""
+    published per provider per year. Separates elsevier freedom an elsevier subscribed titles out from the whole
+    
+    Chart Type: Line Graph
+    Y-Axis: Number of Papers
+    Y-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, OA papers in 1findr per journal/provider (intersection with Scopus)
+                        Elsevier_2019, Subscribed Journal List 2019
+    X-Axis: Year
+    X-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
+                        Elsevier_2019, Subscribed Journal List 2019 
+
+    """
 
     #    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)   
     original_1figr_dataset = pd.read_excel('JournalsPerProvider.xls', skiprows=8)
@@ -159,8 +178,9 @@ def figure6b_percent_oa_articles():
     #this is # of OA papers divided by total papers        
     elsevier_freedom_collection = rf.make_freedom_collection_provider()
     elsevier_subscribed_titles = rf.make_elsevier_subscribed_titles_provider()
+    elsevier_unmatched_titles = rf.make_elsevier_unmatched_provider()
     
-    elsevier_providers = [elsevier_freedom_collection, elsevier_subscribed_titles]
+    elsevier_providers = [elsevier_freedom_collection, elsevier_subscribed_titles, elsevier_unmatched_titles]
     
     for provider_name in elsevier_providers:
 
@@ -214,11 +234,10 @@ def figure6b_percent_oa_articles():
     plt.plot(years, percent_oa_papers_by_provider[3], label='Wiley', color='orange')
     plt.plot(years, percent_oa_papers_by_provider[4], label='Elsevier Freedom', color='red', linestyle='dashed')
     plt.plot(years, percent_oa_papers_by_provider[5], label='Elsevier Subscribed', color='red')
+    plt.plot(years, percent_oa_papers_by_provider[6], label='Elsevier Unmatched', color='black')
         
     plt.legend(loc='center left', bbox_to_anchor=(1, 0.8))
 
-
-figure6b_percent_oa_articles()
 
 
 
