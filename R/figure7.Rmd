@@ -188,9 +188,9 @@ plot_fn2 <- function(x, title){
     ggplot(aes(x = !! x, y = domain)) +
     geom_line(aes(group = domain)) +
     geom_point(aes(color = provider2), size = 2) +
-    geom_text(data = right_label, aes(color = provider2, label = scales::comma(!! x)),
+    geom_text(data = right_label, aes(color = provider2, label = scales::comma(!! x, accuracy = 1)),
               size = 3, hjust = -.5, show.legend = F) +
-    geom_text(data = left_label, aes(color = provider2, label = scales::comma(!! x)),
+    geom_text(data = left_label, aes(color = provider2, label = scales::comma(!! x, accuracy = 1)),
               size = 3, hjust = 1.5, show.legend = F) +
     scale_x_continuous(labels = scales::comma, limits = c(ymin, ymax)) +
     scale_color_manual("", values = pal) +
