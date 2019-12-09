@@ -100,7 +100,8 @@ tmp <- journal %>%
   mutate(els = "Yes") %>% 
   left_join(cost, by = "provider") %>% 
   mutate(cpd_jr1 = cost/jr1,
-         cpd_jr5 = cost/jr5)
+         cpd_jr5 = cost/jr5) %>% 
+  filter(provider != "Elsevier Unmatched")
 
 # bind rows to journal_big5
 journal_big6 <- journal_big5 %>% bind_rows(tmp) %>% 
