@@ -40,7 +40,8 @@ journal_jr5ratio <- journal %>%
 
 ```{r}
 # JR5 ratio for big 5
-journal_jr5ratio %>% filter(big5 == "Yes") %>% 
+p <- journal_jr5ratio %>% 
+  filter(big5 == "Yes") %>% 
   ggplot(aes(x = provider, y = jr5per, color = els)) + 
   geom_segment(aes(x = provider, xend = provider, y = 0, yend = jr5per), color = "grey", size = 1) +
   geom_point(size = 5) +
@@ -50,6 +51,7 @@ journal_jr5ratio %>% filter(big5 == "Yes") %>%
        x = "", y = "Percent") +
   theme(legend.position = "none") +
   coord_flip() 
+plotly::ggplotly(p, tooltip = c("y"))
 ```
 
 About 15% of downloaded articles are from the current year for Sage, Wiley and Taylor & Francis; Elsevier and Springer see slightly higher use of recent scholarship at `r round(journal_jr5ratio %>% filter(provider == "Elsevier") %>% select(jr5per), 1)`% and `r round(journal_jr5ratio %>% filter(provider == "Springer") %>% select(jr5per), 1)`%, respectively.
@@ -73,7 +75,7 @@ tmp <- journal %>%
   select(provider, type, everything()) 
 
 # Plot
-journal_jr5ratio %>% 
+p <- journal_jr5ratio %>% 
   filter(big5 == "Yes") %>% 
   mutate(provider = as.character(provider)) %>% 
   filter(provider != "Elsevier") %>% 
@@ -89,6 +91,6 @@ journal_jr5ratio %>%
        x = "", y = "Percent") +
   theme(legend.position = "none") +
   coord_flip() 
-
+plotly::ggplotly(p, tooltip = c("y"))
 ```
 
