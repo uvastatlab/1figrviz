@@ -56,14 +56,14 @@ journal <- journal %>%
 # Elsevier list, goes into the "Elsevier Unmatched" category for the figures.
 
 # “All Subscribed Journals”
-elsevier_subscribed <- read_excel("1science/Elsevier_2019_Dec_05.xlsx", 
+elsevier_subscribed <- read_excel("1science/Elsevier_2019_Dec_11.xlsx", 
                                   sheet = "All Subscribed Journals")
 elsevier_subscribed <- elsevier_subscribed %>% filter(!is.na(ISSN)) %>% 
   select(ISSN, Product)
 nrow(elsevier_subscribed)
 
 # "All Freedom Journals"
-elsevier_freedom <- read_excel("1science/Elsevier_2019_Dec_05.xlsx", 
+elsevier_freedom <- read_excel("1science/Elsevier_2019_Dec_11.xlsx", 
                                   sheet = "All Freedom Journals")
 elsevier_freedom <- elsevier_freedom %>% filter(!is.na(ISSN)) %>% 
   select(ISSN, Product)
