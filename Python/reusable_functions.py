@@ -18,7 +18,7 @@ def make_elsevier_subscribed_titles_provider():
     Creates elsevier subscribed titles provider as pandas dataframe, which is used to create various figures in other files."""
     
     
-    subscribed_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019_Dec_05.xlsx', sheet_name='All Subscribed Journals')
+    subscribed_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019_Dec_12.xlsx', sheet_name='All Subscribed Journals')
 #    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     original_1figr_dataset = pd.read_excel('JournalsPerProvider.xls', skiprows=8)
 
@@ -32,7 +32,7 @@ def make_elsevier_subscribed_titles_provider():
     subscribed_titles_subset = subset_by_provider[subset_by_provider['ISSN/eISSN'].str.split(expand=True).isin(subscribed_journal_list_issns).any(1)]    #678 titles matched with Original 1Figr Data
 
     return subscribed_titles_subset
-  
+
 
 def make_elsevier_subscribed_titles_with_disciplines(input_dataframe):
     """First, you must run the make_disciplines_column function to add the disciplines column to the original 1figr data. That result is used as input to this function.
@@ -42,7 +42,7 @@ def make_elsevier_subscribed_titles_with_disciplines(input_dataframe):
     Creates elsevier subscribed titles provider as pandas dataframe, including the discipline column, which is used to create various figures 8e through 8h."""
 
 #    subscribed_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019.xlsx', sheet_name='Subscribed Journal List 2019')
-    subscribed_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019_Dec_05.xlsx', sheet_name='All Subscribed Journals')
+    subscribed_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019_Dec_12.xlsx', sheet_name='All Subscribed Journals')
 
     subscribed_journal_list = subscribed_journal_list[pd.notnull(subscribed_journal_list['ISSN'])]   #removes null values    
     subscribed_journal_list_issns = subscribed_journal_list['ISSN'].tolist()     
@@ -65,7 +65,7 @@ def make_freedom_collection_provider():
     
     Creates elsevier freedom collection provider as pandas dataframe, which is used to create various figures in other files."""
     
-    freedom_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019_Dec_05.xlsx', sheet_name='All Freedom Journals')
+    freedom_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019_Dec_12.xlsx', sheet_name='All Freedom Journals')
 #    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     original_1figr_dataset = pd.read_excel('JournalsPerProvider.xls', skiprows=8)
 
@@ -90,7 +90,7 @@ def make_freedom_collection_provider_with_disciplines(input_dataframe):
     
     Creates elsevier freedom collection provider as pandas dataframe, which is used to create various figures in other files."""
    
-    freedom_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019_Dec_05.xlsx', sheet_name='All Freedom Journals')
+    freedom_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019_Dec_12.xlsx', sheet_name='All Freedom Journals')
 
     freedom_journal_list = freedom_journal_list[pd.notnull(freedom_journal_list['ISSN'])]   #removes null values
     freedom_journal_list_issns = freedom_journal_list['ISSN'].tolist()
@@ -116,8 +116,8 @@ def make_elsevier_unmatched_provider():
 #    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     original_1figr_dataset = pd.read_excel('JournalsPerProvider.xls', skiprows=8)
     
-    subscribed_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019_Dec_05.xlsx', sheet_name='All Subscribed Journals')
-    freedom_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019_Dec_05.xlsx', sheet_name='All Freedom Journals')
+    subscribed_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019_Dec_12.xlsx', sheet_name='All Subscribed Journals')
+    freedom_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019_Dec_12.xlsx', sheet_name='All Freedom Journals')
 
     subscribed_journal_list = subscribed_journal_list[pd.notnull(subscribed_journal_list['ISSN'])]   #removes null values
     subscribed_journal_list_issns = subscribed_journal_list['ISSN'].tolist()                #681 Journals
@@ -134,6 +134,7 @@ def make_elsevier_unmatched_provider():
     unmatched_titles_subset = subset_by_provider[subset_by_provider['ISSN/eISSN'].str.split(expand=True).isin(combined_issn_list).any(1) == False]     #1040 titles
     unmatched_titles_subset = unmatched_titles_subset.iloc[1:]            #first column is an aggregator for entire elsevier provider and must be dropped
 
+
     return unmatched_titles_subset
 
 
@@ -146,8 +147,8 @@ def make_elsevier_unmatched_provider_with_disciplines(input_dataframe):
     
     Creates elsevier freedom collection provider as pandas dataframe, which is used to create various figures in other files."""
         
-    subscribed_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019_Dec_05.xlsx', sheet_name='All Subscribed Journals')
-    freedom_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019_Dec_05.xlsx', sheet_name='All Freedom Journals')
+    subscribed_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019_Dec_12.xlsx', sheet_name='All Subscribed Journals')
+    freedom_journal_list = pd.read_excel('/Users/ep9k/Desktop/UVA Big Deal/Elsevier_2019_Dec_12.xlsx', sheet_name='All Freedom Journals')
 
     subscribed_journal_list = subscribed_journal_list[pd.notnull(subscribed_journal_list['ISSN'])]   #removes null values
     subscribed_journal_list_issns = subscribed_journal_list['ISSN'].tolist()                #681 Journals
@@ -378,3 +379,12 @@ def make_disciplines_column():
 
 
     
+
+
+
+
+
+
+
+
+
