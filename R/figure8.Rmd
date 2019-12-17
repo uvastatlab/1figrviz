@@ -60,9 +60,7 @@ plot_fn <- function(x, title){
 
 ```
 
-
-## Use by Discipline
-
+Research domains as defined in the 1figr data are very broad. To better approximate the relevant disciplines at UVA, we generated new disciplinary categories based on a combination of domains and fields in the initial data. The following figures show the use -- all article downloads in 2017, current year article downloads in 2017, UVA references, and UVA-authored publications -- by these newly-defined discplines. Note that this captures the assigned research discipline of the article, not of the researcher downloading, referencing, or publishing.
 
 ### 8a. All Article Downloads by Discipline
 
@@ -70,6 +68,8 @@ plot_fn <- function(x, title){
 # plot jr1 by domain
 plot_fn(jr1, title = "All 2017 Downloads from Elsevier Journals")
 ```
+
+
 
 ### 8b. Current Year Article Downloads by Discipline
 
@@ -99,8 +99,7 @@ plot_fn(pubs, title = "UVA-Authored Publications in Elsevier Journals")
 
 ## Elsevier Freedom versus Elsevier Subscribed
 
-Elsevier broken down by Freedom collection and Subscribed collection. The Freedom Collection is a list of ~1850 active titles (2350 titles in all, including renamed, transferred, discontinued and forthcoming titles) that any institution subscribing to Science Direct Complete gets access to.
-
+Below we show similar information for Elsevier journals -- use by domain -- with use disaggregated into the Subscribed Collection and Freedom Collection. Both are shown for comparison. In general, the majority of use is for journals in the Subscribed Collection.
 
 ```{r setup2}
 # adding Cleveland dot plots for Els sub vs free

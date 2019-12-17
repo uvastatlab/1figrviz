@@ -22,9 +22,7 @@ journal <- readRDS("../1science/journal.rds")
 
 ```
 
-## Use by Domain
-
-Use of a provider's journal differs by research domain. The following figures show the use -- all article downloads in 2017, current year article downloads in 2017, UVA references, and UVA-authored publications -- by research domain as provided in the 1figr data. Note that this captures the assigned research domain of the article, not of the researcher downloading, referencing, or publishing.
+Use of a provider's journals differs by research domain. The following figures show the use -- all article downloads in 2017, current year article downloads in 2017, UVA references, and UVA-authored publications -- by research domain as provided in the 1figr data. Note that this captures the assigned research domain of the article, not of the researcher downloading, referencing, or publishing.
 
 
 ```{r derive}
@@ -146,7 +144,7 @@ For articles published in Elsevier journals from 2008 to 2017 by UVA authors, `r
 
 ## Elsevier Freedom versus Elsevier Subscribed
 
-Elsevier broken down by Freedom collection and Subscribed collection. The Freedom Collection is a list of ~1850 active titles (2350 titles in all, including renamed, transferred, discontinued and forthcoming titles) that any institution subscribing to Science Direct Complete gets access to.
+Below we show similar information for Elsevier journals -- use by domain -- with use disaggregated into the Subscribed Collection and Freedom Collection. Both are shown for comparison. In general, the majority of use is for journals in the Subscribed Collection.
 
 ```{r}
 els_group2 <- els %>% 
@@ -208,10 +206,14 @@ plot_fn2 <- function(x, title){
 plot_fn2(jr1, title = "All 2017 Downloads from Elsevier Journals")
 ```
 
+Within the Health Science journals, journal use is more than four times higher in the Subscribed Collection than in the Freedom Collection. Within the remaining domains, Subscribed Collection use is 1.5 to 3 times higher.
+
 ### 7f. Current Year Article Downloads by Domain
 ```{r}
 plot_fn2(jr5, title = "Current Year 2017 Downloads from Elsevier Journals")
 ```
+
+A similar pattern is evident for current-year use as well, with journal use almost five times hinger in the Subscribed Collection for health science journals, and between 1.05 and 2.7 times higher in other domains.
 
 ### 7g. UVA References by Domain
 ```{r}

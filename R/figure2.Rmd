@@ -16,8 +16,6 @@ journal <- readRDS("../1science/journal.rds")
   
 ```
 
-## Current Year Use/Downloads
-
 To understand the degree to which article downloads represent use of new material, we graph the percent of downloaded material in 2017 that was published in 2017. Note that this number represents the percent of material used during a calendar year that was published in that calendar year, not use of material less than 12 months old at the time of use. For example, an article downloaded in January 2017 of a publication released in December 2016 will not be captured as a “current” article under this metric. For titles where past subscriptions included perpetual access, this number tells us how much use in a year is attributable to content added to the package by virtue of continuing the subscription. Each successive year after cancellation will grow the body of literature excluded from our subscribed collection; however, open access availability should ameliorate this to some extent for content that is more than 12 months old. 
 
 
@@ -58,9 +56,10 @@ About 15% of downloaded articles are from the current year for Sage, Wiley and T
 
 ## Elsevier Freedom versus Elsevier Subscribed
 
+The figure above is repeated below but with Elsevier journals disaggregated into the Freedom collection, Subscribed collection, and journals we were not able to match. 
+
 ### 2b. Current Year Downloads as Percent of All 2017 Downloads
 
-Same plots as above but with Elsevier broken down by Freedom collection and Subscribed collection. The Freedom Collection is a list of ~1850 active titles (2350 titles in all, including renamed, transferred, discontinued and forthcoming titles) that any institution subscribing to Science Direct Complete gets access to.
 
 ```{r}
 # Need to derive package level numbers for Elsevier Freedom and Subscribed
@@ -94,3 +93,4 @@ p <- journal_jr5ratio %>%
 plotly::ggplotly(p, tooltip = c("y"))
 ```
 
+There is no appreciable difference in the use of new content between journals in the Elsevier Subscribed Collection and Freedom Collection.

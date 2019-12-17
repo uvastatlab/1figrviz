@@ -5,32 +5,49 @@ date: ""
 output: html_document
 ---
 
-## Visualizations to date
+To better understand usage patterns and costs of big deal journal packages, we've begun to analyze data provided by UVA Libraries and by 1science - the 1figr dataset. The 1figr data contains data on the number of articles downloaded from a given journal from 2008-2017 (the UVA provided data) as well as metrics on the the number of articles published by UVA authors, the number of citations to a journal by UVA authors, and the the number of articles available via open-access on a given date (the data provided by 1science). We've supplemented this data further with cost data for some journal packages.
+
+Because Elsevier is a particular focus of this inquiry, we've further supplemented the data within information about the Elsevier subscription. The Elsevier journals listed in the 1figr dataset have been matched to the actual list of subscribed and Freedom Collection journals for UVA in 2019. We did this in order to identify the Subscribed and Freedom Collection titles separately, to better assess the usage vs. the cost of the individual titles. Of the 2802 Elsevier titles listed in the 1figr dataset, 726 are Subscribed titles (including Cell Press and Clinics titles), while 1086 are Freedom Collection titles. Together these form the "big deal" package we have with Elsevier, although the total cost of the Freedom Collection titles was  \$26,168 in 2017, while the cost of Subscribed titles was \$2,314,400.[^1]  The distinction in cost per article/paper/citation is dramatic between the two collections, so we felt it was important to distinguish between the two sets of titles when analyzing use and cost.
 
 ### [Figure 1](figure1.html): High Use Journals in Big 5 Providers
+
+What proportion of journals in a package are highly used based on multiple metrics?
+
    * 1a. High-use Journals by All Article Downloads
    * 1b. High-use Journals by Current Year Article Downloads
    * 1c. High-use Journals by References from UVA Authors
-   * 1d. High-use Journals by UVA-Authored Publications    
+   * 1d. High-use Journals by UVA-Authored Publications   
+   
    **Elsevier Freedom versus Elsevier Subscribed**
+   
    * 1e. High-use Journals by All Article Downloads
    * 1f. High-use Journals by Current Year Article Downloads
    * 1g. High-use Journals by References from UVA Authors
    * 1h. High-use Journals by UVA-Authored Publications    
   
 ### [Figure 2](figure2.html): Rate of Current Year Downloads in Big 5 Providers
+
+What proportion of journal use -- as measured by downloads -- is for new (current-year) content?
+
    * 2a. Current Year Downloads as Percent of All 2017 Downloads    
+
    **Elsevier Freedom versus Elsevier Subscribed**
+   
    * 2b. Current Year Downloads as Percent of All 2017 Downloads
    
 ### [Figure 3](figure3.html): Cost per Download for Big 5 Providers
    * 3a. Cost per Download, all 2017 downloads
    * 3b. Cost per Download, current year 2017 downloads    
+   
    **Elsevier Freedom versus Elsevier Subscribed**
+   
    * 3c. Cost per Download, all 2017 downloads
    * 3d. Cost per Download, current year 2017 downloads    
 
 ### [Figures 4,5,6](figure4to6.html): References, Publications, OA-Available Articles in Big 5 Providers over Time
+
+How is use -- across multiple metrics -- changing over time?
+
    * 4a. UVA References in Big 5 Provider Journals over Time
    * 4b. UVA References in Big 5 Provider Journals over Time (**Elsevier Freedom versus Subscribed**)
    * 5a. UVA Publications in Big 5 Provider Journals over Time
@@ -39,24 +56,35 @@ output: html_document
    * 6b. OA-Available Articles in Big 5 Provider Journals over Time (**Elsevier Freedom versus Subscribed**)
 
 ### [Figure 7](figure7.html): Use of Elsevier Journals by Domain
+
+Within the Elsevier package, what is the distribution of use by research area/domain?
+
    * 7a. All Article Downloads by Domain
    * 7b. Current Year Article Downloads by Domain
    * 7c. UVA References by Domain
    * 7d. UVA-Authored Publications by Domain      
+
    **Elsevier Freedom versus Elsevier Subscribed**
+   
    * 7e. All Article Downloads by Domain
    * 7f. Current Year Article Downloads by Domain
    * 7g. UVA References by Domain
    * 7h. UVA-Authored Publications by Domain
    
 ### [Figure 8](figure8.html): Use of Elsevier Journals by Discipline
+
+Within the Elsevier package, what is the distribution of use by more targeted disciplines?
+
    * 8a. All Article Downloads by Discipline
    * 8b. Current Year Article Downloads by Discipline
    * 8c. UVA References by Discipline
    * 8d. UVA-Authored Publications by Discipline      
+
    **Elsevier Freedom versus Elsevier Subscribed**
+   
    * 8e. All Article Downloads by Discipline
    * 8f. Current Year Article Downloads by Discipline
    * 8g. UVA References by Discipline
    * 8h. UVA-Authored Publications by Discipline
    
+[^1]: The remaining 990 1figr titles listed as Elsevier are not matched in UVA's Elsevier subscription These are mostly journals which had transferred to other publishers before the current contract with Elsevier began, but also include a significant number of Elsevier open access titles. In addition there are several issues with the 1figr data which should be pointed out. 1science apparently matched titles by name, rather than ISSN, and at times it made the incorrect match (which means they have listed statistics for a journal we don't actually subscribe to, or at least don't get through Elsevier). They have also at times combined two similarly named journals and matched that to a single title (186 titles in the 1figr Elsevier list), and only included the statistics for that single title. This means that they have omitted statistics for Elsevier journals that we do subscribe to. At times they matched an Elsevier title to the name of a journal from another publisher (or vice versa), further confusing the financial picture.

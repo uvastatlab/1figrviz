@@ -71,7 +71,6 @@ pal <- c(pal[1:2], "#000000", pal[3:6])
 
 ```
 
-## UVA References, UVA Publications, and OA-Available Articles, 2008-2017
 
 ### 4a. UVA References in Big 5 Provider Journals over Time
 ```{r}
@@ -128,11 +127,11 @@ p3 <- ggplot(big5ref, aes(x = year, y = uvaper, group = provider)) +
 plot_grid(p1, p2, p3)
 ```
 
-Figure 4 provides trends in citations to the Big 5 providers by UVA authors over time. The top panels reveal an overall growth in research output by UVA researchers, and therefore in citations. The lower panel, showing citations to each provider as a percentage of total citations by UVA authors, suggests that citations to Elsevier titles represent a relatively larger portion of citations relative to the others. This proportion has been flat (if not very slightly in decline) for most of the decade.
+Figure 4 shows trends in citations to the Big 5 providers by UVA authors over time. The top panels reveal an overall growth in research output by UVA researchers, and therefore in citations. The lower panel, showing citations to each provider as a percentage of total citations by UVA authors, suggests that citations to Elsevier titles represent a relatively larger portion of citations relative to the others. This proportion has been flat (if not very slightly in decline) for most of the decade.
 
 ### 4b. UVA References in Big 5 Provider Journals over Time
 
-Same figure as above with Elsevier broken down by Freedom versus Subscribed.
+The figure above is repeated below but with Elsevier journals disaggregated into the Freedom collection, Subscribed collection, and journals we were not able to match. 
 
 ```{r }
 # Big 6 (Elsevier Free and Elsevier Subscribed)
@@ -167,7 +166,7 @@ p3 <- ggplot(big6ref, aes(x = year, y = uvaper, group = provider)) +
 plot_grid(p1, p2, p3)
 ```
 
-
+Focusing on the Elsevier Subscribed Collection, we see that citations to Elsevier Subscribe titles continue to represent a relatively larger proportion of citations, though the decline in the proportion across the decade is clearer.
 
 ### 5a. UVA Publications in Big 5 Provider Journals over Time
 ```{r }
@@ -220,12 +219,12 @@ p3 <- plot_fn(big5pub, y = uvaper, ylab = "Percent of Articles",
 plot_grid(p1, p2, p3)
 ```
 
-The top panel indicates that Elsevier and Springer have been publishing more articles over time; at the same time, UVA authors are publishing more articles in the journals provided by Elsevier and Spring. Consequently, the relative amount of UVA work published in Elsevier journals isstable over the last decade. 
+The top panel indicates that Elsevier and Springer have been publishing more articles over time; at the same time, UVA authors are publishing more articles in the journals provided by Elsevier and Springer. Consequently, the relative amount of UVA work published in Elsevier journals is stable over the last decade. 
 
 
 ### 5b. UVA Publications in Big 5 Provider Journals over Time
 
-Same figure as above with Elsevier broken down by Freedom versus Subscribed.
+The figure above is repeated below but with Elsevier journals disaggregated into the Freedom collection, Subscribed collection, and journals we were not able to match. 
 
 ```{r }
 p1 <- plot_fn(big6pub, y = scopus, ylab = "Number of Articles",
@@ -244,6 +243,7 @@ plot_grid(p1, p2, p3)
 
 ```
 
+Much of the growth in articles published in Elsevier journals is occuring in journals within the Freedom Collection. Even so, the percent of articles by UVA authors in Elsevier's collections remains stable.
 
 ### 6a. OA-Available Articles in Big 5 Provider Journals over Time
 
@@ -296,7 +296,7 @@ The top panel, again, indicates that Elsevier and Springer have been publishing 
 
 ### 6b. OA-Available Articles in Big 5 Provider Journals over Time
 
-Same figure as above with Elsevier broken down by Freedom versus Subscribed.
+The figure above is repeated below but with Elsevier journals disaggregated into the Freedom collection, Subscribed collection, and journals we were not able to match. 
 
 ```{r }
 p1 <- plot_fn(big6oa, y = scopus, ylab = "Number of Articles",

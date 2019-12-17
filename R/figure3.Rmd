@@ -21,9 +21,7 @@ names(cost) <- c("provider", "type", "source", "cost", "subcost")
 ```
 
 
-## Cost per Download 2017
-
-Adding in information about the cost to UVA for each of the Big 5 providers in 2017, we can calculate the cost per download, or the package cost in dollars in 2017 divided by the number of downloads in 2017. We do this for both all 2017 downloads (JR1) and current year downloads in 2017 (JR5)
+Adding in information about the cost to UVA for each of the Big 5 providers in 2017, we can calculate the cost per download, or the package cost in dollars in 2017 divided by the number of downloads in 2017. We do this for both all 2017 downloads (JR1) and current year downloads in 2017 (JR5). The cost-per-use estimates are provided to the right of the point; the number of relevant downloads are provided below the the point.
 
 ```{r derive}
 # COST PER DOWNLOAD ----
@@ -54,12 +52,15 @@ journal_big5 %>%
   labs(title = "2017 Cost Per Download, All Downloads/JR1",
        subtitle = "(Package Cost / # JR1 Downloads)",
        x = "", y = "Dollars") +
-  geom_text(aes(label = dollar(round(cpd_jr1, 2))), nudge_x = -.3, color = "black", size = 3) +
+  geom_text(aes(label = dollar(round(cpd_jr1, 2))), nudge_y = .4, color = "black", size = 3) +
+  geom_text(aes(label = comma(jr1)), nudge_x = -0.25, color = "black", size = 3) +
   theme(legend.position = "none") +
   coord_flip() 
 ```
 
 This calculation is frequently cited by vendors as “cost-per-use.” By this metric, Elsevier has a cost-per-use of $`r round(journal_big5 %>% filter(provider == "Elsevier") %>% select(cpd_jr1), 2)`. However, this may be misleading insofar as it includes back year content for which we have already purchased perpetual access. 
+
+Note, also, that downloads of articles in Elsevier titles far exceeds downloads in the other big packages.
 
 ### 3b. Cost per Download, current year 2017 downloads
 
@@ -76,16 +77,17 @@ journal_big5 %>%
   labs(title = "2017 Cost Per Download, Current Year Downloads/JR5",
        subtitle = "(Package Cost / # JR5 Downloads)",
        x = "", y = "Dollars") +
-  geom_text(aes(label = dollar(round(cpd_jr5, 2))), nudge_x = -.3, color = "black", size = 3) +
+  geom_text(aes(label = dollar(round(cpd_jr5, 2))), nudge_y = 2, color = "black", size = 3) +
+  geom_text(aes(label = comma(jr5)), nudge_x = -0.25, color = "black", size = 3) +
   theme(legend.position = "none") +
   coord_flip() 
 ```
 
-Using only current-year downloads generates a higher cost-per-use estimate. This value may be more meaningful, as it reflects only the use of new content added by the current year’s subscription.
+Using only current-year downloads generates a higher cost-per-use estimate, of course. This value may be more meaningful, however, as it reflects only the use of new content added by the current year’s subscription.
 
 ## Elsevier Freedom versus Elsevier Subscribed
 
-Same plots as above but with Elsevier broken down by Freedom collection and Subscribed collection. The Freedom Collection is a list of ~1850 active titles (2350 titles in all, including renamed, transferred, discontinued and forthcoming titles) that any institution subscribing to Science Direct Complete gets access to.
+The figures above are repeated below but with Elsevier journals disaggregated into the Freedom collection and Subscribed collection. 
 
 ### 3c. Cost per Download, all 2017 downloads
 
@@ -120,15 +122,14 @@ journal_big6 %>%
   labs(title = "2017 Cost Per Download, All Downloads/JR1",
        subtitle = "(Package Cost / # JR1 Downloads)",
        x = "", y = "Dollars") +
-  geom_text(aes(label = dollar(round(cpd_jr1, 2))), nudge_x = -.3, color = "black", size = 3) +
+  geom_text(aes(label = dollar(round(cpd_jr1, 2))), nudge_y = .4, color = "black", size = 3) +
+  geom_text(aes(label = comma(jr1)), nudge_x = -0.25, color = "black", size = 3) +
   theme(legend.position = "none") +
   coord_flip() 
 
-
-
 ```
 
-
+Because 99% of the Elsevier package cost is for the Subscribed Collection, the cost-per-use within the Freedom Collection is trivial. Removing use of the Freedom Collection from the cost calculation increases the apparent cost-per-use for the Subscribed Collection. Downloads of articles within the Freedom Collection, however, represent a fairly high number of downlaods relative to the remaining big deal packages.
 
 ### 3d. Cost per Download, current year 2017 downloads
 
@@ -144,25 +145,26 @@ journal_big6 %>%
   labs(title = "2017 Cost Per Download, Current Year Downloads/JR5",
        subtitle = "(Package Cost / # JR5 Downloads)",
        x = "", y = "Dollars") +
-  geom_text(aes(label = dollar(round(cpd_jr5, 2))), nudge_x = -.3, color = "black", size = 3) +
+  geom_text(aes(label = dollar(round(cpd_jr5, 2))), nudge_y = 2, color = "black", size = 3) +
+  geom_text(aes(label = comma(jr5)), nudge_x = -0.25, color = "black", size = 3) +
   theme(legend.position = "none") +
   coord_flip() 
 
-# Figure with just Els Free and Subscribed
-journal_big6 %>% 
-  mutate(provider = factor(provider),
-         provider = fct_reorder(provider, desc(cpd_jr5))) %>% 
-  filter(str_detect(provider, "Elsevier")) %>% 
-  ggplot(aes(x = provider, y = cpd_jr5)) + 
-  geom_segment(aes(x = provider, xend = provider, y = 0, yend = cpd_jr5), color = "grey", size = 1) +
-  geom_point(size = 5, color = "blue") +
-  scale_y_continuous(labels = scales::dollar) +
-  scale_color_manual(values = c("orange", "blue")) +
-  labs(title = "2017 Cost Per Download, Current Year Downloads/JR5",
-       subtitle = "(Package Cost / # JR5 Downloads)",
-       x = "", y = "Dollars") +
-  geom_text(aes(label = dollar(round(cpd_jr5, 2))), nudge_x = -.3, color = "black", size = 3) +
-  theme(legend.position = "none") +
-  coord_flip() 
+# # Figure with just Els Free and Subscribed
+# journal_big6 %>% 
+#   mutate(provider = factor(provider),
+#          provider = fct_reorder(provider, desc(cpd_jr5))) %>% 
+#   filter(str_detect(provider, "Elsevier")) %>% 
+#   ggplot(aes(x = provider, y = cpd_jr5)) + 
+#   geom_segment(aes(x = provider, xend = provider, y = 0, yend = cpd_jr5), color = "grey", size = 1) +
+#   geom_point(size = 5, color = "blue") +
+#   scale_y_continuous(labels = scales::dollar) +
+#   scale_color_manual(values = c("orange", "blue")) +
+#   labs(title = "2017 Cost Per Download, Current Year Downloads/JR5",
+#        subtitle = "(Package Cost / # JR5 Downloads)",
+#        x = "", y = "Dollars") +
+#   geom_text(aes(label = dollar(round(cpd_jr5, 2))), nudge_x = -.3, color = "black", size = 3) +
+#   theme(legend.position = "none") +
+#   coord_flip() 
 ```
 
