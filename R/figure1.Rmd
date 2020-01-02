@@ -70,11 +70,11 @@ highuse_fn <- function(group_var){
 fig1 <- function(use, provider, title, subtitle){
   use <- enquo(use)
   provider <- enquo(provider)
-  highuse_counts <- highuse %>%
+  highuse_counts <- highuse %>% ungroup() %>% 
     mutate(!! use := factor(!! use, levels = c("JR80 Titles", "JR90 Titles", "JR95 Titles", "Remaining Titles"))) %>% 
     filter(big5 == "Yes") %>% 
-    count(!! provider, !! use) %>% 
-    mutate(pct=n/sum(n), ypos = cumsum(pct))
+    count(!! provider, !! use) %>% group_by(!! provider) %>% 
+    mutate(pct=n/sum(n), ypos = cumsum(pct), num_journal = sum(n))
   
   assign(x = "highuse_counts", highuse_counts, envir = .GlobalEnv)
   
@@ -87,12 +87,12 @@ fig1 <- function(use, provider, title, subtitle){
          subtitle = subtitle,
          x = "", y = "Percent") +
    # geom_text(aes(label=paste0(n), y=ypos - 0.05)) +
+    geom_text(aes(label=paste0(num_journal), y = 1.05), size = 3) +
     guides(fill = guide_legend(reverse=TRUE, title = NULL)) +
     theme(legend.position = "bottom") +
     coord_flip()
   plotly::ggplotly(p)
 }
-
 
 ```
 
@@ -163,11 +163,11 @@ Focusing on the journals UVA researchers have published in over the last 10 year
 
 ## Elsevier Freedom versus Elsevier Subscribed
 
-The figures above are repeated below but with Elsevier journals disaggregated into the Freedom collection, Subscribed collection, and journals we were not able to match. Note that the disaggregated Elsevier journals no longer sum to 100% as "high use" is calculated within the package, and then the titles are disaggregated into the collections. The three Elsevier bars collectively account for 100% of the titles.
+The figures above are repeated below but with Elsevier journals disaggregated into the Freedom collection, Subscribed collection, and journals we were not able to match. Here "high use" is calculated within the whole Elsevier package, as above, but visualized by the disaggregated Elsevier sets. 
 
 ```{r derive2}
 # Big 5 with Elsevier broken down by Subscribed and Freedom
-# highuse <- highuse_fn(group_var = provider2)
+# highuse <- highuse_fn(group_var = provider)
 ```
 
 ### 1e. High-use Journals by All Article Downloads
@@ -177,6 +177,7 @@ fig1(use_jr1,
      title = "Percentage of Titles in High Use Journals",
      subtitle = "By All Downloads in 2017 (JR1)")
 ```
+
 
 With regard to article downloads, the majority of journals in the Subscribed Collection are high-use journals by the JR80 measure (418 of 726 titles). Only 15% of the titles in the Freedom Collection are highly used by the JR80 measure( 166 of 1086 titles). 
 
