@@ -18,6 +18,121 @@ filename = '1figr_U_Virginia_Original (1) (1).xlsx'
 your_institution = 'UVA'
 
 
+def figure6a_oa_available_articles():
+    """Number of papers available Open Access (oa) for each of the big 5 providers over time (2008-2017)
+    Looks at columns under 'OA papers in 1finder per journal/provider (Intersection with scopus)"""
+
+    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    
+    big5 = ['Elsevier', 'Taylor & Francis', 'Sage', 'Springer', 'Wiley']
+
+    oa_by_provider = []
+    
+    for provider_name in big5:
+        
+        subset_by_provider = data.loc[data['Provider'] == provider_name]
+    
+        oa_by_year = []
+    
+        oa_2008 = subset_by_provider.oa_papers_2008.tolist()
+        oa_by_year.append(oa_2008[0])
+        oa_2009 = subset_by_provider.oa_papers_2009.tolist()
+        oa_by_year.append(oa_2009[0])
+        oa_2010 = subset_by_provider.oa_papers_2010.tolist()
+        oa_by_year.append(oa_2010[0])
+        oa_2011 = subset_by_provider.oa_papers_2011.tolist()
+        oa_by_year.append(oa_2011[0])
+        oa_2012 = subset_by_provider.oa_papers_2012.tolist()
+        oa_by_year.append(oa_2012[0])
+        oa_2013 = subset_by_provider.oa_papers_2013.tolist()
+        oa_by_year.append(oa_2013[0])
+        oa_2014 = subset_by_provider.oa_papers_2014.tolist()
+        oa_by_year.append(oa_2014[0])
+        oa_2015 = subset_by_provider.oa_papers_2015.tolist()
+        oa_by_year.append(oa_2015[0])
+        oa_2016 = subset_by_provider.oa_papers_2016.tolist()
+        oa_by_year.append(oa_2016[0])
+        oa_2017 = subset_by_provider.oa_papers_2017.tolist()
+        oa_by_year.append(oa_2017[0])
+        
+        oa_by_provider.append(oa_by_year)
+    
+    years = ['2008','2009','2010','2011','2012','2013','2014','2015','2016','2017']
+
+    plt.figure(num=None, figsize=(10,10))
+    plt.suptitle(f'Number of OA-Available Papers by Year')
+    plt.xlabel('Year')
+    plt.ylabel('Number Papers Available')
+
+    plt.plot(years, oa_by_provider[0], label='Elsevier')
+    plt.plot(years, oa_by_provider[1], label='Taylor & Francis')
+    plt.plot(years, oa_by_provider[2], label='Sage')
+    plt.plot(years, oa_by_provider[3], label='Springer')
+    plt.plot(years, oa_by_provider[4], label='Wiley')
+
+    plt.legend()
+
+
+def figure6a_percent_oa_articles():
+    """Percent of papers available Open Access (oa) for each of the big 5 providers over time (2008-2017)
+    Looks at columns under '% of OA papers in 1findr per journal/provider (intersection with Scopus)"""
+    
+    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    
+    big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley']
+    
+    oa_by_provider = []
+    
+    for provider_name in big5:
+        
+        subset_by_provider = data.loc[data['Provider'] == provider_name]
+    
+        oa_by_year = []
+
+        oa_2008 = subset_by_provider.oa_2008.tolist()
+        oa_by_year.append(oa_2008[0])
+        oa_2009 = subset_by_provider.oa_2009.tolist()
+        oa_by_year.append(oa_2009[0])
+        oa_2010 = subset_by_provider.oa_2010.tolist()
+        oa_by_year.append(oa_2010[0])
+        oa_2011 = subset_by_provider.oa_2011.tolist()
+        oa_by_year.append(oa_2011[0])
+        oa_2012 = subset_by_provider.oa_2012.tolist()
+        oa_by_year.append(oa_2012[0])
+        oa_2013 = subset_by_provider.oa_2013.tolist()
+        oa_by_year.append(oa_2013[0])
+        oa_2014 = subset_by_provider.oa_2014.tolist()
+        oa_by_year.append(oa_2014[0])
+        oa_2015 = subset_by_provider.oa_2015.tolist()
+        oa_by_year.append(oa_2015[0])
+        oa_2016 = subset_by_provider.oa_2016.tolist()
+        oa_by_year.append(oa_2016[0])
+        oa_2017 = subset_by_provider.oa_2017.tolist()
+        oa_by_year.append(oa_2017[0])
+        
+        oa_by_provider.append(oa_by_year)
+        
+    years = ['2008','2009','2010','2011','2012','2013','2014','2015','2016','2017']
+        
+    plt.figure(num=None, figsize=(10, 10))
+    plt.suptitle(f'Percentage of OA Available Papers by Year in 2017 by Provider')
+    plt.xlabel('Year')
+    plt.ylabel('Percent Papers Available')
+    plt.ylim(0, .45)
+    
+    plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.0%}'))    #formats y axis as %
+
+    plt.plot(years, oa_by_provider[0], label='Elsevier')
+    plt.plot(years, oa_by_provider[1], label='Sage')
+    plt.plot(years, oa_by_provider[2], label='Springer')
+    plt.plot(years, oa_by_provider[3], label='Taylor & Francis')
+    plt.plot(years, oa_by_provider[4], label='Wiley')
+    
+    plt.legend()
+    
+
+
+
 def figure6b_oa_available_articles():
     """Show number Open Access (OA) available articles per provider over time (2008-2017) for provider,
     separating our Elsevier subscribed and Elsevier Freedom collection from Elsevier as a whole

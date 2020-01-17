@@ -18,6 +18,88 @@ filename = '1figr_U_Virginia_Original (1) (1).xlsx'
 your_institution = 'UVA'
 
 
+def figure3a():
+    """Using cost data per provider, plots cost per jr1 download for each provider. Divides total package
+    price by total number of JR1 downloads. JR1 downloads are all years' downloads in current year.
+    Fix this to incorporate the usual csv reading the data instead of hard coded values"""
+
+    downloads_info = []
+    
+    cost_per_provider = {
+            'Elsevier' : [2340568.00, 740070],
+            'Sage' : [207700.00, 68907],
+            'Springer' : [928223.19, 134038],
+            'Taylor & Francis' : [95475.00, 46514],
+            'Wiley' : [1016814.29, 246771]
+            }
+    
+    for provider_name, values in cost_per_provider.items():
+        package_cost = values[0]
+        jr1_downloads = values[1]
+        cost_per_download = package_cost/jr1_downloads
+        downloads_info.append((provider_name, cost_per_download))
+        
+    providers = [x[0] for x in downloads_info]
+    cost = [x[1] for x in downloads_info]
+    
+    
+    plt.figure(num=None, figsize=(8,8))
+    plt.suptitle('Big5 Providers Cost Per JR1 Download (for 2017)\n (Package Cost / # of JR1 Downloads)')
+    plt.ylabel('Dollars')
+                 
+    plot = plt.bar(providers, cost, color='green')
+    
+    for i in plot:
+        score = i.get_height()
+        
+        plt.text(i.get_x() + i.get_width()/2., 
+                 1.01 * score, 
+                 '${:,.2f}'.format(score),
+                 ha='center',
+                 va='bottom')
+
+
+def figure3b():
+    """Using cost data per provider, plots cost per jr5 download for each provider. Divides total package
+    price by total number of JR5 downloads. JR5 downloads are all years' downloads in current year.
+    Fix this to incorporate the usual csv reading the data instead of hard coded values"""
+
+    downloads_info = [] 
+    
+    cost_per_provider = {
+            'Elsevier' : [2340568.00, 153142],
+            'Sage' : [207700.00, 9810],
+            'Springer' : [928223.19, 32909],
+            'Taylor & Francis' : [95475.00, 7135],
+            'Wiley' : [1016814.29, 36531]
+            }
+    
+    for provider_name, values in cost_per_provider.items():
+        package_cost = values[0]
+        jr1_downloads = values[1]
+        cost_per_download = package_cost/jr1_downloads
+        downloads_info.append((provider_name, cost_per_download))
+        
+    providers = [x[0] for x in downloads_info]
+    cost = [x[1] for x in downloads_info]
+    
+    
+    plt.figure(num=None, figsize=(8,8))
+    plt.suptitle('Big5 Providers Cost Per JR5 Download (for 2017)\n (Package Cost / # of JR5 Downloads)')
+    plt.ylabel('Dollars')
+                 
+    plot = plt.bar(providers, cost, color='green')
+    
+    for i in plot:
+        score = i.get_height()
+        
+        plt.text(i.get_x() + i.get_width()/2., 
+                 1.01 * score, 
+                 '${:,.2f}'.format(score),
+                 ha='center',
+                 va='bottom')
+
+
 def figure3c():
     """Represents cost per JR1 download by provider
     Reads in cost data from supplementary file for each provider

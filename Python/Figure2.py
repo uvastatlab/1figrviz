@@ -33,6 +33,11 @@ X-Axis Data Source:
 Supplemental Information
 """
 
+def figure2a():
+    pass
+
+
+
 
 def figure2b():
     """A measurement of currency. Compares JR5 downloads to JR1 downloads for each of the big 7 providers.
@@ -124,7 +129,6 @@ def figure2b():
 #    plt.savefig('test.jpg', bbox_inches='tight')      #saves image in working directory
 
 
-figure2b() 
         
         
 

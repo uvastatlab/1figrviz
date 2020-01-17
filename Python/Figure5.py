@@ -19,6 +19,195 @@ filename = '1figr_U_Virginia_Original (1) (1).xlsx'
 your_institution = 'UVA'
 
 
+def figure5a_total_papers():
+    """Plots # of papers published by all big 5 providers per year"""
+    
+    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    
+    big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley']
+    
+    papers_by_provider = []
+    
+    for provider_name in big5:
+        
+        subset_by_provider = data.loc[data['Provider'] == provider_name]
+        
+        papers_by_year = []
+        
+        total_2008 = subset_by_provider.total_2008.tolist()
+        papers_by_year.append(total_2008[0])
+        total_2009 = subset_by_provider.total_2009.tolist()
+        papers_by_year.append(total_2009[0])
+        total_2010 = subset_by_provider.total_2010.tolist()
+        papers_by_year.append(total_2010[0])
+        total_2011 = subset_by_provider.total_2011.tolist()
+        papers_by_year.append(total_2011[0])
+        total_2012 = subset_by_provider.total_2012.tolist()
+        papers_by_year.append(total_2012[0])
+        total_2013 = subset_by_provider.total_2013.tolist()
+        papers_by_year.append(total_2013[0])
+        total_2014 = subset_by_provider.total_2014.tolist()
+        papers_by_year.append(total_2014[0])
+        total_2015 = subset_by_provider.total_2015.tolist()
+        papers_by_year.append(total_2015[0])
+        total_2016 = subset_by_provider.total_2016.tolist()
+        papers_by_year.append(total_2016[0])
+        total_2017 = subset_by_provider.total_2017.tolist()
+        papers_by_year.append(total_2017[0])
+
+        papers_by_provider.append(papers_by_year)        
+    
+    years = ['2008','2009','2010','2011','2012','2013','2014','2015','2016','2017']
+
+    plt.figure(num=None, figsize=(10, 10))
+    plt.suptitle(f'Number of Total Papers by Year')
+    plt.xlabel('Year')
+    plt.ylabel('Paper Count')
+    
+    plt.plot(years, papers_by_provider[0], label='Elsevier')
+    plt.plot(years, papers_by_provider[1], label='Sage')
+    plt.plot(years, papers_by_provider[2], label='Springer')
+    plt.plot(years, papers_by_provider[3], label='Taylor & Francis')
+    plt.plot(years, papers_by_provider[4], label='Wiley')
+    
+    
+def figure5a_papers():
+    """Plots # of UVA authored publications in each of the big 5 providers over time (2008-2017)
+    Looks at columns under 'Papers per journal/provider by your institution's authors"""
+
+    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    
+    big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley']
+    
+    publications_by_provider = []
+    
+    for provider_name in big5:
+        
+        subset_by_provider = data.loc[data['Provider'] == provider_name]
+        
+        publications_by_year = []
+        
+        papers_2008 = subset_by_provider.papers_2008.tolist()
+        publications_by_year.append(papers_2008[0])
+        papers_2009 = subset_by_provider.papers_2009.tolist()
+        publications_by_year.append(papers_2009[0])
+        papers_2010 = subset_by_provider.papers_2010.tolist()
+        publications_by_year.append(papers_2010[0])
+        papers_2011 = subset_by_provider.papers_2011.tolist()
+        publications_by_year.append(papers_2011[0])
+        papers_2012 = subset_by_provider.papers_2012.tolist()
+        publications_by_year.append(papers_2012[0])
+        papers_2013 = subset_by_provider.papers_2013.tolist()
+        publications_by_year.append(papers_2013[0])
+        papers_2014 = subset_by_provider.papers_2014.tolist()
+        publications_by_year.append(papers_2014[0])
+        papers_2015 = subset_by_provider.papers_2015.tolist()
+        publications_by_year.append(papers_2015[0])
+        papers_2016 = subset_by_provider.papers_2016.tolist()
+        publications_by_year.append(papers_2016[0])
+        papers_2017 = subset_by_provider.papers_2017.tolist()
+        publications_by_year.append(papers_2017[0])
+        
+        publications_by_provider.append(publications_by_year)
+            
+    
+    years = ['2008','2009','2010','2011','2012','2013','2014','2015','2016','2017']
+
+    plt.figure(num=None, figsize=(10, 10))
+    plt.suptitle(f'Number of UVA Authored Papers by Year')
+    plt.xlabel('Year')
+    plt.ylabel('Paper Count')
+
+    #change this to be dynamic instead of hard coded
+    plt.plot(years, publications_by_provider[0], label='Elsevier')
+    plt.plot(years, publications_by_provider[1], label='Sage')
+    plt.plot(years, publications_by_provider[2], label='Springer')
+    plt.plot(years, publications_by_provider[3], label='Taylor & Francis')
+    plt.plot(years, publications_by_provider[4], label='Wiley')
+
+
+def figure5a_percentage():
+    """Plots percentage of UVA authored papers in each of the big 5 providers over time (2008-2017)
+    Divides # UVA authored papers for current year by total number of papers in that journal.
+    For example, this is 'papers_2008' / total_2008"""
+    
+    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    
+    big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley']
+
+    percentage_by_provider = []
+    
+    for provider_name in big5:
+
+        subset_by_provider = data.loc[data['Provider'] == provider_name]
+        
+        percentage_per_year = []
+        
+        uva_2008 = subset_by_provider.papers_2008.tolist()
+        total_2008 = subset_by_provider.total_2008.tolist()
+        percentage_per_year.append(uva_2008[0] / total_2008[0])
+        
+        uva_2009 = subset_by_provider.papers_2009.tolist()
+        total_2009 = subset_by_provider.total_2009.tolist()
+        percentage_per_year.append(uva_2009[0] / total_2009[0])
+        
+        uva_2010 = subset_by_provider.papers_2010.tolist()
+        total_2010 = subset_by_provider.total_2010.tolist()
+        percentage_per_year.append(uva_2010[0] / total_2010[0])
+        
+        uva_2011 = subset_by_provider.papers_2011.tolist()
+        total_2011 = subset_by_provider.total_2011.tolist()
+        percentage_per_year.append(uva_2011[0] / total_2011[0])
+        
+        uva_2012 = subset_by_provider.papers_2012.tolist()
+        total_2012 = subset_by_provider.total_2012.tolist()
+        percentage_per_year.append(uva_2012[0] / total_2012[0])
+        
+        uva_2013 = subset_by_provider.papers_2013.tolist()
+        total_2013 = subset_by_provider.total_2013.tolist()
+        percentage_per_year.append(uva_2013[0] / total_2013[0])
+        
+        uva_2014 = subset_by_provider.papers_2014.tolist()
+        total_2014 = subset_by_provider.total_2014.tolist()
+        percentage_per_year.append(uva_2014[0] / total_2014[0])
+        
+        uva_2015 = subset_by_provider.papers_2015.tolist()
+        total_2015 = subset_by_provider.total_2015.tolist()
+        percentage_per_year.append(uva_2015[0] / total_2015[0])
+        
+        uva_2016 = subset_by_provider.papers_2016.tolist()
+        total_2016 = subset_by_provider.total_2016.tolist()
+        percentage_per_year.append(uva_2016[0] / total_2016[0])
+        
+        uva_2017 = subset_by_provider.papers_2017.tolist()
+        total_2017 = subset_by_provider.total_2017.tolist()
+        percentage_per_year.append(uva_2017[0] / total_2017[0])
+        
+        percentage_by_provider.append(percentage_per_year)
+        
+    years = ['2008','2009','2010','2011','2012','2013','2014','2015','2016','2017']
+       
+    
+    #build plot
+    plt.figure(num=None, figsize=(10, 10))
+
+    plt.suptitle(f'Percentage of UVA Authored Papers of All Papers by Year by Provider')
+    plt.xlabel('Year')
+    plt.ylabel('Percent of Total Papers')
+    plt.ylim(0, 0.004)
+
+    plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.3%}'))    #formats y axis as %
+
+#    plt.plot(years, percentage_by_provider[0])
+    plt.plot(years, percentage_by_provider[0], label='Elsevier')
+    plt.plot(years, percentage_by_provider[1], label='Sage')
+    plt.plot(years, percentage_by_provider[2], label='Springer')
+    plt.plot(years, percentage_by_provider[3], label='Taylor & Francis')
+    plt.plot(years, percentage_by_provider[4], label='Wiley')
+
+    
+    
+
 def figure5b_papers():
     """Show papers per year (2008-2017) by your institution's affiliated authors, separating Elsevier Freedom
     and Elsevier Subscribed titles out from Elsevier as a whole.  Papers are publications
