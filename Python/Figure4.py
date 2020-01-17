@@ -137,7 +137,7 @@ def figure4a_references():
     plt.plot(years, ref_by_provider[4], label='Wiley')
 
 
-def figureb_percentage():
+def figure4a_percentage():
     """Percent UVA references by provider by year, referencing Scopus data.
     Looks at columns under 'References to journal/provider by your institution's authors (as measured in Scopus)
     References are defined as: Number of References made by researchers of your institution to an article from a given journal
