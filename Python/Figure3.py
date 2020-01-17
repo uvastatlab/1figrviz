@@ -21,7 +21,15 @@ your_institution = 'UVA'
 def figure3a():
     """Using cost data per provider, plots cost per jr1 download for each provider. Divides total package
     price by total number of JR1 downloads. JR1 downloads are all years' downloads in current year.
-    Fix this to incorporate the usual csv reading the data instead of hard coded values"""
+    Fix this to incorporate the usual csv reading the data instead of hard coded values
+    
+    Chart Type: Dot Plot/Scatter Plot
+    Y-Axis: Provider name
+    Y-Axis Data Source: Original 1Figr Dataset
+    
+    X-Axis: Cost per download
+    X-Axis Data Source: Original 1Figr Dataset
+    """
 
     downloads_info = []
     
@@ -62,7 +70,15 @@ def figure3a():
 def figure3b():
     """Using cost data per provider, plots cost per jr5 download for each provider. Divides total package
     price by total number of JR5 downloads. JR5 downloads are all years' downloads in current year.
-    Fix this to incorporate the usual csv reading the data instead of hard coded values"""
+    Fix this to incorporate the usual csv reading the data instead of hard coded values
+    
+    Chart Type: Dot Plot/Scatter Plot
+    Y-Axis: Provider name
+    Y-Axis Data Source: Original 1Figr Dataset
+    
+    X-Axis: Cost per download
+    X-Axis Data Source: Original 1Figr Dataset
+    """
 
     downloads_info = [] 
     

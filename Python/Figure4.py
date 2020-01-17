@@ -20,9 +20,17 @@ filename = '1figr_U_Virginia_Original (1) (1).xlsx'
 your_institution = 'UVA'
 
 def figure4a_all_uva_references():
-    """UVA references by provider by year, referencing Scopus data.
+    """UVA references by year, referencing Scopus data.
     Looks at columns under 'References to journal/provider by your institution's authors (as measured in Scopus)
-    References are defined as: Number of References made by researchers of your institution to an article from a given journal"""
+    References are defined as: Number of References made by researchers of your institution to an article from a given journal
+    
+    Chart Type: Line graph
+    Y-Axis: Number of References
+    Y-Axis Data Source: Original 1Figr Dataset 
+    
+    X-Axis: Year
+    X-Axis Data Source: Original 1Figr Dataset
+    """
     
 
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
@@ -84,7 +92,15 @@ def figure4a_all_uva_references():
 def figure4a_references():
     """UVA references by provider by year, referencing Scopus data.
     Looks at columns under 'References to journal/provider by your institution's authors (as measured in Scopus)
-    References are defined as: Number of References made by researchers of your institution to an article from a given journal"""
+    References are defined as: Number of References made by researchers of your institution to an article from a given journal
+    
+    Chart Type: Line graph
+    Y-Axis: Number of References
+    Y-Axis Data Source: Original 1Figr Dataset 
+    
+    X-Axis: Year
+    X-Axis Data Source: Original 1Figr Dataset
+    """
     
 
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
@@ -138,10 +154,17 @@ def figure4a_references():
 
 
 def figure4a_percentage():
-    """Percent UVA references by provider by year, referencing Scopus data.
+    """UVA references by provider by year, referencing Scopus data.
     Looks at columns under 'References to journal/provider by your institution's authors (as measured in Scopus)
     References are defined as: Number of References made by researchers of your institution to an article from a given journal
-    ex: (Elsevier UVA references 2008 / total references 2008) """
+    
+    Chart Type: Line graph
+    Y-Axis: Number of References
+    Y-Axis Data Source: Original 1Figr Dataset 
+    
+    X-Axis: Year
+    X-Axis Data Source: Original 1Figr Dataset
+    """
     
 
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)

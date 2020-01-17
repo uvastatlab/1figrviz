@@ -37,9 +37,17 @@ Supplemental Information
 
 
 def figure1a():
-    """Creates stacked bar plot showing jr80, jr90, jr95 score for big 5 providers.
+    """Creates stacked bar plot showing jr1 downloads and jr80, jr90, jr95 score for big 5 providers.
     JR80 is journals that make up 80% of downloads. JR90 are journals that make up 90% of downloads.
-    JR95 are journals that make up 95% of downloads. These will all be plotted together."""
+    JR95 are journals that make up 95% of downloads. These will all be plotted together.
+    
+    Chart Type: Stacked bar
+    Y-Axis: Percentage
+    Y-Axis Data Source: Original 1Figr Dataset
+    
+    X-Axis: Provider Name
+    X-Axis Data Source: Original 1Figr Dataset
+    """
     
 #    TODO: ADD LABELS TO PLOT
     
@@ -138,9 +146,17 @@ def figure1a():
 
 
 def figure1b():
-    """Creates stacked bar plot showing jr80, jr90, jr95 score for big 5 providers.
+    """Creates stacked bar plot showing jr5 downloads and jr80, jr90, jr95 score for big 5 providers.
     JR80 is journals that make up 80% of downloads. JR90 are journals that make up 90% of downloads.
-    JR95 are journals that make up 95% of downloads. These will all be plotted together."""
+    JR95 are journals that make up 95% of downloads. These will all be plotted together.
+    
+    Chart Type: Stacked bar
+    Y-Axis: Percentage
+    Y-Axis Data Source: Original 1Figr Dataset
+    
+    X-Axis: Provider Name
+    X-Axis Data Source: Original 1Figr Dataset
+    """
 
     
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
@@ -239,9 +255,17 @@ def figure1b():
 
 
 def figure1c():
-    """Creates stacked bar plot showing jr80, jr90, jr95 score for big 5 providers.
+    """Creates stacked bar plot showing article references and jr80, jr90, jr95 score for big 5 providers.
     JR80 is journals that make up 80% of downloads. JR90 are journals that make up 90% of downloads.
-    JR95 are journals that make up 95% of downloads. These will all be plotted together."""
+    JR95 are journals that make up 95% of downloads. These will all be plotted together.
+    
+    Chart Type: Stacked bar
+    Y-Axis: Percentage
+    Y-Axis Data Source: Original 1Figr Dataset
+    
+    X-Axis: Provider Name
+    X-Axis Data Source: Original 1Figr Dataset
+    """
 
     
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)           
@@ -341,9 +365,17 @@ def figure1c():
   
 
 def figure1d():
-    """Creates stacked bar plot showing jr80, jr90, jr95 score for big 5 providers.
+    """Creates stacked bar plot showing publications and jr80, jr90, jr95 score for big 5 providers.
     JR80 is journals that make up 80% of downloads. JR90 are journals that make up 90% of downloads.
-    JR95 are journals that make up 95% of downloads. These will all be plotted together."""
+    JR95 are journals that make up 95% of downloads. These will all be plotted together.
+    
+    Chart Type: Stacked bar
+    Y-Axis: Percentage
+    Y-Axis Data Source: Original 1Figr Dataset
+    
+    X-Axis: Provider Name
+    X-Axis Data Source: Original 1Figr Dataset
+    """
 
     
 #    data = pd.read_csv('JournalsPerProvider_noJR1.csv', skiprows=8)           #reading from different file. Needs to be fixed to read from same file, but ignore 'N/A' values

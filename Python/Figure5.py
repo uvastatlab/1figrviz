@@ -20,7 +20,15 @@ your_institution = 'UVA'
 
 
 def figure5a_total_papers():
-    """Plots # of papers published by all big 5 providers per year"""
+    """Plots # of papers published by all big 5 providers per year
+    
+    Chart Type: Line graph
+    Y-Axis: Number of Papers
+    Y-Axis Data Source: Original 1Figr Dataset 
+    
+    X-Axis: Year
+    X-Axis Data Source: Original 1Figr Dataset
+    """
     
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
@@ -73,7 +81,15 @@ def figure5a_total_papers():
     
 def figure5a_papers():
     """Plots # of UVA authored publications in each of the big 5 providers over time (2008-2017)
-    Looks at columns under 'Papers per journal/provider by your institution's authors"""
+    Looks at columns under 'Papers per journal/provider by your institution's authors
+    
+    Chart Type: Line graph
+    Y-Axis: Number of Papers
+    Y-Axis Data Source: Original 1Figr Dataset 
+    
+    X-Axis: Year
+    X-Axis Data Source: Original 1Figr Dataset
+    """
 
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
@@ -129,7 +145,15 @@ def figure5a_papers():
 def figure5a_percentage():
     """Plots percentage of UVA authored papers in each of the big 5 providers over time (2008-2017)
     Divides # UVA authored papers for current year by total number of papers in that journal.
-    For example, this is 'papers_2008' / total_2008"""
+    For example, this is 'papers_2008' / total_2008
+    
+    Chart Type: Line graph
+    Y-Axis: Number of Papers
+    Y-Axis Data Source: Original 1Figr Dataset 
+    
+    X-Axis: Year
+    X-Axis Data Source: Original 1Figr Dataset
+    """
     
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     

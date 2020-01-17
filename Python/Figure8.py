@@ -16,7 +16,28 @@ import matplotlib.patches as mpatches
 import reusable_functions as rf
 
 
+def figure8a():
+    pass
+
+def figure8b():
+    pass
+
 def figure8c(provider_name):
+    """Shows distribution of citations by discipline for the specified provider.
+    Citations are a reference to any paper authored by a UVA affiliated author.
+    However, if multiple UVA authors collaborate on one paper, this counts for only one citation.
+    'Disciplines' is a column we derived from the pre-existing 'fields' column in the 1figr data.
+    Disciplines has mapped those field categories into more UVA specific language
+    
+    Chart Type: Line
+    Y-Axis: Discipline 
+    Y-Axis Data Source: Original 1Figr Dataset, reusable_functions.py
+    
+    X-Axis: Number of References
+    X-Axis Data Source: Original 1Figr Dataset, reusable_functions.py
+    """
+
+
     """Shows distribution of citations by discipline for the specified provider.
     Citations are a reference to any paper authored by a UVA affiliated author.
     However, if multiple UVA authors collaborate on one paper, this counts for only one citation.
@@ -59,7 +80,16 @@ def figure8d(provider_name):
     Publications are publications by any UVA affiliated author.
     However if multiple UVA authors collaborate on one paper, this counts for only one publication.
     'Disciplines' is a column we derived from the pre-existing 'fields' column in the 1figr data.
-    Disciplines has mapped those field categories into more UVA specific language"""
+    Disciplines has mapped those field categories into more UVA specific language
+    
+    Chart Type: Line
+    Y-Axis: Discipline 
+    Y-Axis Data Source: Original 1Figr Dataset, reusable_functions.py
+    
+    X-Axis: Number of Papers
+    X-Axis Data Source: Original 1Figr Dataset, reusable_functions.py
+    """
+
     
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     

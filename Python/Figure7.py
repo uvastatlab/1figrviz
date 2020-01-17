@@ -16,6 +16,19 @@ import matplotlib.patches as mpatches
 import reusable_functions as rf
 
 
+def figure7a():
+    pass
+
+def figure7b():
+    pass
+
+def figure7c():
+    pass
+
+def figure7d():
+    pass
+
+
 def figure7e():
     """This is counting JR1 downloads by Domain for the subscribed titles and freedom collection providers
     

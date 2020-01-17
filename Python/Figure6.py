@@ -17,11 +17,21 @@ import reusable_functions as rf
 filename = '1figr_U_Virginia_Original (1) (1).xlsx'
 your_institution = 'UVA'
 
+def figure6a_number_of_articles_published():
+    pass
 
 def figure6a_oa_available_articles():
     """Number of papers available Open Access (oa) for each of the big 5 providers over time (2008-2017)
-    Looks at columns under 'OA papers in 1finder per journal/provider (Intersection with scopus)"""
-
+    Looks at columns under 'OA papers in 1finder per journal/provider (Intersection with scopus)
+    
+    Chart Type: Line graph
+    Y-Axis: Number of Open Access Articles
+    Y-Axis Data Source: Original 1Figr Dataset 
+    
+    X-Axis: Year
+    X-Axis Data Source: Original 1Figr Dataset
+    """
+    
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
     big5 = ['Elsevier', 'Taylor & Francis', 'Sage', 'Springer', 'Wiley']
@@ -75,7 +85,16 @@ def figure6a_oa_available_articles():
 
 def figure6a_percent_oa_articles():
     """Percent of papers available Open Access (oa) for each of the big 5 providers over time (2008-2017)
-    Looks at columns under '% of OA papers in 1findr per journal/provider (intersection with Scopus)"""
+    Looks at columns under '% of OA papers in 1findr per journal/provider (intersection with Scopus)
+    
+    Chart Type: Line graph
+    Y-Axis: Number of Open Access Articles
+    Y-Axis Data Source: Original 1Figr Dataset 
+    
+    X-Axis: Year
+    X-Axis Data Source: Original 1Figr Dataset
+    """
+
     
     data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
