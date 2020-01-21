@@ -14,3 +14,17 @@ Steps to use data...
 
 4. Each function is meant to run independently. They should read directly from your 1Figr excel file. Each file crunches the 
 data and produces a chart with the outcome. Execute the functions you are interested in.
+
+5. Figure Dependencies on Files
+
+  1FigrFunctions.py - 'JournalsPerProvider.csv'
+  Figure1.py - '1figr_U_Virginia_Original (1) (1).xlsx', 'JournalsPerProvider.csv', 'JournalsPerProvider.xls'
+  Figure2.py - '1figr_U_Virginia_Original (1) (1).xlsx', 'JournalsPerProvider.xls'
+  Figure3.py - '1figr_U_Virginia_Original (1) (1).xlsx', 'JournalsPerProvider.xls', '1figr_U_Virginia_edit_Supp_Data.xlsx'
+  Figure4.py - '1figr_U_Virginia_Original (1) (1).xlsx', 'JournalsPerProvider.xls'
+  Figure5.py - '1figr_U_Virginia_Original (1) (1).xlsx', 'JournalsPerProvider.csv'
+  Figure6.py - '1figr_U_Virginia_Original (1) (1).xlsx', 'JournalsPerProvider.csv'
+  Figure7.py - 'JournalsPerProvider.xls'
+  Figure8.py - 'JournalsPerProvider.xls'
+  
+  
