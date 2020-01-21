@@ -25,7 +25,7 @@ data and produces a chart with the outcome. Execute the functions you are intere
   
   Figure3.py - '1figr_U_Virginia_Original (1) (1).xlsx', 'JournalsPerProvider.xls', '1figr_U_Virginia_edit_Supp_Data.xlsx'
   
-  /Figure4.py - '1figr_U_Virginia_Original (1) (1).xlsx', 'JournalsPerProvider.xls'
+  Figure4.py - '1figr_U_Virginia_Original (1) (1).xlsx', 'JournalsPerProvider.xls'
   
   Figure5.py - '1figr_U_Virginia_Original (1) (1).xlsx', 'JournalsPerProvider.csv'
   
