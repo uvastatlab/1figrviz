@@ -14,7 +14,7 @@ files.
   1FigrFunctions.py - Original 1Figr Dataset. This file contains extra functions from previous iterations of the project which 
 may or may not be of interest
   
-  Figure1.py : 
+  #Figure1.py : 
   1a- Original 1Figr Dataset
   
   1b- Original 1Figr Dataset
