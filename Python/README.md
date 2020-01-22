@@ -14,18 +14,29 @@ files.
   1FigrFunctions.py - Original 1Figr Dataset. This file contains extra functions from previous iterations of the project which 
 may or may not be of interest
   
-  Figure1.py -  
-  1a-
+  Figure1.py : 
+  1a- Original 1Figr Dataset
   
-  1b-
+  1b- Original 1Figr Dataset
   
-  1c-
+  1c- Original 1Figr Dataset
   
-  1d-
+  1d- Original 1Figr Dataset
   
-  1e-
+  1e- Original 1Figr Dataset, UVA Elsevier Subscribed vs. Freedom Collection Titles
   
-  Figure2.py - Original 1Figr Dataset, 
+  1f- Original 1Figr Dataset, UVA Elsevier Subscribed vs. Freedom Collection Titles
+  
+  1g- Original 1Figr Dataset, UVA Elsevier Subscribed vs. Freedom Collection Titles
+  
+  1h- Original 1Figr Dataset, UVA Elsevier Subscribed vs. Freedom Collection Titles
+  
+  Figure2.py :
+  2a-
+  
+  2b-
+  
+  Figure3.py :
   
   Figure3.py - Original 1Figr Dataset, 'JournalsPerProvider.xls', '1figr_U_Virginia_edit_Supp_Data.xlsx'
   
