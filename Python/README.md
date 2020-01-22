@@ -12,9 +12,6 @@ is specific to the University of Virginia and not available to other institution
 
 1. Figure Dependencies on Files. These are the supporting and auxilary files needed in order to run the functions in these 
 files.
-
-  1FigrFunctions.py - Original 1Figr Dataset. This file contains extra functions from previous iterations of the project which 
-may or may not be of interest
   
   # Figure1.py : 
   1a- Original 1Figr Dataset
@@ -113,6 +110,11 @@ may or may not be of interest
   8g- Original 1Figr Dataset, reusable_functions, UVA Elsevier Subscribed Title List
   
   8h- Original 1Figr Dataset, reusable_functions, UVA Elsevier Subscribed Title List
+  
+  # Other Files :
+  
+  1FigrFunctions.py - Original 1Figr Dataset. This file contains extra functions from previous iterations of the project which 
+may or may not be of interest
   
   Requirements.txt - Package dependencies information
   
