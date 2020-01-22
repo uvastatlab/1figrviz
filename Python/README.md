@@ -4,33 +4,36 @@
 GitHub repository for 1Figr data
 
 
-Steps to use data...
+Most of these files contain functions which only require your institution's original 1Figr dataset in order to run, however, 
+some of them require supplemental files which are specific to the University of Virginia. Each figure's corresponding file is noted below along with supplemental requirements needed to re-create each chart.
 
-1. Download the file 'sandbox.py' from this repository
 
-2. Open 'sandbox.py' and at the top of the file, change the 'filename' variable to the path where your 1Figr data is located
+1. Figure Dependencies on Files. These are the supporting and auxilary files needed in order to run the functions in these 
+files.
 
-3. Change the 'your_institution' variable to the name of your institution
-
-4. Each function is meant to run independently. They should read directly from your 1Figr excel file. Each file crunches the 
-data and produces a chart with the outcome. Execute the functions you are interested in.
-
-5. Figure Dependencies on Files
-
-  1FigrFunctions.py - 'JournalsPerProvider.csv'
+  1FigrFunctions.py - Original 1Figr Dataset. This file contains extra functions from previous iterations of the project which 
+may or may not be of interest
   
-  Figure1.py - '1figr_U_Virginia_Original (1) (1).xlsx', 'JournalsPerProvider.csv', 'JournalsPerProvider.xls'
+  Figure1.py -  1a-
+                1b-
+                1c-
+                1d-
+                1e-
   
-  Figure2.py - '1figr_U_Virginia_Original (1) (1).xlsx', 'JournalsPerProvider.xls'
+  Figure2.py - Original 1Figr Dataset, 
   
-  Figure3.py - '1figr_U_Virginia_Original (1) (1).xlsx', 'JournalsPerProvider.xls', '1figr_U_Virginia_edit_Supp_Data.xlsx'
+  Figure3.py - Original 1Figr Dataset, 'JournalsPerProvider.xls', '1figr_U_Virginia_edit_Supp_Data.xlsx'
   
-  Figure4.py - '1figr_U_Virginia_Original (1) (1).xlsx', 'JournalsPerProvider.xls'
+  Figure4.py - Original 1Figr Dataset, 
   
-  Figure5.py - '1figr_U_Virginia_Original (1) (1).xlsx', 'JournalsPerProvider.csv'
+  Figure5.py - Original 1Figr Dataset, 
   
-  Figure6.py - '1figr_U_Virginia_Original (1) (1).xlsx', 'JournalsPerProvider.csv'
+  Figure6.py - Original 1Figr Dataset, 
   
   Figure7.py - 'JournalsPerProvider.xls'
   
   Figure8.py - 'JournalsPerProvider.xls'
+  
+  Requirements.txt - Package dependencies information
+  
+  Reusable_functions.py - These are functions which are complementary functions for some of the charts. For example, you can create the 'Disciplines' column in your dataset which previously does not exist. 
