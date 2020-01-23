@@ -14,6 +14,7 @@ import matplotlib.patches as mpatches
 
 import reusable_functions as rf
 
+#Change these global variables to your corresponding filename and institution name
 filename = '1figr_U_Virginia_Original (1) (1).xlsx'
 your_institution = 'UVA'
 
@@ -31,24 +32,37 @@ def figure3a():
     X-Axis Data Source: Original 1Figr Dataset
     """
 
-    downloads_info = []
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
+
+
+    #reads cost data per provider from the following supplementary file
+    cost_data = pd.read_excel('1figr_U_Virginia_edit_Supp_Data.xlsx')
+    cost_per_provider = cost_data.groupby(['Package'], as_index=False).sum().values.tolist()
     
-    cost_per_provider = {
-            'Elsevier' : [2340568.00, 740070],
-            'Sage' : [207700.00, 68907],
-            'Springer' : [928223.19, 134038],
-            'Taylor & Francis' : [95475.00, 46514],
-            'Wiley' : [1016814.29, 246771]
-            }
+    big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley']
     
-    for provider_name, values in cost_per_provider.items():
-        package_cost = values[0]
-        jr1_downloads = values[1]
-        cost_per_download = package_cost/jr1_downloads
-        downloads_info.append((provider_name, cost_per_download))
+    stats_by_provider = []
+    
+    for provider_name in big5:
+        for cost in cost_per_provider:
+            if cost[0] == provider_name:
+                provider_cost = cost[1]
+                
+        subset_by_provider = data.loc[data['Provider'] == provider_name]
+
+        journals_data = subset_by_provider.groupby('Journal', as_index=False).sum().values.tolist()
         
-    providers = [x[0] for x in downloads_info]
-    cost = [x[1] for x in downloads_info]
+        for i in journals_data:
+            if i[0] == provider_name:
+                jr1_total = i[4]
+
+        cost_per_download = provider_cost/jr1_total
+
+        stats_by_provider.append((provider_name, cost_per_download))
+        
+        
+    providers = [x[0] for x in stats_by_provider]
+    cost = [x[1] for x in stats_by_provider]
     
     
     plt.figure(num=None, figsize=(8,8))
@@ -80,28 +94,41 @@ def figure3b():
     X-Axis Data Source: Original 1Figr Dataset
     """
 
-    downloads_info = [] 
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
+
+
+    #reads cost data per provider from the following supplementary file
+    cost_data = pd.read_excel('1figr_U_Virginia_edit_Supp_Data.xlsx')
+    cost_per_provider = cost_data.groupby(['Package'], as_index=False).sum().values.tolist()
     
-    cost_per_provider = {
-            'Elsevier' : [2340568.00, 153142],
-            'Sage' : [207700.00, 9810],
-            'Springer' : [928223.19, 32909],
-            'Taylor & Francis' : [95475.00, 7135],
-            'Wiley' : [1016814.29, 36531]
-            }
+    big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley']
     
-    for provider_name, values in cost_per_provider.items():
-        package_cost = values[0]
-        jr1_downloads = values[1]
-        cost_per_download = package_cost/jr1_downloads
-        downloads_info.append((provider_name, cost_per_download))
+    stats_by_provider = []
+    
+    for provider_name in big5:
+        for cost in cost_per_provider:
+            if cost[0] == provider_name:
+                provider_cost = cost[1]
+                
+        subset_by_provider = data.loc[data['Provider'] == provider_name]
+
+        journals_data = subset_by_provider.groupby('Journal', as_index=False).sum().values.tolist()
         
-    providers = [x[0] for x in downloads_info]
-    cost = [x[1] for x in downloads_info]
+        for i in journals_data:
+            if i[0] == provider_name:
+                jr5_total = i[5]
+
+        cost_per_download = provider_cost/jr5_total
+
+        stats_by_provider.append((provider_name, cost_per_download))
+        
+        
+    providers = [x[0] for x in stats_by_provider]
+    cost = [x[1] for x in stats_by_provider]
     
     
     plt.figure(num=None, figsize=(8,8))
-    plt.suptitle('Big5 Providers Cost Per JR5 Download (for 2017)\n (Package Cost / # of JR5 Downloads)')
+    plt.suptitle('Big5 Providers Cost Per JR1 Download (for 2017)\n (Package Cost / # of JR1 Downloads)')
     plt.ylabel('Dollars')
                  
     plot = plt.bar(providers, cost, color='green')
@@ -132,8 +159,7 @@ def figure3c():
                         1figr_U_Virginia_edit_Supp_Data, Total cost for 2017
     """
     
-#    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
-    data = pd.read_excel('JournalsPerProvider.xls', skiprows=8)      #for testing purposes, xls reads faster than xlsx
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
 
 
     big7 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley', 'Elsevier Freedom', 'Elsevier Subscribed']
@@ -197,7 +223,6 @@ def figure3c():
 
 
 
-
 def figure3d():
     """Represents cost per JR5 download by provider
     Reads in cost data from supplementary file for each provider
@@ -213,8 +238,7 @@ def figure3d():
                         1figr_U_Virginia_edit_Supp_Data, Total cost for 2017
     """
     
-#    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
-    data = pd.read_excel('JournalsPerProvider.xls', skiprows=8)      #for testing purposes, xls reads faster than xlsx
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
 
 
     big7 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley', 'Elsevier Freedom', 'Elsevier Subscribed']
@@ -278,4 +302,4 @@ def figure3d():
                  va='bottom')
 
 #    plt.show()        
-    plt.savefig('test.jpg', bbox_inches='tight')      #saves image in working directory
+#    plt.savefig('test.jpg', bbox_inches='tight')      #saves image in working directory

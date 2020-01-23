@@ -15,7 +15,7 @@ import matplotlib.patches as mpatches
 
 import reusable_functions as rf
 
-
+#Change these global variables to your corresponding filename and institution name
 filename = '1figr_U_Virginia_Original (1) (1).xlsx'
 your_institution = 'UVA'
 
@@ -50,9 +50,9 @@ def figure1a():
     """
     
 #    TODO: ADD LABELS TO PLOT
-    
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
 
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
+    
 
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley'] 
         
@@ -71,10 +71,10 @@ def figure1a():
         total_jr1_downloads = 0
         total_journals = 0                         
         for i in journals_data:
-            total_jr1_downloads += i[2]
+            total_jr1_downloads += i[4]
             total_journals += 1
             
-        jr1_tuples = [(i[0], i[2]) for i in journals_data]
+        jr1_tuples = [(i[0], i[4]) for i in journals_data]
         jr1_tuples_sorted = sorted(jr1_tuples, key = lambda i: i[1], reverse=True)      #sorts on second element of jr1_tuples
 
         jr80_running_tally = 0
@@ -159,7 +159,7 @@ def figure1b():
     """
 
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
 
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley'] 
 
@@ -178,10 +178,10 @@ def figure1b():
         total_jr5_downloads = 0
         total_journals = 0                         
         for i in journals_data:
-            total_jr5_downloads += i[3]
+            total_jr5_downloads += i[5]
             total_journals += 1
             
-        jr5_tuples = [(i[0], i[3]) for i in journals_data]
+        jr5_tuples = [(i[0], i[5]) for i in journals_data]
         jr5_tuples_sorted = sorted(jr5_tuples, key = lambda i: i[1], reverse=True)     #sorts on second element of jr1_tuples
         
         jr80_running_tally = 0
@@ -253,7 +253,6 @@ def figure1b():
         plt.bar(provider, total_values, bottom=(jr80 + jr90 + jr95), color='silver')
  
 
-
 def figure1c():
     """Creates stacked bar plot showing article references and jr80, jr90, jr95 score for big 5 providers.
     JR80 is journals that make up 80% of downloads. JR90 are journals that make up 90% of downloads.
@@ -268,7 +267,7 @@ def figure1c():
     """
 
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)           
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
 
 
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley'] 
@@ -288,10 +287,10 @@ def figure1c():
         total_references = 0
         total_journals = 0                         
         for i in journals_data:
-            total_references += i[4]
+            total_references += i[6]
             total_journals += 1
             
-        reference_tuples = [(i[0], i[4]) for i in journals_data]
+        reference_tuples = [(i[0], i[6]) for i in journals_data]
         reference_tuples_sorted = sorted(reference_tuples, key = lambda i: i[1], reverse=True)     #sorts on second element of jr1_tuples
         
         jr80_running_tally = 0
@@ -335,7 +334,7 @@ def figure1c():
 
     #make plot
     plt.figure(num=None, figsize=(10, 10))
-    plt.suptitle('Percentage of Titles Referenced by Provider')
+    plt.suptitle('Percentage of Articles Referenced by Provider')
     plt.ylabel('Percent of total titles')
     
     #make custom plot legend
@@ -362,7 +361,7 @@ def figure1c():
         plt.bar(provider, total_values, bottom=(jr80 + jr90 + jr95), color='silver')
 
     plt.savefig('test.jpg', bbox_inches='tight')      #saves image in working directory
-  
+
 
 def figure1d():
     """Creates stacked bar plot showing publications and jr80, jr90, jr95 score for big 5 providers.
@@ -378,8 +377,7 @@ def figure1d():
     """
 
     
-#    data = pd.read_csv('JournalsPerProvider_noJR1.csv', skiprows=8)           #reading from different file. Needs to be fixed to read from same file, but ignore 'N/A' values
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)           
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
 
 
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley'] 
@@ -399,10 +397,10 @@ def figure1d():
         total_papers = 0
         total_journals = 0                         
         for i in journals_data:
-            total_papers += i[5]
+            total_papers += i[7]
             total_journals += 1
             
-        paper_tuples = [(i[0], i[5]) for i in journals_data]
+        paper_tuples = [(i[0], i[7]) for i in journals_data]
         paper_tuples_sorted = sorted(paper_tuples, key = lambda i: i[1], reverse=True)      #sorts on second element of jr1_tuples
         
         jr80_running_tally = 0
@@ -446,7 +444,7 @@ def figure1d():
 
     #make plot
     plt.figure(num=None, figsize=(10, 10))
-    plt.suptitle('Percentage of Titles with Papers by UVA Authors')
+    plt.suptitle(f'Percentage of Papers Published by {your_institution} Authors')
     plt.ylabel('Percent of total titles')
     
     #make custom plot legend
@@ -473,7 +471,6 @@ def figure1d():
         plt.bar(provider, total_values, bottom=(jr80 + jr90 + jr95), color='silver')
    
 
-
 def figure1e():
     """Makes JR80, JR90, JR95 graph for all 6 big providers,
     splitting elsevier into Elseveier Freedom and Elsevier Subscribed.
@@ -493,8 +490,7 @@ def figure1e():
                         Elsevier_2019, Subscribed Journal List 2019
     """
     
-#    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
-    data = pd.read_excel('JournalsPerProvider.xls', skiprows=8)      #for testing purposes, xls reads faster than xlsx
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
     stats_by_provider = []
 
@@ -662,8 +658,7 @@ def figure1f():
                         Elsevier_2019, Subscribed Journal List 2019
     """  
     
-#    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
-    data = pd.read_excel('JournalsPerProvider.xls', skiprows=8)      #for testing purposes, xls reads faster than xlsx
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
     stats_by_provider = []
 
@@ -811,7 +806,6 @@ def figure1f():
         plot4 = plt.bar(provider, total_values, bottom=(jr80 + jr90 + jr95), color='silver')
     
     
-    
 
 def figure1g():
     """Makes JR80, JR90, JR95 graph for all 6 big providers,
@@ -832,8 +826,7 @@ def figure1g():
                         Elsevier_2019, Subscribed Journal List 2019
     """
     
-#    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
-    data = pd.read_excel('JournalsPerProvider.xls', skiprows=8)      #for testing purposes, xls reads faster than xlsx
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
     stats_by_provider = []
 
@@ -981,7 +974,6 @@ def figure1g():
         plot4 = plt.bar(provider, total_values, bottom=(jr80 + jr90 + jr95), color='silver')
         
 
-
 def figure1h():
     """Makes JR80, JR90, JR95 graph for all 6 big providers,
     splitting elsevier into Elseveier Freedom and Elsevier Subscribed.
@@ -1001,8 +993,7 @@ def figure1h():
                         Elsevier_2019, Subscribed Journal List 2019
     """
     
-#    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
-    data = pd.read_excel('JournalsPerProvider.xls', skiprows=8)      #for testing purposes, xls reads faster than xlsx
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
     stats_by_provider = []
 
