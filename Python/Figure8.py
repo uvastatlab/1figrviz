@@ -15,6 +15,8 @@ import matplotlib.patches as mpatches
 
 import reusable_functions as rf
 
+data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+
 
 def figure8a():
     pass
@@ -43,8 +45,6 @@ def figure8c(provider_name):
     However, if multiple UVA authors collaborate on one paper, this counts for only one citation.
     'Disciplines' is a column we derived from the pre-existing 'fields' column in the 1figr data.
     Disciplines has mapped those field categories into more UVA specific language"""
-    
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
     subset_by_provider = data.loc[data['Provider'] == provider_name]
 
@@ -89,9 +89,6 @@ def figure8d(provider_name):
     X-Axis: Number of Papers
     X-Axis Data Source: Original 1Figr Dataset, reusable_functions.py
     """
-
-    
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
     subset_by_provider = data.loc[data['Provider'] == provider_name]
 

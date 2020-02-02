@@ -16,6 +16,7 @@ from operator import itemgetter
 
 
 your_institution = 'UVA'   #Replace this string with your institution's preferred name. This is an example
+data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
 
 #########################################################
 #VRL presentation functions
@@ -46,8 +47,6 @@ def number_of_papers_published_per_year():
     X-Axis: Year (2008, 2017)
     X-Axis Data Source:
     """
-    
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley']
     
@@ -112,8 +111,6 @@ def number_papers_over_time():
     X-Axis: Year (2008, 2017)
     X-Axis Data Source:
     """
-
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley']
     
@@ -180,8 +177,6 @@ def oa_percent_papers_available_over_time():
     X-Axis: Year (2008, 2017)
     X-Axis Data Source:
     """
-    
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley']
     
@@ -251,10 +246,6 @@ def references_over_time():
 
     References are defined as: Number of References made by researchers of your institution to an article from a given journal
     """
-
-    
-
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley']
 
@@ -325,8 +316,6 @@ def big5_percent_jr5_of_jr1():
     We want to see what % of current articles people are downloading.
     """
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
-    
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley']
     
     percent_jr5_of_jr1 = []
@@ -383,8 +372,6 @@ def jr1_big5_jr80_jr90_jr95_stacked_bar():
     """
     
 #    TODO: ADD LABELS TO PLOT
-    
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
 
 
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley'] 
@@ -496,9 +483,6 @@ def jr5_big5_jr80_jr90_jr95_stacked_bar():
     """
 
 #    TODO: ADD LABELS TO PLOT
-
-    
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
 
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley'] 
 
@@ -612,10 +596,6 @@ def references_big5_jr80_jr90_jr95_stacked_bar():
 
 #    TODO: ADD LABELS TO PLOT
 
-    
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)           
-
-
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley'] 
 #    big5 = ['AIP']        
     stats_by_provider = []
@@ -725,10 +705,7 @@ def papers_big5_jr80_jr90_jr95_stacked_bar():
     JR95 are journals that make up 95% of your insitution's papers. These will all be plotted together.
     """
 
-#    TODO: ADD LABELS TO PLOT
-
-    
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)           
+#    TODO: ADD LABELS TO PLOT        
 
 
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley'] 
@@ -838,11 +815,7 @@ def total_references_per_year():
     X-Axis Data Source: Year (2008, 2017)
 
     References are defined as: Number of References made by researchers of your institution to an article from a given journal
-    """
-    
-
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
-    
+    """    
     providers = ['Wiley', 'U Chicago Press', 'Taylor & Francis', 'Springer', 'Sage', 'SPIE', 'Royal Society of Chemistry', 'Project MUSE',
                  'ProQuest', 'Oxford UP', 'Ovid', 'Modern Language Association', 'MIT Press', 'Karger', 'JSTOR', 'IOPscience', 'IEEE', 'Gale',
                  'Emerald', 'Elsevier', 'Ebsco', 'DeGruyter', 'Cambridge UP', 'Brill', 'BioOne', 'Association for Computing Machinery', 'Annual Reviews',
@@ -916,10 +889,7 @@ def jr1_by_field_by_provider(provider_name):
     X-Axis Data Source: Journals Per Provider, Downloads JR1 2017
 
     User inputs provider name and dynamically generates chart for that provider
-    """
-    
-    
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    """   
     
     subset_by_provider = data.loc[data['Provider'] == provider_name]
     
@@ -959,7 +929,7 @@ def jr1_percent_field_by_provider(provider_name):
 
     User inputs provider name and dynamically generates chart for that provider
     """
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    
     
     subset_by_provider = data.loc[data['Provider'] == provider_name]
     
@@ -1009,8 +979,6 @@ def jr1_jr80_value():
         - Calculates JR80 score as number of journals required to reach 80% / total journals by provider
         - Charts JR80 score of all providers, with Big 5 in red
     """
-    
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
 
     providers = data.groupby(['Provider'], as_index=False).sum().values.tolist()
     
@@ -1099,8 +1067,6 @@ def jr1_not_jr80_value():
         - Charts not-JR80 score of all providers, with Big 5 in red
     """
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
-
     providers = data.groupby(['Provider'], as_index=False).sum().values.tolist()
     
     providers = [i[0] for i in providers]
@@ -1186,8 +1152,6 @@ def jr1_jr80_big5_downloads():
         - Charts not-JR80 score of all providers, with Big 5 in red
     """
 
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
-
     big5 = ['Elsevier', 'Taylor & Francis', 'Sage', 'Springer', 'Wiley']
     
     fluff_by_provider = []
@@ -1259,8 +1223,6 @@ def jr1_jr80_big5_citations():
 	Citations are measured as publications that have cited an article authored by someone affiliated with your institution 
 	"""
 
-	data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
-
 	big5 = ['Elsevier', 'Taylor & Francis', 'Sage', 'Springer', 'Wiley']    
 
 	references_by_provider = []
@@ -1303,9 +1265,7 @@ def jr1_jr80_big5_publications():
 	X-Axis Data Source: 
 	
     Publications are measured as papers with at least one author from your institution
-    """
-    
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    """ 
     
     big5 = ['Elsevier', 'Taylor & Francis', 'Sage', 'Springer', 'Wiley']    
 #    big5 = ['AIP', 'American Chemical Society']
@@ -1352,7 +1312,7 @@ def jr1_big5_by_field(field_choice):
     Looks at jr1 downloads by field for the big 5 providers. Charts % use by field for each of the big 5 providers
     """
     
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    
 
     big5 = ['Elsevier', 'Taylor & Francis', 'Sage', 'Springer', 'Wiley']
 
@@ -1393,9 +1353,7 @@ def jr5_by_field_by_provider(provider_name):
 	X-Axis Data Source: Journals Per Provider, Downloads JR5 2017 in 2017
 	
     """
-    
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
-    
+ 
     subset_by_provider = data.loc[data['Provider'] == provider_name]
 #    
     fields_data = subset_by_provider.groupby(['Field'], as_index=False).sum().values.tolist()
@@ -1430,7 +1388,6 @@ def jr5_percent_field_by_provider(provider_name):
 	X-Axis: Percentage of JR5 Downloads
 	X-Axis Data Source: Journals Per Provider, Downloads JR5 2017 in 2017
 	"""
-	data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
 	
 	subset_by_provider = data.loc[data['Provider'] == provider_name]
 
@@ -1472,7 +1429,6 @@ def jr5_big5_by_field(field_choice):
 	
     Looks at jr1 downloads by field for the big 5 providers. Charts % use by field for each of the big 5 providers
     """
-	data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
 
 	big5 = ['Elsevier', 'Taylor & Francis', 'Sage', 'Springer', 'Wiley']
 	big5_data = []
@@ -1509,10 +1465,7 @@ def journals_by_domain():
 	Y-Axis Data Source: Journals Per Provider, Domain
 	X-Axis: Count of Domain
 	X-Axis Data Source: Journals Per Provider, Domain 
-	"""
-	
-
-	data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+	"""	
 
 	domains_list = data.Domain.tolist()
 
@@ -1542,9 +1495,6 @@ def journals_by_field():
 	X-Axis Data Source: Journals Per Provider, Field
 	"""
     
-    
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
-    
     fields_list = data.Field.tolist()
 
     counted_fields = pd.Series(fields_list).value_counts().reset_index().values.tolist()
@@ -1572,8 +1522,6 @@ def journals_by_field_big5():
 	X-Axis: Count of Field
 	X-Axis Data Source: Journals Per Provider, Field
 	"""
-
-	data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
 
 	providers_list = data.Provider.tolist()
 	fields_list = data.Field.tolist()
@@ -1614,8 +1562,6 @@ def journals_by_field_other_providers():
 	X-Axis: Count of Field
 	X-Axis Data Source: Data Source: Journals Per Provider, Field
 	"""
-    
-	data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
 
 	providers_list = data.Provider.tolist()
 	fields_list = data.Field.tolist()
@@ -1658,8 +1604,6 @@ def references_by_field_by_provider(provider_name):
 
     References are defined as the number of references made by researchers of your institution to an article from a given journal.'
      """
-    
-	data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
 
 	subset_by_provider = data.loc[data['Provider'] == provider_name]
 
@@ -1696,8 +1640,6 @@ def papers_by_field_by_provider(provider_name):
 
     Papers are defined as the number of documents published in peer-reviewed journals indexed in Scopus and for which at least one author was affiliated to your institution.
     """
-    
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
     subset_by_provider = data.loc[data['Provider'] == provider_name]
     

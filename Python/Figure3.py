@@ -17,6 +17,7 @@ import reusable_functions as rf
 #Change these global variables to your corresponding filename and institution name
 filename = '1figr_U_Virginia_Original (1) (1).xlsx'
 your_institution = 'UVA'
+data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
 
 
 def figure3a():
@@ -31,9 +32,6 @@ def figure3a():
     X-Axis: Cost per download
     X-Axis Data Source: Original 1Figr Dataset
     """
-
-    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
-
 
     #reads cost data per provider from the following supplementary file
     cost_data = pd.read_excel('1figr_U_Virginia_edit_Supp_Data.xlsx')
@@ -93,9 +91,6 @@ def figure3b():
     X-Axis: Cost per download
     X-Axis Data Source: Original 1Figr Dataset
     """
-
-    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
-
 
     #reads cost data per provider from the following supplementary file
     cost_data = pd.read_excel('1figr_U_Virginia_edit_Supp_Data.xlsx')
@@ -158,9 +153,6 @@ def figure3c():
     X-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
                         1figr_U_Virginia_edit_Supp_Data, Total cost for 2017
     """
-    
-    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
-
 
     big7 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley', 'Elsevier Freedom', 'Elsevier Subscribed']
 
@@ -237,9 +229,6 @@ def figure3d():
     X-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
                         1figr_U_Virginia_edit_Supp_Data, Total cost for 2017
     """
-    
-    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
-
 
     big7 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley', 'Elsevier Freedom', 'Elsevier Subscribed']
 

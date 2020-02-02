@@ -18,6 +18,7 @@ import reusable_functions as rf
 
 filename = '1figr_U_Virginia_Original (1) (1).xlsx'
 your_institution = 'UVA'
+data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
 
 def figure4a_all_uva_references():
     """UVA references by year, referencing Scopus data.
@@ -30,10 +31,7 @@ def figure4a_all_uva_references():
     
     X-Axis: Year
     X-Axis Data Source: Original 1Figr Dataset
-    """
-    
-
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+    """   
     
     providers = ['Wiley', 'U Chicago Press', 'Taylor & Francis', 'Springer', 'Sage', 'SPIE', 'Royal Society of Chemistry', 'Project MUSE',
                  'ProQuest', 'Oxford UP', 'Ovid', 'Modern Language Association', 'MIT Press', 'Karger', 'JSTOR', 'IOPscience', 'IEEE', 'Gale',
@@ -102,9 +100,6 @@ def figure4a_references():
     X-Axis Data Source: Original 1Figr Dataset
     """
     
-
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
-    
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley']
 
     ref_by_provider = []
@@ -165,9 +160,6 @@ def figure4a_percentage():
     X-Axis: Year
     X-Axis Data Source: Original 1Figr Dataset
     """
-    
-
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
     providers = ['Wiley', 'U Chicago Press', 'Taylor & Francis', 'Springer', 'Sage', 'SPIE', 'Royal Society of Chemistry', 'Project MUSE',
                  'ProQuest', 'Oxford UP', 'Ovid', 'Modern Language Association', 'MIT Press', 'Karger', 'JSTOR', 'IOPscience', 'IEEE', 'Gale',
@@ -287,8 +279,6 @@ def figure4b_references():
                         Elsevier_2019, Subscribed Journal List 2019 
     """
     
-#    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)   
-    original_1figr_dataset = pd.read_excel('JournalsPerProvider.xls', skiprows=8)
     elsevier_freedom_collection = rf.make_freedom_collection_provider()
     elsevier_subscribed_titles = rf.make_elsevier_subscribed_titles_provider()
     elsevier_unmatched_titles = rf.make_elsevier_unmatched_provider()
@@ -392,10 +382,6 @@ def figure4b_percentage():
     """
     
     
-    
-    #    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)   
-    original_1figr_dataset = pd.read_excel('JournalsPerProvider.xls', skiprows=8)
-
 #    providers = ['Sage', 'Springer', 'Taylor & Francis', 'Wiley']
     all_providers = original_1figr_dataset['Provider'].unique()     #makes list of unique providers
 

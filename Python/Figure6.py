@@ -16,6 +16,7 @@ import reusable_functions as rf
 
 filename = '1figr_U_Virginia_Original (1) (1).xlsx'
 your_institution = 'UVA'
+data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
 
 def figure6a_number_of_articles_published():
     pass
@@ -31,8 +32,6 @@ def figure6a_oa_available_articles():
     X-Axis: Year
     X-Axis Data Source: Original 1Figr Dataset
     """
-    
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
     big5 = ['Elsevier', 'Taylor & Francis', 'Sage', 'Springer', 'Wiley']
 
@@ -94,9 +93,6 @@ def figure6a_percent_oa_articles():
     X-Axis: Year
     X-Axis Data Source: Original 1Figr Dataset
     """
-
-    
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley']
     
@@ -165,9 +161,6 @@ def figure6b_oa_available_articles():
                         Elsevier_2019, Subscribed Journal List 2019 
     """
     
-#    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)   
-    original_1figr_dataset = pd.read_excel('JournalsPerProvider.xls', skiprows=8)
-
     elsevier_freedom_collection = rf.make_freedom_collection_provider()
     elsevier_subscribed_titles = rf.make_elsevier_subscribed_titles_provider()
     elsevier_unmatched_titles = rf.make_elsevier_unmatched_provider()
@@ -268,10 +261,7 @@ def figure6b_percent_oa_articles():
                         Elsevier_2019, Subscribed Journal List 2019 
 
     """
-
-    #    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)   
-    original_1figr_dataset = pd.read_excel('JournalsPerProvider.xls', skiprows=8)
-
+    
     #holds percent papers published open access per year per provider
     percent_oa_papers_by_provider = []
     

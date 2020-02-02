@@ -19,7 +19,7 @@ import reusable_functions as rf
 
 filename = '1figr_U_Virginia_Original (1) (1).xlsx'
 your_institution = 'UVA'
-
+data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
 
 """
 Documentation Format
@@ -47,8 +47,6 @@ def figure2a():
     X-Axis: Provider Names
     X-Axis Data Source: Original 1Figr Dataset, Journals Per Provider
     """
-    
-    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
     big5 = ['Sage', 'Springer', 'Taylor & Francis', 'Wiley', 'Elsevier']
     
@@ -104,8 +102,6 @@ def figure2b():
                         Elsevier_2019, Subscribed Journal List 2019
     
     """
-    
-    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
     big7 = ['Sage', 'Springer', 'Taylor & Francis', 'Wiley', 'Elsevier Freedom Collection', 'Elsevier Subscribed Titles', 'Elsevier Unmatched']
     

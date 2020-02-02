@@ -17,7 +17,7 @@ import reusable_functions as rf
 
 filename = '1figr_U_Virginia_Original (1) (1).xlsx'
 your_institution = 'UVA'
-
+data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
 
 def figure5a_total_papers():
     """Plots # of papers published by all big 5 providers per year
@@ -29,8 +29,6 @@ def figure5a_total_papers():
     X-Axis: Year
     X-Axis Data Source: Original 1Figr Dataset
     """
-    
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley']
     
@@ -90,8 +88,6 @@ def figure5a_papers():
     X-Axis: Year
     X-Axis Data Source: Original 1Figr Dataset
     """
-
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley']
     
@@ -154,8 +150,6 @@ def figure5a_percentage():
     X-Axis: Year
     X-Axis Data Source: Original 1Figr Dataset
     """
-    
-    data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
     
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley']
 
@@ -245,9 +239,6 @@ def figure5b_papers():
     X-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
                         Elsevier_2019, Subscribed Journal List 2019 
     """
-    
-#    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)   
-    original_1figr_dataset = pd.read_excel('JournalsPerProvider.xls', skiprows=8)
     elsevier_freedom_collection = rf.make_freedom_collection_provider()
     elsevier_subscribed_titles = rf.make_elsevier_subscribed_titles_provider()
     elsevier_unmatched_titles = rf.make_elsevier_unmatched_provider()
@@ -355,9 +346,6 @@ def figure5b_percentage():
     X-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
                         Elsevier_2019, Subscribed Journal List 2019 
     """
-    
-    #    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)   
-    original_1figr_dataset = pd.read_excel('JournalsPerProvider.xls', skiprows=8)
 
     #holds percent papers per year published by UVA authors of total papers per provider
     percent_papers_by_provider = []
