@@ -13,7 +13,7 @@ import matplotlib.patches as mpatches
 
 import reusable_functions as rf
 
-
+#Change these global variables to your corresponding filename and institution name
 filename = '1figr_U_Virginia_Original (1) (1).xlsx'
 your_institution = 'UVA'
 data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
