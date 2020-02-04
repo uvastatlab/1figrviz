@@ -15,6 +15,7 @@ import matplotlib.patches as mpatches
 
 import reusable_functions as rf
 
+#Change these global variables to your corresponding filename and institution name
 original_1figr_data = pd.read_excel('JournalsPerProvider.xls', skiprows=8)
 
 
