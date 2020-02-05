@@ -17,7 +17,7 @@ import reusable_functions as rf
 #Change these global variables to your corresponding filename and institution name
 filename = '1figr_U_Virginia_Original (1) (1).xlsx'
 your_institution = 'UVA'
-data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+
 
 def figure5a_total_papers():
     """Plots # of papers published by all big 5 providers per year
@@ -30,6 +30,8 @@ def figure5a_total_papers():
     X-Axis Data Source: Original 1Figr Dataset
     """
     
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
+    
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley']
     
     papers_by_provider = []
@@ -40,25 +42,25 @@ def figure5a_total_papers():
         
         papers_by_year = []
         
-        total_2008 = subset_by_provider.total_2008.tolist()
+        total_2008 = subset_by_provider['2008.4'].tolist()
         papers_by_year.append(total_2008[0])
-        total_2009 = subset_by_provider.total_2009.tolist()
+        total_2009 = subset_by_provider['2009.4'].tolist()
         papers_by_year.append(total_2009[0])
-        total_2010 = subset_by_provider.total_2010.tolist()
+        total_2010 = subset_by_provider['2010.4'].tolist()
         papers_by_year.append(total_2010[0])
-        total_2011 = subset_by_provider.total_2011.tolist()
+        total_2011 = subset_by_provider['2011.4'].tolist()
         papers_by_year.append(total_2011[0])
-        total_2012 = subset_by_provider.total_2012.tolist()
+        total_2012 = subset_by_provider['2012.4'].tolist()
         papers_by_year.append(total_2012[0])
-        total_2013 = subset_by_provider.total_2013.tolist()
+        total_2013 = subset_by_provider['2013.4'].tolist()
         papers_by_year.append(total_2013[0])
-        total_2014 = subset_by_provider.total_2014.tolist()
+        total_2014 = subset_by_provider['2014.4'].tolist()
         papers_by_year.append(total_2014[0])
-        total_2015 = subset_by_provider.total_2015.tolist()
+        total_2015 = subset_by_provider['2015.4'].tolist()
         papers_by_year.append(total_2015[0])
-        total_2016 = subset_by_provider.total_2016.tolist()
+        total_2016 = subset_by_provider['2016.4'].tolist()
         papers_by_year.append(total_2016[0])
-        total_2017 = subset_by_provider.total_2017.tolist()
+        total_2017 = subset_by_provider['2017.4'].tolist()
         papers_by_year.append(total_2017[0])
 
         papers_by_provider.append(papers_by_year)        
@@ -76,6 +78,9 @@ def figure5a_total_papers():
     plt.plot(years, papers_by_provider[3], label='Taylor & Francis')
     plt.plot(years, papers_by_provider[4], label='Wiley')
     
+    plt.legend()
+ 
+
     
 def figure5a_papers():
     """Plots # of UVA authored publications in each of the big 5 providers over time (2008-2017)
@@ -88,6 +93,8 @@ def figure5a_papers():
     X-Axis: Year
     X-Axis Data Source: Original 1Figr Dataset
     """
+
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley']
     
@@ -99,25 +106,25 @@ def figure5a_papers():
         
         publications_by_year = []
         
-        papers_2008 = subset_by_provider.papers_2008.tolist()
+        papers_2008 = subset_by_provider[2008].tolist()
         publications_by_year.append(papers_2008[0])
-        papers_2009 = subset_by_provider.papers_2009.tolist()
+        papers_2009 = subset_by_provider[2009].tolist()
         publications_by_year.append(papers_2009[0])
-        papers_2010 = subset_by_provider.papers_2010.tolist()
+        papers_2010 = subset_by_provider[2010].tolist()
         publications_by_year.append(papers_2010[0])
-        papers_2011 = subset_by_provider.papers_2011.tolist()
+        papers_2011 = subset_by_provider[2011].tolist()
         publications_by_year.append(papers_2011[0])
-        papers_2012 = subset_by_provider.papers_2012.tolist()
+        papers_2012 = subset_by_provider[2012].tolist()
         publications_by_year.append(papers_2012[0])
-        papers_2013 = subset_by_provider.papers_2013.tolist()
+        papers_2013 = subset_by_provider[2013].tolist()
         publications_by_year.append(papers_2013[0])
-        papers_2014 = subset_by_provider.papers_2014.tolist()
+        papers_2014 = subset_by_provider[2014].tolist()
         publications_by_year.append(papers_2014[0])
-        papers_2015 = subset_by_provider.papers_2015.tolist()
+        papers_2015 = subset_by_provider[2015].tolist()
         publications_by_year.append(papers_2015[0])
-        papers_2016 = subset_by_provider.papers_2016.tolist()
+        papers_2016 = subset_by_provider[2016].tolist()
         publications_by_year.append(papers_2016[0])
-        papers_2017 = subset_by_provider.papers_2017.tolist()
+        papers_2017 = subset_by_provider[2017].tolist()
         publications_by_year.append(papers_2017[0])
         
         publications_by_provider.append(publications_by_year)
@@ -137,6 +144,9 @@ def figure5a_papers():
     plt.plot(years, publications_by_provider[3], label='Taylor & Francis')
     plt.plot(years, publications_by_provider[4], label='Wiley')
 
+    plt.legend()
+
+
 
 def figure5a_percentage():
     """Plots percentage of UVA authored papers in each of the big 5 providers over time (2008-2017)
@@ -151,6 +161,8 @@ def figure5a_percentage():
     X-Axis Data Source: Original 1Figr Dataset
     """
     
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
+    
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley']
 
     percentage_by_provider = []
@@ -161,44 +173,44 @@ def figure5a_percentage():
         
         percentage_per_year = []
         
-        uva_2008 = subset_by_provider.papers_2008.tolist()
-        total_2008 = subset_by_provider.total_2008.tolist()
+        uva_2008 = subset_by_provider[2008].tolist()
+        total_2008 = subset_by_provider['2008.4'].tolist()
         percentage_per_year.append(uva_2008[0] / total_2008[0])
         
-        uva_2009 = subset_by_provider.papers_2009.tolist()
-        total_2009 = subset_by_provider.total_2009.tolist()
+        uva_2009 = subset_by_provider[2009].tolist()
+        total_2009 = subset_by_provider['2009.4'].tolist()
         percentage_per_year.append(uva_2009[0] / total_2009[0])
         
-        uva_2010 = subset_by_provider.papers_2010.tolist()
-        total_2010 = subset_by_provider.total_2010.tolist()
+        uva_2010 = subset_by_provider[2010].tolist()
+        total_2010 = subset_by_provider['2010.4'].tolist()
         percentage_per_year.append(uva_2010[0] / total_2010[0])
         
-        uva_2011 = subset_by_provider.papers_2011.tolist()
-        total_2011 = subset_by_provider.total_2011.tolist()
+        uva_2011 = subset_by_provider[2011].tolist()
+        total_2011 = subset_by_provider['2011.4'].tolist()
         percentage_per_year.append(uva_2011[0] / total_2011[0])
         
-        uva_2012 = subset_by_provider.papers_2012.tolist()
-        total_2012 = subset_by_provider.total_2012.tolist()
+        uva_2012 = subset_by_provider[2012].tolist()
+        total_2012 = subset_by_provider['2012.4'].tolist()
         percentage_per_year.append(uva_2012[0] / total_2012[0])
         
-        uva_2013 = subset_by_provider.papers_2013.tolist()
-        total_2013 = subset_by_provider.total_2013.tolist()
+        uva_2013 = subset_by_provider[2013].tolist()
+        total_2013 = subset_by_provider['2013.4'].tolist()
         percentage_per_year.append(uva_2013[0] / total_2013[0])
         
-        uva_2014 = subset_by_provider.papers_2014.tolist()
-        total_2014 = subset_by_provider.total_2014.tolist()
+        uva_2014 = subset_by_provider[2014].tolist()
+        total_2014 = subset_by_provider['2014.4'].tolist()
         percentage_per_year.append(uva_2014[0] / total_2014[0])
         
-        uva_2015 = subset_by_provider.papers_2015.tolist()
-        total_2015 = subset_by_provider.total_2015.tolist()
+        uva_2015 = subset_by_provider[2015].tolist()
+        total_2015 = subset_by_provider['2015.4'].tolist()
         percentage_per_year.append(uva_2015[0] / total_2015[0])
         
-        uva_2016 = subset_by_provider.papers_2016.tolist()
-        total_2016 = subset_by_provider.total_2016.tolist()
+        uva_2016 = subset_by_provider[2016].tolist()
+        total_2016 = subset_by_provider['2016.4'].tolist()
         percentage_per_year.append(uva_2016[0] / total_2016[0])
         
-        uva_2017 = subset_by_provider.papers_2017.tolist()
-        total_2017 = subset_by_provider.total_2017.tolist()
+        uva_2017 = subset_by_provider[2017].tolist()
+        total_2017 = subset_by_provider['2017.4'].tolist()
         percentage_per_year.append(uva_2017[0] / total_2017[0])
         
         percentage_by_provider.append(percentage_per_year)
@@ -223,7 +235,8 @@ def figure5a_percentage():
     plt.plot(years, percentage_by_provider[3], label='Taylor & Francis')
     plt.plot(years, percentage_by_provider[4], label='Wiley')
 
-    
+    plt.legend()
+
     
 
 def figure5b_papers():
@@ -239,6 +252,9 @@ def figure5b_papers():
     X-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
                         Elsevier_2019, Subscribed Journal List 2019 
     """
+    
+    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)   
+
     elsevier_freedom_collection = rf.make_freedom_collection_provider()
     elsevier_subscribed_titles = rf.make_elsevier_subscribed_titles_provider()
     elsevier_unmatched_titles = rf.make_elsevier_unmatched_provider()
@@ -346,6 +362,8 @@ def figure5b_percentage():
     X-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
                         Elsevier_2019, Subscribed Journal List 2019 
     """
+    
+    original_1figr_dataset = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)   
 
     #holds percent papers per year published by UVA authors of total papers per provider
     percent_papers_by_provider = []
@@ -459,4 +477,3 @@ def figure5b_percentage():
         
     plt.legend(loc='center left', bbox_to_anchor=(1, 0.8))
     
-

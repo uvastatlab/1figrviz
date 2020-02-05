@@ -16,7 +16,8 @@ import matplotlib.patches as mpatches
 import reusable_functions as rf
 
 #Change these global variables to your corresponding filename and institution name
-original_1figr_data = pd.read_excel('JournalsPerProvider.xls', skiprows=8)
+filename = '1figr_U_Virginia_Original (1) (1).xlsx'
+your_institution = 'UVA'
 
 
 def figure7a():
@@ -43,7 +44,8 @@ def figure7e():
     X-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
                         Elsevier_2019, Subscribed Journal List 2019
     """
-
+   
+    original_1figr_data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     subscribed_titles_provider = rf.make_elsevier_subscribed_titles_provider()
     freedom_collection_provider = rf.make_freedom_collection_provider()
     
@@ -90,6 +92,7 @@ def figure7e():
     plt.xlabel('Number of JR1 Downloads')
     plt.legend(loc='lower right', handles=[subscribed_legend_label, freedom_legend_label])
 
+
         
 def figure7f():
     """This is counting JR5 downloads by Domain for the subscribed titles and freedom collection providers
@@ -103,6 +106,7 @@ def figure7f():
                         Elsevier_2019, Subscribed Journal List 2019
     """
     
+    original_1figr_data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     subscribed_titles_provider = rf.make_elsevier_subscribed_titles_provider()
     freedom_collection_provider = rf.make_freedom_collection_provider()
     
@@ -162,7 +166,8 @@ def figure7g():
     X-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
                         Elsevier_2019, Subscribed Journal List 2019
     """
-
+    
+    original_1figr_data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     subscribed_titles_provider = rf.make_elsevier_subscribed_titles_provider()
     freedom_collection_provider = rf.make_freedom_collection_provider()
     
@@ -209,6 +214,7 @@ def figure7g():
     plt.legend(loc='lower right', handles=[subscribed_legend_label, freedom_legend_label])
 
 
+
 def figure7h():
     """This is counting papers by Domain for the subscribed titles and freedom collection providers
     
@@ -221,6 +227,7 @@ def figure7h():
                         Elsevier_2019, Subscribed Journal List 2019
     """
     
+    original_1figr_data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     subscribed_titles_provider = rf.make_elsevier_subscribed_titles_provider()
     freedom_collection_provider = rf.make_freedom_collection_provider()
     
@@ -266,4 +273,3 @@ def figure7h():
     plt.xlabel('Number of Papers')
     plt.legend(loc='lower right', handles=[subscribed_legend_label, freedom_legend_label])
 
-figure7h()

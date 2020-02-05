@@ -18,7 +18,6 @@ import reusable_functions as rf
 #Change these global variables to your corresponding filename and institution name
 filename = '1figr_U_Virginia_Original (1) (1).xlsx'
 your_institution = 'UVA'
-data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
 
 
 """
@@ -52,7 +51,7 @@ def figure1a():
     
 #    TODO: ADD LABELS TO PLOT
 
-    
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
 
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley'] 
@@ -159,6 +158,9 @@ def figure1b():
     X-Axis Data Source: Original 1Figr Dataset
     """
 
+    
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
+
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley'] 
 
     stats_by_provider = []
@@ -263,6 +265,10 @@ def figure1c():
     X-Axis: Provider Name
     X-Axis Data Source: Original 1Figr Dataset
     """
+
+    
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
+
 
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley'] 
 #    big5 = ['AIP']        
@@ -369,6 +375,10 @@ def figure1d():
     X-Axis: Provider Name
     X-Axis Data Source: Original 1Figr Dataset
     """
+
+    
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
+
 
     big5 = ['Elsevier', 'Sage', 'Springer', 'Taylor & Francis', 'Wiley'] 
 #    big5 = ['AIP']        
@@ -480,6 +490,7 @@ def figure1e():
                         Elsevier_2019, Subscribed Journal List 2019
     """
     
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
     stats_by_provider = []
 
@@ -647,6 +658,8 @@ def figure1f():
                         Elsevier_2019, Subscribed Journal List 2019
     """  
     
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
+    
     stats_by_provider = []
 
     providers = ['Sage', 'Springer', 'Taylor & Francis', 'Wiley']
@@ -813,6 +826,8 @@ def figure1g():
                         Elsevier_2019, Subscribed Journal List 2019
     """
     
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
+    
     stats_by_provider = []
 
     providers = ['Sage', 'Springer', 'Taylor & Francis', 'Wiley']
@@ -977,6 +992,8 @@ def figure1h():
     X-Axis Data Source: Original 1Figr Dataset, Journals Per Provider, Provider
                         Elsevier_2019, Subscribed Journal List 2019
     """
+    
+    data = pd.read_excel(filename, sheet_name='Journals per Provider', skiprows=8)
     
     stats_by_provider = []
 
