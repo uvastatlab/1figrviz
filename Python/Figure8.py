@@ -15,15 +15,101 @@ import matplotlib.patches as mpatches
 
 import reusable_functions as rf
 
+
 #Change these global variables to your corresponding filename and institution name
-data = pd.read_csv('JournalsPerProvider.csv', skiprows=8)
+filename = '1figr_U_Virginia_Original (1) (1).xlsx'
+your_institution = 'UVA'
 
 
-def figure8a():
-    pass
+def figure8a(provider_name):
+    """Shows distribution of current year article downloads (JR5) by discipline for the specified provider.
+    'Disciplines' is a column we derived from the pre-existing 'fields' column in the 1figr data.
+    Disciplines has mapped those field categories into more UVA specific language
+    
+    Chart Type: Line
+    Y-Axis: Discipline 
+    Y-Axis Data Source: Original 1Figr Dataset, reusable_functions.py
+    
+    X-Axis: Number of JR1 Downloads
+    X-Axis Data Source: Original 1Figr Dataset, reusable_functions.py
+    """
+    
+    original_1figr_data_with_disciplines = rf.make_disciplines_column()
+    
+    subset_by_provider = original_1figr_data_with_disciplines.loc[original_1figr_data_with_disciplines['Provider'] == provider_name]
 
-def figure8b():
-    pass
+    disciplines_data = subset_by_provider.groupby(['Discipline'], as_index=False).sum().values.tolist()
+
+    disciplines = []
+    citation_totals = []
+    
+    for i in disciplines_data:
+        discipline_name = i[0]
+        disciplines.append(discipline_name)
+        jr1_downloads = i[4]
+        citation_totals.append(jr1_downloads)      #int() to remove decimal points
+
+    mpl.rcParams['ytick.major.width'] = 1
+    mpl.rcParams['xtick.major.width'] = 1
+    plt.figure(num=None, figsize=(8,8))
+    plt.suptitle(f'Distribution of Citations by Discipline for Provider: {provider_name} \n (Disciplines are specific to UVA)')
+    plot = plt.barh(disciplines, citation_totals, height=.8, color='green')    
+        
+    for i in plot:
+        score = i.get_width()
+        
+        plt.text(i.get_width() + 2300,           #sets x axis position of labels
+                 i.get_y() + .35,
+                 score,
+                 ha='center',
+                 va='center')
+
+
+
+def figure8b(provider_name):
+    """Shows distribution of current year article downloads (JR5) by discipline for the specified provider.
+    'Disciplines' is a column we derived from the pre-existing 'fields' column in the 1figr data.
+    Disciplines has mapped those field categories into more UVA specific language
+    
+    Chart Type: Line
+    Y-Axis: Discipline 
+    Y-Axis Data Source: Original 1Figr Dataset, reusable_functions.py
+    
+    X-Axis: Number of JR5 Downloads
+    X-Axis Data Source: Original 1Figr Dataset, reusable_functions.py
+    """
+    
+    original_1figr_data_with_disciplines = rf.make_disciplines_column()
+    
+    subset_by_provider = original_1figr_data_with_disciplines.loc[original_1figr_data_with_disciplines['Provider'] == provider_name]
+
+    disciplines_data = subset_by_provider.groupby(['Discipline'], as_index=False).sum().values.tolist()
+
+    disciplines = []
+    citation_totals = []
+    
+    for i in disciplines_data:
+        discipline_name = i[0]
+        disciplines.append(discipline_name)
+        jr5_downloads = i[5]
+        citation_totals.append(jr5_downloads)      #int() to remove decimal points
+
+    mpl.rcParams['ytick.major.width'] = 1
+    mpl.rcParams['xtick.major.width'] = 1
+    plt.figure(num=None, figsize=(8,8))
+    plt.suptitle(f'Distribution of Citations by Discipline for Provider: {provider_name} \n (Disciplines are specific to UVA)')
+    plot = plt.barh(disciplines, citation_totals, height=.8, color='green')    
+        
+    for i in plot:
+        score = i.get_width()
+        
+        plt.text(i.get_width() + 2300,           #sets x axis position of labels
+                 i.get_y() + .35,
+                 score,
+                 ha='center',
+                 va='center')
+   
+
 
 def figure8c(provider_name):
     """Shows distribution of citations by discipline for the specified provider.
@@ -40,14 +126,10 @@ def figure8c(provider_name):
     X-Axis Data Source: Original 1Figr Dataset, reusable_functions.py
     """
 
-
-    """Shows distribution of citations by discipline for the specified provider.
-    Citations are a reference to any paper authored by a UVA affiliated author.
-    However, if multiple UVA authors collaborate on one paper, this counts for only one citation.
-    'Disciplines' is a column we derived from the pre-existing 'fields' column in the 1figr data.
-    Disciplines has mapped those field categories into more UVA specific language"""
     
-    subset_by_provider = data.loc[data['Provider'] == provider_name]
+    original_1figr_data_with_disciplines = rf.make_disciplines_column()
+    
+    subset_by_provider = original_1figr_data_with_disciplines.loc[original_1figr_data_with_disciplines['Provider'] == provider_name]
 
     disciplines_data = subset_by_provider.groupby(['Discipline'], as_index=False).sum().values.tolist()
 
@@ -57,7 +139,7 @@ def figure8c(provider_name):
     for i in disciplines_data:
         discipline_name = i[0]
         disciplines.append(discipline_name)
-        discipline_citations = i[4]
+        discipline_citations = i[6]
         citation_totals.append(discipline_citations)      #int() to remove decimal points
 
     mpl.rcParams['ytick.major.width'] = 1
@@ -76,6 +158,7 @@ def figure8c(provider_name):
                  va='center')
 
 
+
 def figure8d(provider_name):
     """Shows distribution of publications by discipline for the specified provider.
     Publications are publications by any UVA affiliated author.
@@ -90,8 +173,11 @@ def figure8d(provider_name):
     X-Axis: Number of Papers
     X-Axis Data Source: Original 1Figr Dataset, reusable_functions.py
     """
+
     
-    subset_by_provider = data.loc[data['Provider'] == provider_name]
+    original_1figr_data_with_disciplines = rf.make_disciplines_column()
+    
+    subset_by_provider = original_1figr_data_with_disciplines.loc[original_1figr_data_with_disciplines['Provider'] == provider_name]
 
     disciplines_data = subset_by_provider.groupby(['Discipline'], as_index=False).sum().values.tolist()
 
@@ -101,7 +187,7 @@ def figure8d(provider_name):
     for i in disciplines_data:
         discipline_name = i[0]
         disciplines.append(discipline_name)
-        discipline_publications = i[5]
+        discipline_publications = i[7]
         publication_totals.append(discipline_publications)      #int() to remove decimal points
 
     mpl.rcParams['ytick.major.width'] = 1
@@ -119,7 +205,6 @@ def figure8d(provider_name):
                  ha='center',
                  va='center') 
 
-    
 
 
 def figure8e():
@@ -370,6 +455,6 @@ def figure8h():
     plt.legend(loc='lower right', handles=[subscribed_legend_label, freedom_legend_label])
     
 
-    
+ 
     
     
